@@ -20,10 +20,10 @@ public class Stagemanager implements StageFunctionalities {
     public void openStageAsRoot(Stage stage, URL pathToFXML, CSSFile pathToCSS, int width, int height) {
         Parent root = null;
         if (stage == null){
-            
+            throw new IllegalArgumentException("Stage not found!");
         }
         if (pathToFXML == null || pathToFXML.getFile() == null || pathToFXML.getFile().isEmpty()) {
-            throw new RuntimeException("Path to FXML not found!");
+            throw new IllegalArgumentException("Path to FXML not found!");
         }
         if (pathToCSS == null || pathToCSS.toString().isEmpty()) {
             //@Todo: print debug- warning
