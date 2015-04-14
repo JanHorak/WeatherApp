@@ -17,6 +17,7 @@ import org.junit.Ignore;
  *
  * @author Jan
  */
+@Ignore
 public class PersistenceTest {
     
     @Test

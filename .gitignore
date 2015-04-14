@@ -34,6 +34,8 @@ nbdist/
 nbactions.xml
 nb-configuration.xml
 
+WeatherApp/nbactions.xml
+
 # DerbyDatabases
 WeatherApp.db
 derby.log
