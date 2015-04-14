@@ -1,3 +1,9 @@
 .button {
     -fx-font-weight: bold;
 }
+
+#mainpagePane {
+    -fx-background-image: url("../images/UI/TestBackground.png");
+    -fx-background-repeat: stretch; 
+    -fx-background-position: center center;
+}
