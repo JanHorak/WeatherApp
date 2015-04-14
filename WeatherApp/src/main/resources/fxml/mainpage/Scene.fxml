@@ -12,11 +12,11 @@
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <Pane fx:id="mainpagePane" layoutX="-3.0" prefHeight="397.0" prefWidth="259.0">
          <children>
-            <Label layoutX="14.0" layoutY="302.0" text="City:" />
-            <Label layoutX="14.0" layoutY="330.0" text="Zipcode:" />
-            <TextField layoutX="71.0" layoutY="298.0" prefHeight="25.0" prefWidth="174.0" />
-            <TextField layoutX="71.0" layoutY="326.0" prefHeight="25.0" prefWidth="133.0" />
-            <Hyperlink layoutX="14.0" layoutY="360.0" text="Sign in" />
+            <Label layoutX="14.0" layoutY="297.0" text="City:" />
+            <Label layoutX="14.0" layoutY="325.0" text="Zipcode:" />
+            <TextField layoutX="71.0" layoutY="293.0" prefHeight="25.0" prefWidth="174.0" />
+            <TextField layoutX="71.0" layoutY="321.0" prefHeight="25.0" prefWidth="133.0" />
+            <Hyperlink layoutX="14.0" layoutY="361.0" text="Sign in" />
             <ImageView fx:id="exitImage" fitHeight="28.0" fitWidth="28.0" layoutX="228.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../images/UI/exit.png" />
@@ -33,8 +33,13 @@
                   <Cursor fx:constant="MOVE" />
                </cursor>
             </ImageView>
-            <Separator layoutX="14.0" layoutY="357.0" prefHeight="0.0" prefWidth="234.0" />
-            <Button layoutX="209.0" layoutY="325.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="35.0" text="Go" />
+            <Separator layoutX="14.0" layoutY="352.0" prefHeight="0.0" prefWidth="234.0" />
+            <Button layoutX="209.0" layoutY="320.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="35.0" text="Go" />
+            <ImageView fx:id="inetConImage" fitHeight="28.0" fitWidth="28.0" layoutX="222.0" layoutY="358.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/UI/offline-icon.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
     </children>
