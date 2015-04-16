@@ -7,16 +7,23 @@ import javafx.stage.StageStyle;
 import net.hft.dbproject.weatherapp.enums.CSSFile;
 import net.hft.dbproject.weatherapp.manager.StageFunctionalities;
 import net.hft.dbproject.weatherapp.manager.Stagemanager;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 
 public class MainApp extends Application {
 
     private StageFunctionalities manager;
+    private Logger logger;
 
     @Override
     public void start(Stage stage) throws Exception {
+        BasicConfigurator.configure();
+        this.logger = Logger.getLogger(MainApp.class);
         this.manager = new Stagemanager();
         stage.initStyle(StageStyle.UNDECORATED);
         manager.openStageAsRoot(stage, getClass().getResource("/fxml/mainpage/Scene.fxml"), CSSFile.CSS_DEFAULT, 251, 397);
+        
+        logger.info("MainApp started successfully");
     }
 
     /**
