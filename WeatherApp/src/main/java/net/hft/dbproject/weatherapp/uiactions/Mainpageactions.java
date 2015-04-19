@@ -94,5 +94,4 @@ public class Mainpageactions {
     public void setPane(Pane pane) {
         this.pane = pane;
     }
-
 }

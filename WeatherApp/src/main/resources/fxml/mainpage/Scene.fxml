@@ -17,6 +17,9 @@
             <TextField fx:id="nameField" layoutX="71.0" layoutY="293.0" prefHeight="25.0" prefWidth="174.0" />
             <TextField fx:id="zipField" layoutX="71.0" layoutY="321.0" prefHeight="25.0" prefWidth="133.0" />
             <Hyperlink layoutX="14.0" layoutY="361.0" text="Sign in" />
+            <TextField layoutX="71.0" layoutY="293.0" prefHeight="25.0" prefWidth="174.0" />
+            <TextField layoutX="71.0" layoutY="321.0" prefHeight="25.0" prefWidth="133.0" />
+            <Hyperlink fx:id="signinLink" layoutX="14.0" layoutY="361.0" text="Sign in" />
             <ImageView fx:id="exitImage" fitHeight="28.0" fitWidth="28.0" layoutX="228.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../images/UI/exit.png" />
@@ -40,6 +43,7 @@
                   <Image url="@../../images/UI/offline-icon.png" />
                </image>
             </ImageView>
+            <Hyperlink layoutX="63.0" layoutY="361.0" text="Register" />
          </children>
       </Pane>
     </children>

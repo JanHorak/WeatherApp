@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import net.hft.dbproject.weatherapp.services.InetHeartBeat;
@@ -31,7 +32,7 @@ public class MainpageController implements Initializable {
 
     @FXML
     private ImageView inetConImage;
-
+    
     @FXML
     private TextField nameField;
 
@@ -40,7 +41,15 @@ public class MainpageController implements Initializable {
 
     @FXML
     private Button searchButton;
-
+   
+    @FXML
+    private Hyperlink signinLink;
+    
+    @FXML
+    private Hyperlink register;
+    
+    private InetHeartBeat heartBeat;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         new InetHeartBeat(inetConImage).startHeartBeat();
@@ -52,7 +61,7 @@ public class MainpageController implements Initializable {
         zipField.end();
     }
 
-    private void initUIActions() {
+  private void initUIActions() {
         LOGGER.info("Loading UI- Actions...");
         // Loading actions
         Mainpageactions actions = new Mainpageactions(this);
@@ -84,4 +93,4 @@ public class MainpageController implements Initializable {
     public TextField getZipField() {
         return this.zipField;
     }
-}
+ } 
