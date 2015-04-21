@@ -41,16 +41,15 @@ public class MainpageController implements Initializable {
     @FXML
     private Button searchButton;
 
-    private InetHeartBeat heartBeat;
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        new InetHeartBeat(inetConImage).startHeartBeat();
+
         this.propertiesService = new PropertiesService();
-        this.heartBeat = new InetHeartBeat(inetConImage);
-        this.heartBeat.start();
         loadIniData();
         initUIActions();
         LOGGER.info("Started completely");
+        zipField.end();
     }
 
     private void initUIActions() {

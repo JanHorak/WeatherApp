@@ -20,8 +20,9 @@ public interface StageFunctionalities {
      * @param pathToCSS 
      * @param width 
      * @param height 
+     * @param decorated 
      */
-    public void openStageAsRoot(Stage stage, URL pathToFXML, CSSFile pathToCSS, int width, int height);
+    public void openStageAsRoot(Stage stage, URL pathToFXML, CSSFile pathToCSS, int width, int height, boolean decorated);
     
    
     
