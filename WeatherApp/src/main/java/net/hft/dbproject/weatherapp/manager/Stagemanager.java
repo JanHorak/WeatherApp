@@ -2,13 +2,15 @@ package net.hft.dbproject.weatherapp.manager;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import net.hft.dbproject.weatherapp.enums.CSSFile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -16,34 +18,36 @@ import net.hft.dbproject.weatherapp.enums.CSSFile;
  */
 public class Stagemanager implements StageFunctionalities {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Stagemanager.class);
+
     @Override
-    public void openStageAsRoot(Stage stage, URL pathToFXML, CSSFile pathToCSS, int width, int height) {
+    public void openStageAsRoot(Stage stage, URL pathToFXML, CSSFile pathToCSS, int width, int height, boolean decorated) {
         Parent root = null;
-        if (stage == null){
-            throw new IllegalArgumentException("Stage not found!");
+        if (stage == null) {
+            stage = new Stage();
         }
         if (pathToFXML == null || pathToFXML.getFile() == null || pathToFXML.getFile().isEmpty()) {
             throw new IllegalArgumentException("Path to FXML not found!");
         }
         if (pathToCSS == null || pathToCSS.toString().isEmpty()) {
-            //@Todo: print debug- warning
-            
-            // Use default CSS
+            LOGGER.warn("No CSS- File passed. The default-CSS will be used.");
             pathToCSS = CSSFile.CSS_DEFAULT;
         }
 
         try {
             root = FXMLLoader.load(pathToFXML);
         } catch (IOException ex) {
-            //@Todo: change catch- Block
-            Logger.getLogger(Stagemanager.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(ex.toString());
         }
-        Scene scene = new Scene(root, width, height);
+        if (!decorated) {
+            stage.initStyle(StageStyle.UNDECORATED);
+        }
+        Scene scene = new Scene(root, width, height, Color.TRANSPARENT);
         scene.getStylesheets().add(pathToCSS.toString());
         stage.setScene(scene);
         stage.show();
     }
+    
+    
 
-    
-    
 }

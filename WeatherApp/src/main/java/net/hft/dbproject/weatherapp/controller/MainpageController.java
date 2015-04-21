@@ -4,15 +4,21 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import net.hft.dbproject.weatherapp.services.InetHeartBeat;
+import net.hft.dbproject.weatherapp.services.PropertiesService;
 import net.hft.dbproject.weatherapp.uiactions.Mainpageactions;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MainpageController implements Initializable {
-    
-    private Logger logger;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MainpageController.class);
+
+    private PropertiesService propertiesService;
 
     @FXML
     private Pane mainpagePane;
@@ -22,35 +28,60 @@ public class MainpageController implements Initializable {
 
     @FXML
     private ImageView moveImage;
-    
+
     @FXML
     private ImageView inetConImage;
-    
-    private InetHeartBeat heartBeat;
+
+    @FXML
+    private TextField nameField;
+
+    @FXML
+    private TextField zipField;
+
+    @FXML
+    private Button searchButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.logger = Logger.getLogger(MainpageController.class);
-        this.heartBeat = new InetHeartBeat(inetConImage);
-        this.heartBeat.start();
+        new InetHeartBeat(inetConImage).startHeartBeat();
+
+        this.propertiesService = new PropertiesService();
+        loadIniData();
         initUIActions();
-        this.logger.info("Started completely");
+        LOGGER.info("Started completely");
+        zipField.end();
     }
 
     private void initUIActions() {
-        this.logger.info("Loading UI- Actions...");
+        LOGGER.info("Loading UI- Actions...");
         // Loading actions
-        Mainpageactions actions = new Mainpageactions();
-        
+        Mainpageactions actions = new Mainpageactions(this);
+
         // Setting target- Pane
         actions.setPane(mainpagePane);
-        
+
         // Setting moving location- action to image
         moveImage.setOnMouseClicked(actions.trackMousePosition);
         moveImage.setOnMouseDragged(actions.movePane);
-        
+
         // Setting Exit- Action to exit- Icon
         exitImage.setOnMouseClicked(actions.exitEvent);
-        this.logger.info("Loading UI- Actions... done");
+
+        // Buttonactions
+        searchButton.setOnAction(actions.searchAction);
+        LOGGER.info("Loading UI- Actions... done");
+    }
+
+    private void loadIniData() {
+        nameField.setText(propertiesService.getName());
+        zipField.setText(propertiesService.getZipCode());
+    }
+
+    public TextField getNameField() {
+        return this.nameField;
+    }
+
+    public TextField getZipField() {
+        return this.zipField;
     }
 }
