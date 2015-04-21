@@ -11,9 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import net.hft.dbproject.weatherapp.enums.CSSFile;
-import net.hft.dbproject.weatherapp.uiactions.Mainpageactions;
+
 /**
  * FXML Controller class
  *
@@ -25,9 +23,6 @@ public class LoginController implements Initializable {
     private Pane loginPane;
     @FXML
     private Button loginButton;
-    @FXML
-    private Button cancelButton;
-    private Stage stage;
         
      /**
      * Initializes the controller class.
@@ -35,18 +30,7 @@ public class LoginController implements Initializable {
      * @param rb
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-      initUIActions();   
+    public void initialize(URL url, ResourceBundle rb) { 
     }    
-    private void initUIActions()
-    {
-        // Loading actions
-        Mainpageactions actions = new Mainpageactions();
-        
-    actions.setPane(loginPane);
-    loginButton.setOnMouseClicked(actions.openStageAsRoot(stage,getClass().getResource("/fxml/mainpage/Scene.fxml"), CSSFile.CSS_DEFAULT, 251, 397));
-    cancelButton.setOnMouseClicked(actions.exitEvent);
-     }  
-    
     
 }

@@ -32,7 +32,7 @@ public class MainpageController implements Initializable {
 
     @FXML
     private ImageView inetConImage;
-    
+
     @FXML
     private TextField nameField;
 
@@ -41,15 +41,15 @@ public class MainpageController implements Initializable {
 
     @FXML
     private Button searchButton;
-   
+
     @FXML
     private Hyperlink signinLink;
-    
+
     @FXML
-    private Hyperlink register;
-    
+    private Hyperlink registerLink;
+
     private InetHeartBeat heartBeat;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         new InetHeartBeat(inetConImage).startHeartBeat();
@@ -61,7 +61,7 @@ public class MainpageController implements Initializable {
         zipField.end();
     }
 
-  private void initUIActions() {
+    private void initUIActions() {
         LOGGER.info("Loading UI- Actions...");
         // Loading actions
         Mainpageactions actions = new Mainpageactions(this);
@@ -79,6 +79,8 @@ public class MainpageController implements Initializable {
         // Buttonactions
         searchButton.setOnAction(actions.searchAction);
         LOGGER.info("Loading UI- Actions... done");
+        registerLink.setOnAction(actions.openRegisterPage);
+        signinLink.setOnAction(actions.openLoginPage);
     }
 
     private void loadIniData() {
@@ -93,4 +95,4 @@ public class MainpageController implements Initializable {
     public TextField getZipField() {
         return this.zipField;
     }
- } 
+}

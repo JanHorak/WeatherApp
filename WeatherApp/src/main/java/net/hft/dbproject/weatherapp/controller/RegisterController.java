@@ -11,7 +11,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import net.hft.dbproject.weatherapp.uiactions.Mainpageactions;
 
 /**
  * FXML Controller class
@@ -20,15 +19,11 @@ import net.hft.dbproject.weatherapp.uiactions.Mainpageactions;
  */
 public class RegisterController implements Initializable {
     @FXML
-    private Pane loginPane;
+    private Pane registerPane;
     
     @FXML
     private Button registerButton;
     
-    @FXML 
-    private Button cancelButton;
-    
-
     /**
      * Initializes the controller class.
      * @param url
@@ -36,11 +31,6 @@ public class RegisterController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-         Mainpageactions actions = new Mainpageactions();
-        
-    actions.setPane(loginPane);
-    cancelButton.setOnMouseClicked(actions.exitEvent);
     }    
     
 }
