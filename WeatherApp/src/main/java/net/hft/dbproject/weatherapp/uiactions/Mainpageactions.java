@@ -1,9 +1,12 @@
 package net.hft.dbproject.weatherapp.uiactions;
 
 import java.awt.Point;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import net.hft.dbproject.weatherapp.controller.MainpageController;
+import net.hft.dbproject.weatherapp.services.PropertiesService;
 
 /**
  *
@@ -16,7 +19,12 @@ public class Mainpageactions {
 
     // Passed pane for actions
     private Pane pane;
+    
+    private MainpageController controller;
 
+    public Mainpageactions(MainpageController controller) {
+        this.controller = controller;
+    }
     /**
      * Loads the mouse- data in local variable.
      */
@@ -38,6 +46,13 @@ public class Mainpageactions {
 
     public EventHandler<MouseEvent> exitEvent = (MouseEvent t) -> {
         System.exit(0);
+    };
+    
+    public EventHandler<ActionEvent> searchAction = (ActionEvent t) -> {
+        String name = controller.getNameField().getText();
+        String zip = controller.getZipField().getText();
+        new PropertiesService().storeCityAndZip(name, zip);
+        
     };
 
 

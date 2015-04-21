@@ -2,20 +2,22 @@ package net.hft.dbproject.weatherapp.manager;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import net.hft.dbproject.weatherapp.enums.CSSFile;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Jan
  */
 public class Stagemanager implements StageFunctionalities {
-
+    
+    private static final Logger LOGGER = LoggerFactory.getLogger(Stagemanager.class);
+    
     @Override
     public void openStageAsRoot(Stage stage, URL pathToFXML, CSSFile pathToCSS, int width, int height) {
         Parent root = null;
@@ -36,7 +38,7 @@ public class Stagemanager implements StageFunctionalities {
             root = FXMLLoader.load(pathToFXML);
         } catch (IOException ex) {
             //@Todo: change catch- Block
-            Logger.getLogger(Stagemanager.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(Stagemanager.class.getName()).log(Level.SEVERE, null, ex);
         }
         Scene scene = new Scene(root, width, height);
         scene.getStylesheets().add(pathToCSS.toString());
