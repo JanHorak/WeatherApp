@@ -58,7 +58,6 @@ public class MainpageController implements Initializable {
         loadIniData();
         initUIActions();
         LOGGER.info("Started completely");
-        zipField.end();
     }
 
     private void initUIActions() {
