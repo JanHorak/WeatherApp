@@ -10,9 +10,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import net.hft.dbproject.weatherapp.controller.MainpageController;
 import net.hft.dbproject.weatherapp.enums.CSSFile;
-import net.hft.dbproject.weatherapp.manager.Stagemanager;
 import net.hft.dbproject.weatherapp.services.NotificationService;
 import net.hft.dbproject.weatherapp.services.PropertiesService;
+import net.hft.dbproject.weatherapp.manager.StageFunctionalities;
+import net.hft.dbproject.weatherapp.manager.Stagemanager;
 
 /**
  *
@@ -20,6 +21,8 @@ import net.hft.dbproject.weatherapp.services.PropertiesService;
  */
 public class Mainpageactions {
 
+    StageFunctionalities functions = new Stagemanager();
+    
     // Current mouseposition
     private Point mousePosition = new Point();
 
@@ -54,6 +57,7 @@ public class Mainpageactions {
         System.exit(0);
     };
 
+
     public EventHandler<ActionEvent> searchAction = (ActionEvent t) -> {
         String name = controller.getNameField().getText();
         String zip = controller.getZipField().getText();
@@ -87,12 +91,20 @@ public class Mainpageactions {
             new PropertiesService().storeCityAndZip(name, zip);
             NotificationService.resetErrorBorder();
         }
-
     };
     
+    public EventHandler<ActionEvent> openRegisterPage = (ActionEvent t) -> {
+        functions.openStageAsRoot(null, getClass().getResource("/fxml/mainpage/Register.fxml"), CSSFile.CSS_DEFAULT, 251, 397, true);
+    };
+    
+    public EventHandler<ActionEvent> openLoginPage = (ActionEvent t) -> {
+        functions.openStageAsRoot(null, getClass().getResource("/fxml/mainpage/login.fxml"), CSSFile.CSS_DEFAULT, 251, 397, true);
+    };
+
 
     public void setPane(Pane pane) {
         this.pane = pane;
     }
-
 }
+
+
