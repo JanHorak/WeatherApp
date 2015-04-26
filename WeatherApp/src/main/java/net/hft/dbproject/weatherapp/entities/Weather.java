@@ -6,6 +6,7 @@
 package net.hft.dbproject.weatherapp.entities;
 
 import java.io.Serializable;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +15,7 @@ import javax.persistence.MappedSuperclass;
  *
  * @author admin
  */
+@Entity
 public class Weather implements Serializable{
   
     private String cityName;
