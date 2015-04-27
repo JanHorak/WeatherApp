@@ -5,76 +5,51 @@
  */
 package net.hft.dbproject.weatherapp.services;
 
-import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.io.IOException;
-import java.io.File;  
-import java.io.FileNotFoundException;  
-import java.io.FileReader;  
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
 import net.hft.dbproject.weatherapp.entities.Weather;
 
-import java.io.StringReader;
-import java.net.MalformedURLException;
 import java.util.logging.Level;
-import java.util.logging.Logger;
-import static javafx.application.Application.launch;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  *
  * @author admin
  */
 public class WeatherService {
-    
-    
-    public WeatherService(URL myUrl, String key)
-    {
-    try {
-            URL url = null;
-            HttpURLConnection urlConnect = null;
-            url = myUrl;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(WeatherService.class);
+
+    public static Weather json2Weather(URL myUrl, String key) {
+        Weather tmp = new Weather();
+        URL url = null;
+        HttpURLConnection urlConnect = null;
+        InputStreamReader inputStream = null;
+        url = myUrl;
+        LOGGER.info("Requested URL: {} using Key: {}", myUrl.toString(), key);
+        try {
             urlConnect = (HttpURLConnection) url.openConnection();
             urlConnect.setRequestMethod("GET");
-            urlConnect.setRequestProperty("Authorization", "APPID=" + key);
-            urlConnect.setRequestProperty("Accept", "application/json");
-            InputStreamReader inputStream = new InputStreamReader(urlConnect.getInputStream());
-            Weather myWeather = parseWeather(inputStream);
-            System.out.println("Output from Class .... \n");
-                    System.out.println(myWeather.toString());
-		urlConnect.disconnect();
-	  } catch (MalformedURLException e) {
- 
-		e.printStackTrace();
- 
-	  } catch (IOException e) {
- 
-		e.printStackTrace();
-	  }
-        
-	}
-    
-        private Weather parseWeather(InputStreamReader streamReader) throws IOException
-        {
-            JsonReader reader = new JsonReader (streamReader);
-            reader.setLenient(true);
-            String cname = null;
-            reader.beginObject();
-            while(reader.hasNext())
-            {
-                String name = reader.nextName();
-                if (name.equals("name"))
-                {
-                    cname = reader.nextString();
-                }  
-                else 
-                    reader.skipValue();
-            }
-            reader.endObject();
-            reader.close();
-            return new Weather(cname);
+        } catch (IOException ex) {
+            java.util.logging.Logger.getLogger(WeatherService.class.getName()).log(Level.SEVERE, null, ex);
         }
-}
-    
+        urlConnect.setRequestProperty("Authorization", "APPID=" + key);
+        urlConnect.setRequestProperty("Accept", "application/json");
 
+        try {
+            inputStream = new InputStreamReader(urlConnect.getInputStream());
+            tmp = JSONParser.toWeather(inputStream);
+            inputStream.close();
+        } catch (IOException ex) {
+            java.util.logging.Logger.getLogger(WeatherService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        urlConnect.disconnect();
+
+        return tmp;
+    }
+
+}
