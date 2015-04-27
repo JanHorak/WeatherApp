@@ -6,24 +6,11 @@ import javafx.stage.Stage;
 import net.hft.dbproject.weatherapp.enums.CSSFile;
 import net.hft.dbproject.weatherapp.manager.StageFunctionalities;
 import net.hft.dbproject.weatherapp.manager.Stagemanager;
-import net.hft.dbproject.weatherapp.services.WeatherService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.io.IOException;
-import java.io.File;  
-import java.io.FileNotFoundException;  
-import java.io.FileReader;  
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
-import net.hft.dbproject.weatherapp.entities.Weather;
-
-import java.io.StringReader;
 import java.util.logging.Level;
 import net.hft.dbproject.weatherapp.services.WeatherService;
 public class MainApp extends Application {
@@ -37,12 +24,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         this.manager = new Stagemanager();
-        manager.openStageAsRoot(stage, getClass().getResource("/fxml/mainpage/Scene.fxml"), CSSFile.CSS_DEFAULT, 251, 397, false);
-        
-       
-	  
-                
-                
+        manager.openStageAsRoot(stage, getClass().getResource("/fxml/mainpage/Scene.fxml"), CSSFile.CSS_DEFAULT, 251, 397, false);        
         LOGGER.info("MainApp started successfully");
     }
 
@@ -58,7 +40,7 @@ public class MainApp extends Application {
     public static void main(String[] args) {
         try {
             URL url = new URL("http://api.openweathermap.org/data/2.5/weather?q=Stuttgart,d");
-            WeatherService service = new WeatherService(url, APIKEY);
+            WeatherService.json2Weather(url, APIKEY).toString();
         } catch (MalformedURLException ex) {
             java.util.logging.Logger.getLogger(WeatherService.class.getName()).log(Level.SEVERE, null, ex);
         }
