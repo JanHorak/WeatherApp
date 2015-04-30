@@ -40,3 +40,5 @@ WeatherApp/nbactions.xml
 WeatherApp.db
 derby.log
 derby.properties
+
+weatherapp.ini

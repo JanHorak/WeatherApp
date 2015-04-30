@@ -31,9 +31,9 @@ public class NotificationController implements Initializable {
     private void setErrorMessage(List<String> messages) {
         StringBuilder errorMessage = new StringBuilder();
         errorMessage.append("Errors:\n");
-        messages.forEach((s) -> {
+        for (String s : messages){
             errorMessage.append(s).append("\n");
-        });
+        }
         errorLabel.setText(errorMessage.toString());
     }
     

@@ -9,7 +9,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.io.IOException;
-import net.hft.dbproject.weatherapp.entities.Weather;
+import java.net.MalformedURLException;
+import net.hft.dbproject.weatherapp.entities.WeatherInformation;
 
 import java.util.logging.Level;
 import org.slf4j.Logger;
@@ -19,26 +20,36 @@ import org.slf4j.LoggerFactory;
  *
  * @author admin
  */
-public class WeatherService {
+public abstract class WeatherService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WeatherService.class);
+    private static final String APIKEY = "8207b192ff2c645813be5259681c74d6";
+    private static String configuredURL = "http://api.openweathermap.org/data/2.5/weather?q=XXX";
 
-    public static Weather json2Weather(URL myUrl, String key) {
-        Weather tmp = new Weather();
+    public static WeatherInformation getWeatherByCity(String cityName) {
+        configuredURL = configuredURL.replaceFirst("XXX", cityName);
+        return json2Weather();
+    }
+
+    private static WeatherInformation json2Weather() {
+        WeatherInformation tmp = new WeatherInformation();
         URL url = null;
         HttpURLConnection urlConnect = null;
         InputStreamReader inputStream = null;
-        url = myUrl;
-        LOGGER.info("Requested URL: {} using Key: {}", myUrl.toString(), key);
+        try {
+            url = new URL(configuredURL);
+        } catch (MalformedURLException ex) {
+            java.util.logging.Logger.getLogger(WeatherService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        LOGGER.info("Requested URL: {} using Key: {}", url.toString(), APIKEY);
         try {
             urlConnect = (HttpURLConnection) url.openConnection();
             urlConnect.setRequestMethod("GET");
         } catch (IOException ex) {
             java.util.logging.Logger.getLogger(WeatherService.class.getName()).log(Level.SEVERE, null, ex);
         }
-        urlConnect.setRequestProperty("Authorization", "APPID=" + key);
+        urlConnect.setRequestProperty("Authorization", "APPID=" + APIKEY);
         urlConnect.setRequestProperty("Accept", "application/json");
-
         try {
             inputStream = new InputStreamReader(urlConnect.getInputStream());
             tmp = JSONParser.toWeather(inputStream);
