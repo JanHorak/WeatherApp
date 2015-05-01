@@ -104,7 +104,7 @@ public class Mainpageactions {
     public EventHandler<ActionEvent> openRegisterPage = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent t) {
-            functions.openStageAsRoot(null, getClass().getResource("/fxml/mainpage/Register.fxml"), CSSFile.CSS_DEFAULT, 251, 397, true);
+            functions.openStageAsRoot(null, getClass().getResource("/fxml/mainpage/Register.fxml"), CSSFile.CSS_DEFAULT, 221, 153, true);
         }
     };
 

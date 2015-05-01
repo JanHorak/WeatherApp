@@ -63,7 +63,7 @@ public class MainpageController implements Initializable {
         currentWeatherTmp = new WeatherInformation(this.propertiesService.getName());
         currentWeather = WeatherService.getWeatherByCity(currentWeatherTmp.getCityName());
         initUIInputs();
-        LOGGER.info("Started completely");
+        LOGGER.info("Started completely. Current weather is loaded for: {}", currentWeather.getCityName());
     }
 
     private void initUIActions() {

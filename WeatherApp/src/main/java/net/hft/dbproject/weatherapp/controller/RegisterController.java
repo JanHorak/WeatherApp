@@ -10,7 +10,9 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import net.hft.dbproject.weatherapp.uiactions.Registerpageactions;
 
 /**
  * FXML Controller class
@@ -18,6 +20,13 @@ import javafx.scene.layout.Pane;
  * @author AVATSP
  */
 public class RegisterController implements Initializable {
+    
+    @FXML
+    private TextField nameField;
+    
+    @FXML
+    private TextField passwordField;
+    
     @FXML
     private Pane registerPane;
     
@@ -31,6 +40,19 @@ public class RegisterController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Registerpageactions rpa = new Registerpageactions(this);
+        registerButton.setOnAction(rpa.registerAction);
     }    
+
+    public TextField getNameField() {
+        return nameField;
+    }
+
+    public TextField getPasswordField() {
+        return passwordField;
+    }
+    
+    
+    
     
 }

@@ -32,6 +32,8 @@ public class WeatherInformation implements Serializable {
     private String weatherDescription;
 
     @NotNull
+    @ManyToOne(targetEntity = Temperature.class)
+//    @JoinColumn(name = "id", insertable = false, updatable = false)
     private Temperature temperature;
     
     @NotNull
@@ -39,7 +41,7 @@ public class WeatherInformation implements Serializable {
 
     @NotNull
     @ManyToOne(targetEntity = WeatherImage.class)
-    @JoinColumn(name = "id", insertable = false, updatable = false)
+//    @JoinColumn(name = "id", insertable = false, updatable = false)
     private WeatherImage image;
 
     public WeatherInformation(String cityName, String weatherDescription, Temperature temp) {
