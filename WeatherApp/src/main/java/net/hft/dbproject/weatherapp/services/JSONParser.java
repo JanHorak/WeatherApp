@@ -8,30 +8,35 @@ package net.hft.dbproject.weatherapp.services;
 import com.google.gson.stream.JsonReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import net.hft.dbproject.weatherapp.entities.Weather;
+import net.hft.dbproject.weatherapp.entities.WeatherInformation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Jan
  */
 public abstract class JSONParser {
+    
+    private static final Logger LOGGER = LoggerFactory.getLogger(JSONParser.class);
 
-    public static Weather toWeather(InputStreamReader streamReader) throws IOException {
+    public static WeatherInformation toWeather(InputStreamReader streamReader) throws IOException {
+        WeatherInformation result = new WeatherInformation();
         JsonReader reader = new JsonReader(streamReader);
         reader.setLenient(true);
-        String cname = null;
         reader.beginObject();
         while (reader.hasNext()) {
             String name = reader.nextName();
             if (name.equals("name")) {
-                cname = reader.nextString();
+                result.setCityName(reader.nextString());
             } else {
                 reader.skipValue();
             }
         }
         reader.endObject();
         reader.close();
-        return new Weather(cname);
+        LOGGER.info("Weather ({}) requested from API", result.getCityName());
+        return result;
     }
 
 }

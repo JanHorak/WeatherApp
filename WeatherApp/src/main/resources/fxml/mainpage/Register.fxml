@@ -5,16 +5,17 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane layoutX="-3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="411.0" prefWidth="356.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.hft.dbproject.weatherapp.controller.RegisterController">
+<AnchorPane layoutX="-3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="153.0" prefWidth="221.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.hft.dbproject.weatherapp.controller.RegisterController">
    <children>
-       <Pane fx:id="registerPane" layoutX="-3.0" prefHeight="397.0" prefWidth="259.0">
+       <Pane fx:id="registerPane" layoutX="-3.0" prefHeight="153.0" prefWidth="228.0">
          <children>
-            <TextField layoutX="35.0" layoutY="126.0" prefHeight="46.0" prefWidth="163.0" promptText="Username" />
-            <Button fx:id="registerButton" layoutX="50.0" layoutY="233.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="116.0" text="Register Me">
+            <TextField fx:id="nameField" layoutX="27.0" layoutY="25.0" prefHeight="30.0" prefWidth="158.0" promptText="Username" />
+            <Button fx:id="registerButton" layoutX="75.0" layoutY="105.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="113.0" text="Register Me">
                <font>
-                  <Font name="Arial Narrow Bold" size="14.0" />
+                  <Font name="Arial Narrow" size="12.0" />
                </font>
             </Button>
+            <TextField fx:id="passwordField" layoutX="29.0" layoutY="62.0" prefHeight="30.0" prefWidth="158.0" promptText="Password" />
          </children>
       </Pane>
    </children>

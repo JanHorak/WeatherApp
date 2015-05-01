@@ -18,13 +18,17 @@ public class Notificationactions {
         this.pane = pane;
     }
 
-    public EventHandler<MouseEvent> tackleIt = (MouseEvent t) -> {
-        double step = 0.00001;
-        for (double i = 1; i > 0; i = i - step) {
-            pane.getScene().getWindow().setOpacity(i);
+    public EventHandler<MouseEvent> tackleIt = new EventHandler<MouseEvent>() {
+
+        @Override
+        public void handle(MouseEvent t) {
+            double step = 0.00001;
+            for (double i = 1; i > 0; i = i - step) {
+                pane.getScene().getWindow().setOpacity(i);
+            }
+            Stage s = (Stage) pane.getScene().getWindow();
+            s.close();
         }
-        Stage s = (Stage) pane.getScene().getWindow();
-        s.close();
     };
 
 }

@@ -9,8 +9,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import net.hft.dbproject.weatherapp.entities.WeatherInformation;
 import net.hft.dbproject.weatherapp.services.InetHeartBeat;
 import net.hft.dbproject.weatherapp.services.PropertiesService;
+import net.hft.dbproject.weatherapp.services.WeatherService;
 import net.hft.dbproject.weatherapp.uiactions.Mainpageactions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,17 +49,21 @@ public class MainpageController implements Initializable {
 
     @FXML
     private Hyperlink registerLink;
-
-    private InetHeartBeat heartBeat;
-
+    
+    private WeatherInformation currentWeather;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         new InetHeartBeat(inetConImage).startHeartBeat();
-
+        WeatherInformation currentWeatherTmp = new WeatherInformation();
         this.propertiesService = new PropertiesService();
-        loadIniData();
+        
         initUIActions();
-        LOGGER.info("Started completely");
+        
+        currentWeatherTmp = new WeatherInformation(this.propertiesService.getName());
+        currentWeather = WeatherService.getWeatherByCity(currentWeatherTmp.getCityName());
+        initUIInputs();
+        LOGGER.info("Started completely. Current weather is loaded for: {}", currentWeather.getCityName());
     }
 
     private void initUIActions() {
@@ -82,9 +88,9 @@ public class MainpageController implements Initializable {
         signinLink.setOnAction(actions.openLoginPage);
     }
 
-    private void loadIniData() {
-        nameField.setText(propertiesService.getName());
-        zipField.setText(propertiesService.getZipCode());
+    private void initUIInputs() {
+        nameField.setText(currentWeather.getCityName());
+        zipField.setText(currentWeather.getZipCode());
     }
 
     public TextField getNameField() {
@@ -94,4 +100,10 @@ public class MainpageController implements Initializable {
     public TextField getZipField() {
         return this.zipField;
     }
+
+    public void setCurrentWeather(WeatherInformation currentWeather) {
+        this.currentWeather = currentWeather;
+    }
+    
+    
 }
