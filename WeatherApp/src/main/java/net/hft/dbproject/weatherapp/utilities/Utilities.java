@@ -29,4 +29,13 @@ public abstract class Utilities {
 
         return restult;
     }
+    
+    public static double toFahrenheit(double celcius){
+        return (celcius * 1.8) + 32.0;
+    }
+      
+    
+    public static double toCelsius(double fahrenheit){
+        return (fahrenheit - 32.0) * (5.0/9.0);
+    }
 }

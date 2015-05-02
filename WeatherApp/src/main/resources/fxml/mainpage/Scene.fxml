@@ -43,6 +43,22 @@
                </image>
             </ImageView>
             <Hyperlink fx:id="registerLink" layoutX="63.0" layoutY="361.0" text="Register" />
+            <ImageView fx:id="cImage" fitHeight="30.0" fitWidth="30.0" layoutX="228.0" layoutY="199.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/UI/c_1.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="fImage" fitHeight="30.0" fitWidth="30.0" layoutX="228.0" layoutY="230.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/UI/f_1.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
          </children>
       </Pane>
     </children>

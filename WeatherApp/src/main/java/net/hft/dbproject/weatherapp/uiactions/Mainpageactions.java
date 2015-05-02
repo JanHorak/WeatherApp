@@ -6,6 +6,7 @@ import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Control;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import net.hft.dbproject.weatherapp.controller.MainpageController;
@@ -31,8 +32,11 @@ public class Mainpageactions {
 
     private MainpageController controller;
 
+    PropertiesService propertiesService;
+
     public Mainpageactions(MainpageController controller) {
         this.controller = controller;
+        this.propertiesService = new PropertiesService();
     }
     /**
      * Loads the mouse- data in local variable.
@@ -112,6 +116,75 @@ public class Mainpageactions {
         @Override
         public void handle(ActionEvent t) {
             functions.openStageAsRoot(null, getClass().getResource("/fxml/mainpage/login.fxml"), CSSFile.CSS_DEFAULT, 251, 397, true);
+        }
+    };
+
+    private EventHandler<MouseEvent> cHoverAction = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent t) {
+            controller.getcImage().setImage(new Image(getClass().getResource("/images/UI/c_3.png").toString()));
+        }
+    };
+    private EventHandler<MouseEvent> cExitHoverAction = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent t) {
+            controller.getcImage().setImage(new Image(getClass().getResource("/images/UI/c_1.png").toString()));
+        }
+    };
+
+    private EventHandler<MouseEvent> fHoverAction = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent t) {
+            controller.getfImage().setImage(new Image(getClass().getResource("/images/UI/f_3.png").toString()));
+        }
+    };
+    private EventHandler<MouseEvent> fExitHoverAction = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent t) {
+            controller.getfImage().setImage(new Image(getClass().getResource("/images/UI/f_1.png").toString()));
+        }
+    };
+
+    public EventHandler<MouseEvent> cClick = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent t) {
+            controller.getcImage().setOnMouseEntered(null);
+            controller.getcImage().setOnMouseExited(null);
+            controller.getcImage().setImage(new Image(getClass().getResource("/images/UI/c_2.png").toString()));
+            controller.getfImage().setImage(new Image(getClass().getResource("/images/UI/f_1.png").toString()));
+            controller.getfImage().setOnMouseEntered(fHoverAction);
+            controller.getfImage().setOnMouseExited(fExitHoverAction);
+        }
+    };
+
+    private void storeCalculation(String calc) {
+        propertiesService.storeCalculation(calc);
+    }
+
+    public EventHandler<MouseEvent> fClickSave = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent t) {
+            fClick.handle(t);
+            storeCalculation("F");
+        }
+    };
+    public EventHandler<MouseEvent> cClickSave = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent t) {
+            cClick.handle(t);
+            storeCalculation("C");
+        }
+    };
+
+    public EventHandler<MouseEvent> fClick = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent t) {
+            controller.getfImage().setOnMouseEntered(null);
+            controller.getfImage().setOnMouseExited(null);
+            controller.getfImage().setImage(new Image(getClass().getResource("/images/UI/f_2.png").toString()));
+            controller.getcImage().setImage(new Image(getClass().getResource("/images/UI/c_1.png").toString()));
+            controller.getcImage().setOnMouseEntered(cHoverAction);
+            controller.getcImage().setOnMouseExited(cExitHoverAction);
         }
     };
 

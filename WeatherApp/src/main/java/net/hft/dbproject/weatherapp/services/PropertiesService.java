@@ -38,6 +38,20 @@ public class PropertiesService extends PropertiesHelper {
             }
         }
     }
+    
+    public void storeCalculation(String calc) {
+        if (isPropertiesFileExisting()) {
+            properties.setProperty("calc", calc);
+            try {
+                properties.store(new FileOutputStream(INIFILE), "WEATHERAPP- PROPERTIESFILE");
+                LOGGER.info("New values stored: {}", calc);
+            } catch (FileNotFoundException ex) {
+                LOGGER.error(ex.toString());
+            } catch (IOException ex) {
+                LOGGER.error(ex.toString());
+            }
+        }
+    }
 
     private void loadProperties() {
         if (properties == null) {
@@ -56,6 +70,10 @@ public class PropertiesService extends PropertiesHelper {
 
     public String getZipCode() {
         return properties.getProperty("zip");
+    }
+    
+    public String getCalculation() {
+        return properties.getProperty("calc");
     }
 
 }
