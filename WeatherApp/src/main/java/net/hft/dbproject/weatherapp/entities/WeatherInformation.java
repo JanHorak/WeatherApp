@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
@@ -33,7 +32,6 @@ public class WeatherInformation implements Serializable {
 
     @NotNull
     @ManyToOne(targetEntity = Temperature.class)
-//    @JoinColumn(name = "id", insertable = false, updatable = false)
     private Temperature temperature;
     
     @NotNull
@@ -41,7 +39,6 @@ public class WeatherInformation implements Serializable {
 
     @NotNull
     @ManyToOne(targetEntity = WeatherImage.class)
-//    @JoinColumn(name = "id", insertable = false, updatable = false)
     private WeatherImage image;
 
     public WeatherInformation(String cityName, String weatherDescription, Temperature temp) {
@@ -77,8 +74,6 @@ public class WeatherInformation implements Serializable {
     @Override
     public String toString() {
         return new StringBuilder(" City Name : ").append(this.cityName)
-                // .append(" Weather Description : ").append(this.weatherDescription)
-                // .append(" Temperature : ").append(this.temp)
                 .toString();
     }
 

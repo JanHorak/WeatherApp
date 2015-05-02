@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="294.0" prefWidth="263.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.hft.dbproject.weatherapp.controller.SearchingDialogController">
+   <children>
+      <ListView fx:id="weatherList" layoutX="13.0" layoutY="59.0" prefHeight="187.0" prefWidth="239.0" />
+      <Separator layoutX="7.0" layoutY="46.0" prefHeight="5.0" prefWidth="248.0" />
+      <Button fx:id="searchButton" layoutX="185.0" layoutY="14.0" mnemonicParsing="false" text="Search" />
+      <TextField fx:id="cityField" layoutX="12.0" layoutY="14.0" prefHeight="25.0" prefWidth="70.0" promptText="Cityname" />
+      <TextField fx:id="zipField" layoutX="106.0" layoutY="14.0" prefHeight="25.0" prefWidth="70.0" promptText="Zipcode" />
+      <Label layoutX="87.0" layoutY="18.0" text="or" />
+      <Button fx:id="applyButton" disable="true" layoutX="158.0" layoutY="260.0" mnemonicParsing="false" text="Apply selection" />
+   </children>
+</AnchorPane>
