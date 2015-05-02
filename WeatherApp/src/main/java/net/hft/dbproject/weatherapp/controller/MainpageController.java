@@ -36,6 +36,12 @@ public class MainpageController implements Initializable {
     private ImageView inetConImage;
 
     @FXML
+    private ImageView cImage;
+
+    @FXML
+    private ImageView fImage;
+
+    @FXML
     private TextField nameField;
 
     @FXML
@@ -49,17 +55,17 @@ public class MainpageController implements Initializable {
 
     @FXML
     private Hyperlink registerLink;
-    
+
     private WeatherInformation currentWeather;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         new InetHeartBeat(inetConImage).startHeartBeat();
         WeatherInformation currentWeatherTmp = new WeatherInformation();
         this.propertiesService = new PropertiesService();
-        
+
         initUIActions();
-        
+
         currentWeatherTmp = new WeatherInformation(this.propertiesService.getName());
         currentWeather = WeatherService.getWeatherByCity(currentWeatherTmp.getCityName());
         initUIInputs();
@@ -77,20 +83,30 @@ public class MainpageController implements Initializable {
         // Setting moving location- action to image
         moveImage.setOnMouseClicked(actions.trackMousePosition);
         moveImage.setOnMouseDragged(actions.movePane);
+        fImage.setOnMouseClicked(actions.fClickSave);
+        cImage.setOnMouseClicked(actions.cClickSave);
 
         // Setting Exit- Action to exit- Icon
         exitImage.setOnMouseClicked(actions.exitEvent);
 
         // Buttonactions
         searchButton.setOnAction(actions.searchAction);
-        LOGGER.info("Loading UI- Actions... done");
+
+        // Links
         registerLink.setOnAction(actions.openRegisterPage);
         signinLink.setOnAction(actions.openLoginPage);
+
+        LOGGER.info("Loading UI- Actions... done");
     }
 
     private void initUIInputs() {
         nameField.setText(currentWeather.getCityName());
         zipField.setText(currentWeather.getZipCode());
+        if (propertiesService.getCalculation().equals("C")) {
+            new Mainpageactions(this).cClick.handle(null);
+        } else {
+            new Mainpageactions(this).fClick.handle(null);
+        }
     }
 
     public TextField getNameField() {
@@ -104,6 +120,13 @@ public class MainpageController implements Initializable {
     public void setCurrentWeather(WeatherInformation currentWeather) {
         this.currentWeather = currentWeather;
     }
-    
-    
+
+    public ImageView getcImage() {
+        return cImage;
+    }
+
+    public ImageView getfImage() {
+        return fImage;
+    }
+
 }
