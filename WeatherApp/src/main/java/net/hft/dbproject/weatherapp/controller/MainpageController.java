@@ -73,7 +73,6 @@ public class MainpageController implements Initializable {
     }
 
     private void initUIActions() {
-        LOGGER.info("Loading UI- Actions...");
         // Loading actions
         Mainpageactions actions = new Mainpageactions(this);
 
@@ -90,8 +89,9 @@ public class MainpageController implements Initializable {
         exitImage.setOnMouseClicked(actions.exitEvent);
 
         // Buttonactions
-        searchButton.setOnAction(actions.searchAction);
-
+        searchButton.setGraphic(new ImageView(getClass().getResource("/images/UI/search.png").toString()));
+        searchButton.setOnAction(actions.openSearchDialog);
+        
         // Links
         registerLink.setOnAction(actions.openRegisterPage);
         signinLink.setOnAction(actions.openLoginPage);
@@ -107,6 +107,7 @@ public class MainpageController implements Initializable {
         } else {
             new Mainpageactions(this).fClick.handle(null);
         }
+        LOGGER.info("Preparing UI... done");
     }
 
     public TextField getNameField() {

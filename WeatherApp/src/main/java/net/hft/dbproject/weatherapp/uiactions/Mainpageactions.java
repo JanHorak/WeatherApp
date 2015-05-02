@@ -70,38 +70,10 @@ public class Mainpageactions {
         }
     };
 
-    public EventHandler<ActionEvent> searchAction = new EventHandler<ActionEvent>() {
+    public EventHandler<ActionEvent> openSearchDialog = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent t) {
-            String name = controller.getNameField().getText();
-            String zip = controller.getZipField().getText();
-            // Validation
-            List<Control> controlsInError = new ArrayList<>();
-            List<String> errorMessages = new ArrayList<>();
-            boolean inError = false;
-            int zipCode = 0;
-
-            try {
-                zipCode = Integer.decode(zip);
-            } catch (NumberFormatException ex) {
-                controlsInError.add(controller.getZipField());
-                errorMessages.add("Zip code must a number!");
-                inError = true;
-            }
-            if (name.isEmpty() && zip.isEmpty()) {
-                controlsInError.add(controller.getNameField());
-                controlsInError.add(controller.getZipField());
-                errorMessages.add("Name or Zipcode must be filled!");
-                inError = true;
-            }
-            if (inError) {
-                NotificationService.fireNotification(controlsInError, errorMessages);
-                new Stagemanager().openStageAsRoot(null, getClass().getResource("/fxml/dialogs/Notification.fxml"), CSSFile.CSS_TEST, 350, 100, false);
-            } else {
-                new PropertiesService().storeCityAndZip(name, zip);
-                NotificationService.resetErrorBorder();
-            }
-
+            new Stagemanager().openStageAsRoot(null, getClass().getResource("/fxml/dialogs/SearchingDialog.fxml"), CSSFile.CSS_TEST, 263, 294, true);
         }
     };
 
