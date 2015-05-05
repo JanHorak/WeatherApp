@@ -6,6 +6,7 @@
 package net.hft.dbproject.weatherapp.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,19 +21,30 @@ public class Weather implements Serializable{
   
     private String cityName;
     private String weatherDescription;
-    private String temp;
+    private Double temp;
+    private Double minTemp;
+    private Double maxTemp;
+    private ArrayList<Temperature> tempArray;
+    private Temperature cityTemp;
     
     
-    
-    public Weather(String cityName, String weatherDescription, String temp)
+    public Weather(String cityName, String weatherDescription, Double temp, ArrayList<Temperature> tempArray)
     {
        this.cityName = cityName;
        this.weatherDescription = weatherDescription;
        this.temp = temp;
+       this.tempArray = tempArray;
     }
     public Weather(String cityName)
     {
        this.cityName = cityName;
+    }
+    public Weather(String cityName, Temperature cityTemp)
+    {
+       this.cityName = cityName;
+       this.temp = cityTemp.getTempFarenheit();
+       this.minTemp = cityTemp.getMinTemp();
+       this.maxTemp = cityTemp.getMaxTemp();
     }
     
     public void setCityName(String cname) {
@@ -49,11 +61,31 @@ public class Weather implements Serializable{
         return this.weatherDescription;
     }
     
-    public void setTemperature(String ctemp) {
+    public void setTemperature(Double ctemp) {
         this.temp = ctemp;
     }
-    public String getTemperature() {
+    public Double getTemperature() {
         return this.temp;
+    }
+    
+    public void setMinTemperature(Double minTemp) {
+        this.minTemp = minTemp;
+    }
+    public Double getMinTemperature() {
+        return this.minTemp;
+    }
+    public void setMaxTemperature(Double maxTemp) {
+        this.maxTemp = maxTemp;
+    }
+    public Double getMaxTemperature() {
+        return this.maxTemp;
+    }
+    
+    public void setTempArray(ArrayList<Temperature> temp) {
+        this.tempArray = temp;
+    }
+    public ArrayList<Temperature> getTempArray() {
+        return this.tempArray;
     }
 
     

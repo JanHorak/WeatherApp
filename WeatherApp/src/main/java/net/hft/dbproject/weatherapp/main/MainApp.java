@@ -26,7 +26,9 @@ import net.hft.dbproject.weatherapp.entities.Weather;
 import java.io.StringReader;
 import java.util.logging.Level;
 import net.hft.dbproject.weatherapp.services.WeatherService;
-public class MainApp extends Application {
+
+public class MainApp extends Application 
+{
 
     private StageFunctionalities manager;
     private static final Logger LOGGER = LoggerFactory.getLogger(MainApp.class);
@@ -55,17 +57,39 @@ public class MainApp extends Application {
      * @param args the command line arguments
      */
     
-    public static void main(String[] args) {
-        try {
-            URL url = new URL("http://api.openweathermap.org/data/2.5/weather?q=Stuttgart,d");
-            WeatherService service = new WeatherService(url, APIKEY);
-        } catch (MalformedURLException ex) {
-            java.util.logging.Logger.getLogger(WeatherService.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public static void main(String[] args) 
+    {
+        QueryWeather("London");
+        
         launch(args);
     }
     
+    public static void QueryWeather(String cityName)
+    {
+        try {
+            //URL url = new URL("http://api.openweathermap.org/data/2.5/weather?q=Stuttgart,d");
+            String urlText = String.format("http://api.openweathermap.org/data/2.5/find?q=%s&type=like", cityName);
+            URL url = new URL(urlText);
+            
+            WeatherService service = new WeatherService(url, APIKEY);
+            for(int i =0; i<service.WeatherArray.size(); i++)
+            {
+                System.out.println("City number " + i + "is");
+                System.out.println(service.WeatherArray.get(i).getCityName());
+                System.out.println("Temp is ");
+                System.out.println(service.WeatherArray.get(i).getTemperature());
+                System.out.println("Min Temp is ");
+                System.out.println(service.WeatherArray.get(i).getMinTemperature());
+                System.out.println("Max Temp is ");
+                System.out.println(service.WeatherArray.get(i).getMaxTemperature());   
+            }
+            
+        } catch (MalformedURLException ex) {
+            java.util.logging.Logger.getLogger(WeatherService.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
+    
+}
      
     
     

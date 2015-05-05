@@ -19,15 +19,20 @@ import net.hft.dbproject.weatherapp.entities.Weather;
 
 import java.io.StringReader;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import static javafx.application.Application.launch;
+import net.hft.dbproject.weatherapp.entities.Temperature;
+
 /**
  *
  * @author admin
  */
 public class WeatherService {
     
+    public List<Weather> WeatherArray = new ArrayList<Weather>();
     
     public WeatherService(URL myUrl, String key)
     {
@@ -40,9 +45,15 @@ public class WeatherService {
             urlConnect.setRequestProperty("Authorization", "APPID=" + key);
             urlConnect.setRequestProperty("Accept", "application/json");
             InputStreamReader inputStream = new InputStreamReader(urlConnect.getInputStream());
-            Weather myWeather = parseWeather(inputStream);
-            System.out.println("Output from Class .... \n");
-                    System.out.println(myWeather.toString());
+            
+            BufferedReader br = new BufferedReader(inputStream);
+                    String output;
+            //System.out.println("Output from Server .... \n");
+		//while ((output = br.readLine()) != null) {
+                    //System.out.println(output);
+                    parseWeather(inputStream);
+                    
+		//}
 		urlConnect.disconnect();
 	  } catch (MalformedURLException e) {
  
@@ -55,25 +66,78 @@ public class WeatherService {
         
 	}
     
-        private Weather parseWeather(InputStreamReader streamReader) throws IOException
+        private void parseWeather(InputStreamReader streamReader) throws IOException
         {
+            WeatherArray.clear();
+            
             JsonReader reader = new JsonReader (streamReader);
             reader.setLenient(true);
             String cname = null;
+            Temperature cityTemperature = null;
+            Double cTemp = null;
+            Double cTemp_min = null;
+            Double cTemp_max = null;
+            
             reader.beginObject();
             while(reader.hasNext())
             {
                 String name = reader.nextName();
-                if (name.equals("name"))
+                if (name.equals("list"))
                 {
-                    cname = reader.nextString();
-                }  
+                    reader.beginArray();
+                    while(reader.hasNext())
+                    {
+                        reader.beginObject();
+                        while(reader.hasNext())
+                        {
+                            String name1 = reader.nextName();
+                            if (name1.equals("name"))
+                            {
+                                cname = reader.nextString();
+                            } 
+                            else if (name1.equals("main"))
+                            {
+                                //cityTemperature = readTemperature(reader);
+                                reader.beginObject();
+                                while(reader.hasNext())
+                                {
+                                    String name2 = reader.nextName();
+                                    if (name2.equals("temp"))
+                                        { 
+                                            cTemp = reader.nextDouble();
+                                        }
+                                    else if (name2.equals("temp_min"))
+                                        { 
+                                            cTemp_min = reader.nextDouble();
+                                        }
+                                    else if (name2.equals("temp_max"))
+                                        { 
+                                            cTemp_max = reader.nextDouble();
+                                        }
+                                    else
+                                        { reader.skipValue();}
+                                }
+                                reader.endObject();
+                                cityTemperature = new Temperature(cTemp, cTemp_min, cTemp_max);
+                            }
+                            else 
+                                reader.skipValue();
+                        }
+                        Weather currWeather = new Weather(cname,cityTemperature);
+                        WeatherArray.add(currWeather);
+                        reader.endObject();
+                    }
+                    reader.endArray();
+                }
                 else 
                     reader.skipValue();
             }
             reader.endObject();
+            
             reader.close();
-            return new Weather(cname);
+            //return new Weather(cname);
+           // Weather currWeather = new Weather(cname,cityTemperature);
+           // WeatherArray.add(currWeather);
         }
 }
     
