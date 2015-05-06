@@ -16,7 +16,8 @@ import net.hft.dbproject.weatherapp.services.WeatherService;
 import net.hft.dbproject.weatherapp.uiactions.Mainpageactions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import java.util.ArrayList;
+import java.util.List;
 public class MainpageController implements Initializable {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MainpageController.class);
@@ -70,6 +71,20 @@ public class MainpageController implements Initializable {
         currentWeather = WeatherService.getWeatherByCity(currentWeatherTmp.getCityName());
         initUIInputs();
         LOGGER.info("Started completely. Current weather is loaded for: {}", currentWeather.getCityName());
+        
+        
+        List<WeatherInformation> multipleCities = WeatherService.getWeathersByCity("London");
+            for(int i =0; i<multipleCities.size(); i++)
+            {
+                System.out.println("City number " + i + " is");
+                System.out.println(multipleCities.get(i).getCityName());
+                System.out.println("Farenheit Temp is ");
+                System.out.println(multipleCities.get(i).getTemperature().getTempFarenheit());
+                System.out.println("Min Temp is ");
+                System.out.println(multipleCities.get(i).getTemperature().getMinTemp());
+                System.out.println("Max Temp is ");
+                System.out.println(multipleCities.get(i).getTemperature().getMinTemp());   
+            }
     }
 
     private void initUIActions() {
