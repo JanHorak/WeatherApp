@@ -12,7 +12,7 @@ import javafx.scene.layout.Pane;
 import net.hft.dbproject.weatherapp.entities.WeatherInformation;
 import net.hft.dbproject.weatherapp.services.InetHeartBeat;
 import net.hft.dbproject.weatherapp.services.PropertiesService;
-import net.hft.dbproject.weatherapp.services.WeatherService;
+import net.hft.dbproject.weatherapp.services.WeatherAPIConnection;
 import net.hft.dbproject.weatherapp.uiactions.Mainpageactions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,7 +67,7 @@ public class MainpageController implements Initializable {
         initUIActions();
 
         currentWeatherTmp = new WeatherInformation(this.propertiesService.getName());
-        currentWeather = WeatherService.getWeatherByCity(currentWeatherTmp.getCityName());
+        currentWeather = WeatherAPIConnection.getWeatherByCity(currentWeatherTmp.getCityName());
         initUIInputs();
         LOGGER.info("Started completely. Current weather is loaded for: {}", currentWeather.getCityName());
     }
