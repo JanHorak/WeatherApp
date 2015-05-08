@@ -47,7 +47,5 @@ public class Stagemanager implements StageFunctionalities {
         stage.setScene(scene);
         stage.show();
     }
-    
-    
 
 }

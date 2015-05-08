@@ -14,10 +14,10 @@ import net.hft.dbproject.weatherapp.controller.RegisterController;
 import net.hft.dbproject.weatherapp.entities.AppUser;
 import net.hft.dbproject.weatherapp.entities.UserBase;
 import net.hft.dbproject.weatherapp.enums.CSSFile;
+import net.hft.dbproject.weatherapp.manager.ControllerContainer;
 import net.hft.dbproject.weatherapp.manager.Stagemanager;
 import net.hft.dbproject.weatherapp.persistence.UserBaseService;
 import net.hft.dbproject.weatherapp.persistence.UserService;
-import net.hft.dbproject.weatherapp.services.JSONParser;
 import net.hft.dbproject.weatherapp.services.NotificationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,15 +27,15 @@ import org.slf4j.LoggerFactory;
  * @author Jan
  */
 public class Registerpageactions {
-    
-     private static final Logger LOGGER = LoggerFactory.getLogger(Registerpageactions.class);
-    
-    public Registerpageactions(RegisterController con){
-        this.controller = con;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Registerpageactions.class);
+
+    public Registerpageactions() {
+        this.controller = (RegisterController) ControllerContainer.getController(RegisterController.class);
     }
 
     private RegisterController controller;
-    
+
     private UserBaseService userService;
 
     public EventHandler<ActionEvent> registerAction = new EventHandler<ActionEvent>() {
@@ -66,14 +66,12 @@ public class Registerpageactions {
                 userService.saveNewUser(user);
                 LOGGER.info("New User is saved: {}", user.getName());
                 NotificationService.resetErrorBorder();
-                
+
                 controller.getNameField().setText("");
                 controller.getPasswordField().setText("");
-                
+
             }
         }
     };
-    
-    
 
 }

@@ -6,7 +6,6 @@ import javafx.stage.Stage;
 import net.hft.dbproject.weatherapp.enums.CSSFile;
 import net.hft.dbproject.weatherapp.manager.StageFunctionalities;
 import net.hft.dbproject.weatherapp.manager.Stagemanager;
-import net.hft.dbproject.weatherapp.services.PropertiesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +13,6 @@ public class MainApp extends Application {
 
     private StageFunctionalities manager;
     private static final Logger LOGGER = LoggerFactory.getLogger(MainApp.class);
-    private PropertiesService propertiesService;
 
     @Override
     public void start(Stage stage) throws Exception {

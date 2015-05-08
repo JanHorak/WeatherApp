@@ -63,6 +63,22 @@
                <font>
                   <Font size="10.0" />
                </font></Button>
+            <ImageView fx:id="weatherImage" fitHeight="110.0" fitWidth="152.0" layoutX="126.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/weather/Status-weather-clouds-icon.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="cityNameValue" layoutX="23.0" layoutY="140.0" prefHeight="51.0" prefWidth="218.0" text="{Cityname}">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <Label layoutX="27.0" layoutY="43.0" text="Min" />
+            <Label fx:id="minTempValue" layoutX="55.0" layoutY="44.0" prefHeight="17.0" prefWidth="51.0" text="0" />
+            <Label fx:id="maxTempValue" layoutX="54.0" layoutY="74.0" prefHeight="17.0" prefWidth="51.0" text="0" />
+            <Label layoutX="26.0" layoutY="73.0" text="Max" />
+            <Label layoutX="26.0" layoutY="102.0" text="Avg" />
+            <Label fx:id="avgTempValue" layoutX="54.0" layoutY="103.0" prefHeight="17.0" prefWidth="51.0" text="0" />
          </children>
       </Pane>
     </children>

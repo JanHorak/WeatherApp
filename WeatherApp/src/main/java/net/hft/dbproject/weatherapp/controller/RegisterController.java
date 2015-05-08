@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import net.hft.dbproject.weatherapp.manager.ControllerContainer;
 import net.hft.dbproject.weatherapp.uiactions.Registerpageactions;
 
 /**
@@ -40,7 +41,8 @@ public class RegisterController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Registerpageactions rpa = new Registerpageactions(this);
+        ControllerContainer.addController(RegisterController.class, this);
+        Registerpageactions rpa = new Registerpageactions();
         registerButton.setOnAction(rpa.registerAction);
     }    
 

@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import net.hft.dbproject.weatherapp.manager.ControllerContainer;
 
 /**
  * FXML Controller class
@@ -31,6 +32,7 @@ public class LoginController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) { 
+        ControllerContainer.addController(LoginController.class, this);
     }    
     
 }
