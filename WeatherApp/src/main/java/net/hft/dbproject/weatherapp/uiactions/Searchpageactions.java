@@ -7,13 +7,21 @@ package net.hft.dbproject.weatherapp.uiactions;
 
 import java.util.ArrayList;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Control;
+import javafx.scene.input.MouseEvent;
+import net.hft.dbproject.weatherapp.controller.MainpageController;
 import net.hft.dbproject.weatherapp.controller.SearchingDialogController;
+import net.hft.dbproject.weatherapp.entities.WeatherInformation;
 import net.hft.dbproject.weatherapp.enums.CSSFile;
+import net.hft.dbproject.weatherapp.helper.DummyWeatherService;
+import net.hft.dbproject.weatherapp.manager.ControllerContainer;
 import net.hft.dbproject.weatherapp.manager.Stagemanager;
 import net.hft.dbproject.weatherapp.services.NotificationService;
+import net.hft.dbproject.weatherapp.services.WeatherService;
 
 /**
  *
@@ -23,8 +31,11 @@ public class Searchpageactions {
 
     private SearchingDialogController controller;
 
-    public Searchpageactions(SearchingDialogController controller) {
-        this.controller = controller;
+    private WeatherService weatherService;
+
+    public Searchpageactions() {
+        this.controller = (SearchingDialogController) ControllerContainer.getController(SearchingDialogController.class);
+        this.weatherService = new DummyWeatherService();
     }
 
     public EventHandler<ActionEvent> searchAction = new EventHandler<ActionEvent>() {
@@ -55,11 +66,46 @@ public class Searchpageactions {
                 NotificationService.fireNotification(controlsInError, errorMessages);
                 new Stagemanager().openStageAsRoot(null, getClass().getResource("/fxml/dialogs/Notification.fxml"), CSSFile.CSS_TEST, 350, 100, false);
             } else {
-                //@TODO: ACTION??
+                updateProgress(0.0);
+                // Do the API- Request
+                updateProgress(30.0);
+                ObservableList<WeatherInformation> items = FXCollections.observableArrayList(weatherService.getWeatherListByCityName("Test"));
+
+                controller.getWeatherList().setItems(items);
+                updateProgress(100);
 
                 NotificationService.resetErrorBorder();
             }
 
+        }
+    };
+
+    private void updateProgress(double value) {
+        controller.getIndicator().setProgress(value);
+        controller.getProgressBar().setProgress(value);
+    }
+
+    public EventHandler<MouseEvent> handleSelection = new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent t) {
+            if (controller.getWeatherList().getSelectionModel().getSelectedIndex() >= 0) {
+                controller.getApplyButton().setDisable(false);
+                WeatherInformation wi = controller.getWeatherList().getSelectionModel().getSelectedItem();
+                controller.setSelectedWeather(wi);
+
+            } else {
+                controller.getApplyButton().setDisable(true);
+                controller.setSelectedWeather(new WeatherInformation());
+            }
+        }
+    };
+
+    public EventHandler<ActionEvent> applyWeatherSelection = new EventHandler<ActionEvent>() {
+
+        @Override
+        public void handle(ActionEvent t) {
+            MainpageController mpc = (MainpageController) ControllerContainer.getController(MainpageController.class);
+            mpc.processWeather(controller.getSelectedWeather());
         }
     };
 

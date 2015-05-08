@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import net.hft.dbproject.weatherapp.manager.ControllerContainer;
 import net.hft.dbproject.weatherapp.services.NotificationService;
 import net.hft.dbproject.weatherapp.uiactions.Notificationactions;
 
@@ -24,6 +25,7 @@ public class NotificationController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        ControllerContainer.addController(NotificationController.class, this);
         setErrorMessage(NotificationService.getErrorMessages());
         loadActions();
     }

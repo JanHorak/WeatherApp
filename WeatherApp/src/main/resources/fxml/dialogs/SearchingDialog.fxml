@@ -15,5 +15,7 @@
       <TextField fx:id="zipField" layoutX="106.0" layoutY="14.0" prefHeight="25.0" prefWidth="70.0" promptText="Zipcode" />
       <Label layoutX="87.0" layoutY="18.0" text="or" />
       <Button fx:id="applyButton" disable="true" layoutX="158.0" layoutY="260.0" mnemonicParsing="false" text="Apply selection" />
+      <ProgressIndicator fx:id="indicator" layoutX="12.0" layoutY="251.0" progress="0.0" />
+      <ProgressBar fx:id="progressBar" layoutX="47.0" layoutY="256.0" prefHeight="18.0" prefWidth="97.0" progress="0.0" />
    </children>
 </AnchorPane>

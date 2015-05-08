@@ -1,20 +1,18 @@
 package net.hft.dbproject.weatherapp.uiactions;
 
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Control;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import net.hft.dbproject.weatherapp.controller.MainpageController;
 import net.hft.dbproject.weatherapp.enums.CSSFile;
-import net.hft.dbproject.weatherapp.services.NotificationService;
+import net.hft.dbproject.weatherapp.manager.ControllerContainer;
 import net.hft.dbproject.weatherapp.services.PropertiesService;
 import net.hft.dbproject.weatherapp.manager.StageFunctionalities;
 import net.hft.dbproject.weatherapp.manager.Stagemanager;
+import net.hft.dbproject.weatherapp.utilities.Utilities;
 
 /**
  *
@@ -34,13 +32,12 @@ public class Mainpageactions {
 
     PropertiesService propertiesService;
 
-    public Mainpageactions(MainpageController controller) {
-        this.controller = controller;
+    public Mainpageactions() {
+        this.controller = (MainpageController) ControllerContainer.getController(MainpageController.class);
         this.propertiesService = new PropertiesService();
     }
-    /**
-     * Loads the mouse- data in local variable.
-     */
+
+    
     public EventHandler<MouseEvent> trackMousePosition = new EventHandler<MouseEvent>() {
 
         @Override
@@ -49,17 +46,18 @@ public class Mainpageactions {
             mousePosition.y = (int) t.getY();
         }
     };
+    
     /**
      * Enables Drag-Drop for setting window- Positions.
      */
     public EventHandler<MouseEvent> movePane = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent t) {
-            if (pane == null) {
+            if (controller.getMainpagePane() == null) {
                 throw new IllegalArgumentException("Pane is not set. Please use setPane() before calling this method.");
             }
-            pane.getScene().getWindow().setX(t.getScreenX() - mousePosition.x);
-            pane.getScene().getWindow().setY(t.getScreenY() - mousePosition.y);
+            controller.getMainpagePane().getScene().getWindow().setX(t.getScreenX() - mousePosition.x);
+            controller.getMainpagePane().getScene().getWindow().setY(t.getScreenY() - mousePosition.y);
         }
     };
 
@@ -126,6 +124,13 @@ public class Mainpageactions {
             controller.getfImage().setImage(new Image(getClass().getResource("/images/UI/f_1.png").toString()));
             controller.getfImage().setOnMouseEntered(fHoverAction);
             controller.getfImage().setOnMouseExited(fExitHoverAction);
+            
+            String minval = String.valueOf(Utilities.toCelsius(Double.valueOf(controller.getMinTempValue().getText())));
+            controller.getMinTempValue().setText(minval);
+            String maxval = String.valueOf(Utilities.toCelsius(Double.valueOf(controller.getMaxTempValue().getText())));
+            controller.getMaxTempValue().setText(maxval);
+            String avgval = String.valueOf(Utilities.toCelsius(Double.valueOf(controller.getAvgTempValue().getText())));
+            controller.getAvgTempValue().setText(avgval);
         }
     };
 
@@ -157,6 +162,13 @@ public class Mainpageactions {
             controller.getcImage().setImage(new Image(getClass().getResource("/images/UI/c_1.png").toString()));
             controller.getcImage().setOnMouseEntered(cHoverAction);
             controller.getcImage().setOnMouseExited(cExitHoverAction);
+            
+            String minval = String.valueOf(Utilities.toFahrenheit(Double.valueOf(controller.getMinTempValue().getText())));
+            controller.getMinTempValue().setText(minval);
+            String maxval = String.valueOf(Utilities.toFahrenheit(Double.valueOf(controller.getMaxTempValue().getText())));
+            controller.getMaxTempValue().setText(maxval);
+            String avgval = String.valueOf(Utilities.toFahrenheit(Double.valueOf(controller.getAvgTempValue().getText())));
+            controller.getAvgTempValue().setText(avgval);
         }
     };
 
