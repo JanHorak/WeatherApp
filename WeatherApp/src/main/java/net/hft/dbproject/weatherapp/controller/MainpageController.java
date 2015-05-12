@@ -1,6 +1,7 @@
 package net.hft.dbproject.weatherapp.controller;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -82,13 +83,21 @@ public class MainpageController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         ControllerContainer.addController(MainpageController.class, this);
         new InetHeartBeat(inetConImage).startHeartBeat();
-        WeatherInformation currentWeatherTmp = new WeatherInformation();
         this.propertiesService = new PropertiesService();
 
         initUIActions();
 
-        currentWeatherTmp = new WeatherInformation(this.propertiesService.getName());
-        currentWeather = WeatherAPIConnection.getWeatherByCity(currentWeatherTmp.getCityName());
+        WeatherAPIConnection weatherAPIConnection = new WeatherAPIConnection();
+        List<WeatherInformation> weatherListByCityName = weatherAPIConnection.getWeatherListByCityName(this.propertiesService.getName());
+        if (weatherListByCityName != null && weatherListByCityName.size() > 0)
+        {
+          currentWeather = weatherListByCityName.get(0);
+        }
+        else
+        {
+          currentWeather = new WeatherInformation();
+        }
+        processWeather(currentWeather);
         initUIInputs();
         LOGGER.info("Started completely. Current weather is loaded for: {}", currentWeather.getCityName());
     }

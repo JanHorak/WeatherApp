@@ -53,7 +53,7 @@ public class Searchpageactions {
                 zipCode = Integer.decode(zip);
             } catch (NumberFormatException ex) {
                 controlsInError.add(controller.getZipField());
-                errorMessages.add("Zip code must a number!");
+                errorMessages.add("Zip code must be a number!");
                 inError = true;
             }
             if (name.isEmpty() && zip.isEmpty()) {
