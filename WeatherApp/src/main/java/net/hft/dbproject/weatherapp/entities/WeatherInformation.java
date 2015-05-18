@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -26,6 +27,9 @@ public class WeatherInformation implements Serializable {
 
     @NotNull
     private String cityName;
+    
+    @Transient
+    private String countryCode;
 
     @NotNull
     private String weatherDescription;
@@ -41,14 +45,18 @@ public class WeatherInformation implements Serializable {
     @ManyToOne(targetEntity = WeatherImage.class)
     private WeatherImage image;
 
-    public WeatherInformation(String cityName, String weatherDescription, Temperature temp) {
+    public WeatherInformation(String cityName, String countryCode, String weatherDescription, Temperature temp) {
         this.cityName = cityName;
         this.weatherDescription = weatherDescription;
         this.temperature = temp;
+        this.countryCode = countryCode;
     }
 
     public WeatherInformation() {
-
+        this.cityName = "";
+        this.countryCode = "";
+        this.weatherDescription = "";
+        this.temperature = new Temperature();
     }
 
     public WeatherInformation(String cityName) {
@@ -61,6 +69,14 @@ public class WeatherInformation implements Serializable {
 
     public String getCityName() {
         return this.cityName;
+    }
+    
+    public void setcountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public String getcountryCode() {
+        return this.countryCode;
     }
 
     public void setweatherDescription(String cdescription) {
