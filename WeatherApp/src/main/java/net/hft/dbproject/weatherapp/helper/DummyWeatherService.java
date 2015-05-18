@@ -5,6 +5,11 @@
  */
 package net.hft.dbproject.weatherapp.helper;
 
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import net.hft.dbproject.weatherapp.entities.Temperature;
@@ -12,6 +17,8 @@ import net.hft.dbproject.weatherapp.entities.WeatherImage;
 import net.hft.dbproject.weatherapp.entities.WeatherInformation;
 import net.hft.dbproject.weatherapp.persistence.WeatherBaseService;
 import net.hft.dbproject.weatherapp.persistence.WeatherPersistenceService;
+import net.hft.dbproject.weatherapp.services.JSONParser;
+import net.hft.dbproject.weatherapp.services.WeatherAPIConnection;
 import net.hft.dbproject.weatherapp.services.WeatherService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,59 +30,49 @@ import org.slf4j.LoggerFactory;
 public class DummyWeatherService implements WeatherService {
     
     private static final Logger LOGGER = LoggerFactory.getLogger(DummyWeatherService.class);
+    private static final String APIKEY = "8207b192ff2c645813be5259681c74d6";
+    private static String configuredURL = "http://api.openweathermap.org/data/2.5/find?q=XXX&type=like";
 
-    
     @Override
     public List<WeatherInformation> getWeatherListByCityName(String name) {
-        List<WeatherInformation> result = new ArrayList<>();
-        WeatherImage wi = new WeatherImage();
-        WeatherBaseService weatherBaseService = new WeatherPersistenceService();
-        
-        wi = weatherBaseService.getImageByIconID(800);
-        
-        WeatherInformation wi1 = new WeatherInformation();
-        wi1.setCityName("London");
-        wi1.setImage(wi);
-        Temperature t1 = new Temperature();
-        t1.setAverageTemp(123.00);
-        t1.setMaxTemp(133.00);
-        t1.setMinTemp(111.00);
-        wi1.setTemperature(t1);
-        wi1.setZipCode("00215");
-        wi1.setweatherDescription("weatherDesc");
-        
-        WeatherInformation wi2 = new WeatherInformation();
-        wi2.setCityName("London2");
-        wi2.setImage(wi);
-        Temperature t2 = new Temperature();
-        t2.setAverageTemp(123.00);
-        t2.setMaxTemp(133.00);
-        t2.setMinTemp(111.00);
-        wi2.setTemperature(t1);
-        wi2.setZipCode("00215");
-        wi2.setweatherDescription("weatherDesc");
-        
-        WeatherInformation wi3 = new WeatherInformation();
-        wi3.setCityName("LondonDerry");
-        wi3.setImage(wi);
-        Temperature t3 = new Temperature();
-        t3.setAverageTemp(123.00);
-        t3.setMaxTemp(133.00);
-        t3.setMinTemp(111.00);
-        wi3.setTemperature(t1);
-        wi3.setZipCode("00215");
-        wi3.setweatherDescription("weatherDesc");
-        
-        
-        result.add(wi1);
-        result.add(wi2);
-        result.add(wi3);
-        
-        LOGGER.warn("== DummyData are loaded == \nPlease replace this dummydata by real implementation as soon as possible");
-        
-        return result;
-        
-        
+        configuredURL = configuredURL.replaceFirst("XXX", name);
+        return json2Weather();
     }
     
+//    //@Override
+//    public List<WeatherInformation> getWeatherListByZipCode(String zipCode) {
+//        configuredURL = "http://api.openweathermap.org/data/2.5/weather?zip=XXX,de";
+//        configuredURL = configuredURL.replaceFirst("XXX", zipCode);
+//        return json2Weather();
+//    }
+
+    private static List<WeatherInformation> json2Weather() {
+        List<WeatherInformation> result = new ArrayList<WeatherInformation>();
+        URL url = null;
+        HttpURLConnection urlConnect = null;
+        try {
+            url = new URL(configuredURL);
+        } catch (MalformedURLException ex) {
+            LOGGER.error(ex.toString());
+        }
+        LOGGER.info("Requested URL: {} using Key: {}", url.toString(), APIKEY);
+        try {
+            urlConnect = (HttpURLConnection) url.openConnection();
+            urlConnect.setRequestMethod("GET");
+        } catch (IOException ex) {
+            LOGGER.error(ex.toString());
+        }
+        urlConnect.setRequestProperty("Authorization", "APPID=" + APIKEY);
+        urlConnect.setRequestProperty("Accept", "application/json");
+        try {
+            JSONParser jsonParser = new JSONParser();
+            result = jsonParser.toWeatherList(urlConnect.getInputStream());
+        } catch (IOException ex) {
+            LOGGER.error(ex.toString());
+        }
+
+        urlConnect.disconnect();
+
+        return result;
+    }    
 }

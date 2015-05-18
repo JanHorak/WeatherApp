@@ -26,7 +26,7 @@ public class WeatherAPIConnection implements WeatherService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WeatherAPIConnection.class);
     private static final String APIKEY = "8207b192ff2c645813be5259681c74d6";
-    private static String configuredURL = "http://api.openweathermap.org/data/2.5/find?q=XXX&type=like";
+    private static String configuredURL = "http://api.openweathermap.org/data/2.5/weather?q=XXX,de";
 
     @Override
     public List<WeatherInformation> getWeatherListByCityName(String name) {
@@ -34,38 +34,33 @@ public class WeatherAPIConnection implements WeatherService {
         return json2Weather();
     }
     
-//    //@Override
-//    public List<WeatherInformation> getWeatherListByZipCode(String zipCode) {
-//        configuredURL = "http://api.openweathermap.org/data/2.5/weather?zip=XXX,de";
-//        configuredURL = configuredURL.replaceFirst("XXX", zipCode);
-//        return json2Weather();
-//    }
-
     private static List<WeatherInformation> json2Weather() {
         List<WeatherInformation> result = new ArrayList<WeatherInformation>();
         URL url = null;
         HttpURLConnection urlConnect = null;
-        InputStreamReader inputStream = null;
         try {
             url = new URL(configuredURL);
         } catch (MalformedURLException ex) {
-            java.util.logging.Logger.getLogger(WeatherService.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(ex.toString());
         }
         LOGGER.info("Requested URL: {} using Key: {}", url.toString(), APIKEY);
         try {
             urlConnect = (HttpURLConnection) url.openConnection();
             urlConnect.setRequestMethod("GET");
         } catch (IOException ex) {
-            java.util.logging.Logger.getLogger(WeatherService.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(ex.toString());
         }
         urlConnect.setRequestProperty("Authorization", "APPID=" + APIKEY);
         urlConnect.setRequestProperty("Accept", "application/json");
         try {
-            inputStream = new InputStreamReader(urlConnect.getInputStream());
-            result = JSONParser.toWeather(inputStream);
-            inputStream.close();
+            JSONParser jsonParser = new JSONParser();
+            WeatherInformation weatherInfo = jsonParser.toWeather(urlConnect.getInputStream());
+            if (weatherInfo != null)
+            {
+                result.add(weatherInfo);
+            }
         } catch (IOException ex) {
-            java.util.logging.Logger.getLogger(WeatherService.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(ex.toString());
         }
 
         urlConnect.disconnect();

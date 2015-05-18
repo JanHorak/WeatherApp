@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -27,7 +28,7 @@ public class WeatherInformation implements Serializable {
     @NotNull
     private String cityName;
     
-    @NotNull
+    @Transient
     private String countryCode;
 
     @NotNull
@@ -52,7 +53,10 @@ public class WeatherInformation implements Serializable {
     }
 
     public WeatherInformation() {
-
+        this.cityName = "";
+        this.countryCode = "";
+        this.weatherDescription = "";
+        this.temperature = new Temperature();
     }
 
     public WeatherInformation(String cityName) {
