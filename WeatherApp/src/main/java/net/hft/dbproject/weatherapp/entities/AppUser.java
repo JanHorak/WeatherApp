@@ -15,9 +15,10 @@ import javax.persistence.NamedQuery;
  * @author Jan
  */
 @Entity
-@NamedQueries(
-        @NamedQuery(name = "AppUser.findByID", query = "SELECT u FROM AppUser u WHERE u.id = :id")
-)
+@NamedQueries({
+        @NamedQuery(name = "AppUser.findByID", query = "SELECT u FROM AppUser u WHERE u.id = :id"),
+        @NamedQuery(name="AppUser.fingByNAME", query="SELECT u FROM AppUser u WHERE u.name =:name")
+})
 public class AppUser extends UserBase implements Serializable {
 
 }

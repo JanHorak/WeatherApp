@@ -66,7 +66,6 @@ public class Registerpageactions {
                 userService.saveNewUser(user);
                 LOGGER.info("New User is saved: {}", user.getName());
                 NotificationService.resetErrorBorder();
-
                 controller.getNameField().setText("");
                 controller.getPasswordField().setText("");
 
