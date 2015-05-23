@@ -5,6 +5,7 @@
  */
 package net.hft.dbproject.weatherapp.persistence;
 
+import net.hft.dbproject.weatherapp.entities.AppUser;
 import net.hft.dbproject.weatherapp.entities.UserBase;
 
 /**
@@ -15,5 +16,6 @@ import net.hft.dbproject.weatherapp.entities.UserBase;
 public interface UserBaseService {
     
     public void saveNewUser(UserBase user);
-    
+    public UserBase getUserByName(String username);
+   
 }

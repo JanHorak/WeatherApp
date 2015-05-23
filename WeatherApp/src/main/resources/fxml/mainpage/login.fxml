@@ -9,8 +9,8 @@
    <children>
       <Pane fx:id="loginPane" layoutX="-3.0" prefHeight="397.0" prefWidth="259.0">
          <children>
-            <TextField layoutX="44.0" layoutY="182.0" prefHeight="34.0" prefWidth="175.0" promptText="Password" />
-            <TextField layoutX="44.0" layoutY="91.0" prefHeight="34.0" prefWidth="175.0" promptText="Username" />
+            <TextField fx:id="passwordField" layoutX="44.0" layoutY="182.0" prefHeight="34.0" prefWidth="175.0" promptText="Password" />
+            <TextField fx:id="nameField" layoutX="44.0" layoutY="91.0" prefHeight="34.0" prefWidth="175.0" promptText="Username" />
             <Button fx:id="loginButton" layoutX="73.0" layoutY="257.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="99.0" text="LOGIN">
                <font>
                   <Font name="AngsanaUPC Bold" size="18.0" />
