@@ -87,10 +87,15 @@ public class MainpageController implements Initializable {
 
         initUIActions();
 
-        currentWeatherTmp = new WeatherInformation(this.propertiesService.getName());
-        currentWeather = WeatherAPIConnection.getWeatherByCity(currentWeatherTmp.getCityName());
-        initUIInputs();
-        LOGGER.info("Started completely. Current weather is loaded for: {}", currentWeather.getCityName());
+        if (InetHeartBeat.isOnline()) {
+            currentWeatherTmp = new WeatherInformation(this.propertiesService.getName());
+            currentWeather = WeatherAPIConnection.getWeatherByCity(currentWeatherTmp.getCityName());
+            initUIInputs();
+            LOGGER.info("Started completely. Current weather is loaded for: {}", currentWeather.getCityName());
+        } else {
+            LOGGER.info("No data are loaded");
+        }
+
     }
 
     private void initUIActions() {
@@ -177,27 +182,27 @@ public class MainpageController implements Initializable {
     public void setAvgTempValue(Label avgTempValue) {
         this.avgTempValue = avgTempValue;
     }
-    
-    
 
     public void processWeather(WeatherInformation weatherInformation) {
         double dMin;
         double dMax;
         double dAvg;
+        String suffix = "";
         if (!fahrenheit) {
+            suffix = "°C";
             dMin = Utilities.toCelsius(weatherInformation.getTemperature().getMinTemp());
             dMax = Utilities.toCelsius(weatherInformation.getTemperature().getMaxTemp());
             dAvg = Utilities.toCelsius(weatherInformation.getTemperature().getAverageTemp());
         } else {
+            suffix = "°F";
             dMin = weatherInformation.getTemperature().getMinTemp();
             dMax = weatherInformation.getTemperature().getMaxTemp();
             dAvg = weatherInformation.getTemperature().getAverageTemp();
         }
-        maxTempValue.setText(String.valueOf(dMax));
-        minTempValue.setText(String.valueOf(dMin));
-        avgTempValue.setText(String.valueOf(dAvg));
+        maxTempValue.setText(String.valueOf(dMax).concat(suffix));
+        minTempValue.setText(String.valueOf(dMin).concat(suffix));
+        avgTempValue.setText(String.valueOf(dAvg).concat(suffix));
         cityNameValue.setText(weatherInformation.getCityName());
     }
-
 
 }

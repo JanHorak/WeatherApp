@@ -18,6 +18,7 @@ public class InetHeartBeat {
     private final long HEARTBEAT_TIME = 60000; // -> One minute
     private final Image IMAGE_OFFLINE = new Image(getClass().getResource("/images/UI/offline-icon.png").toString());
     private final Image IMAGE_ONLINE = new Image(getClass().getResource("/images/UI/online-icon.png").toString());
+    private static boolean onlineStatus = false;
 
     public InetHeartBeat(ImageView image) {
         this.connectionImage = image;
@@ -45,14 +46,20 @@ public class InetHeartBeat {
     public void startHeartBeat() {
         new Thread(task).start();
     }
+    
+    public static boolean isOnline(){
+        return onlineStatus;
+    }
 
     private void setStatusUnreachable() {
         this.connectionImage.setImage(IMAGE_OFFLINE);
+        onlineStatus = false;
         LOGGER.warn("You are currently offline");
     }
 
     private void setStatusReachable() {
         this.connectionImage.setImage(IMAGE_ONLINE);
+        onlineStatus = true;
     }
 
 }

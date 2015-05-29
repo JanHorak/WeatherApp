@@ -50,7 +50,9 @@ public class Loginpageactions {
             List<String> errorMessages = new ArrayList<>();
             boolean inError = false;
 
-            if (typedInUserName.isEmpty() || typenInPassword.isEmpty()) {
+            if (typedInUserName.isEmpty() || typenInPassword.isEmpty() 
+                    || typedInUserName.equals("unknown") 
+                    || typenInPassword.equals("unknown")) {
                 controlsInError.add(controller.getNameField());
                 controlsInError.add(controller.getPasswordField());
                 errorMessages.add("Both values have to be filled!");
@@ -63,7 +65,7 @@ public class Loginpageactions {
                 userservice = new UserService();
                 AppUser user = (AppUser) userservice.getUserByName(controller.getNameField().getText());
 
-                if (isUserValid(user) && isPswValid(user)) {
+                if (isPswValid(user)) {
                     liu = LoggedInUser.getInstance();
                     LOGGER.info("User is Logged:");
 
@@ -72,6 +74,9 @@ public class Loginpageactions {
                     controller.getNameField().setText("");
                     controller.getPasswordField().setText("");
                 } else {
+                    errorMessages.add("Username or Password are invalid!");
+                    NotificationService.fireNotification(controlsInError, errorMessages);
+                    new Stagemanager().openStageAsRoot(null, getClass().getResource("/fxml/dialogs/Notification.fxml"), CSSFile.CSS_TEST, 350, 100, false);
                     LOGGER.info("Not a Valid User and Password");
                 }
                 NotificationService.resetErrorBorder();
@@ -79,16 +84,6 @@ public class Loginpageactions {
             }
         }
     };
-
-    private boolean isUserValid(AppUser user) {
-        boolean isValid = true;
-        if (user != null) {
-            return isValid;
-        } else {
-            isValid = false;
-            return isValid;
-        }
-    }
 
     private boolean isPswValid(AppUser psw) {
         boolean isValid = false;

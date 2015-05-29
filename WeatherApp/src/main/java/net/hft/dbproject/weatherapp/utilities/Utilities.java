@@ -31,11 +31,15 @@ public abstract class Utilities {
     }
     
     public static double toFahrenheit(double celcius){
-        return (celcius * 1.8) + 32.0;
+        return Math.round((celcius * 1.8) + 32.0);
     }
       
     
     public static double toCelsius(double fahrenheit){
-        return (fahrenheit - 32.0) * (5.0/9.0);
+        return Math.round((fahrenheit - 32.0) * (5.0/9.0));
+    }
+    
+    public static String cleanDegreeValue(String degree){
+        return degree.split("°")[0];
     }
 }

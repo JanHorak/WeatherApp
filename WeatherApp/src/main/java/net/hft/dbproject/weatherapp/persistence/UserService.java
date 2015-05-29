@@ -5,8 +5,10 @@
  */
 package net.hft.dbproject.weatherapp.persistence;
 
-import net.hft.dbproject.weatherapp.entities.AppUser;
+import javax.persistence.NoResultException;
 import net.hft.dbproject.weatherapp.entities.UserBase;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -14,9 +16,10 @@ import net.hft.dbproject.weatherapp.entities.UserBase;
  */
 public class UserService extends DataAccess implements UserBaseService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
+
     @Override
     public void saveNewUser(UserBase user) {
-        
         setup();
         openConnection();
         em.persist(user);
@@ -29,11 +32,13 @@ public class UserService extends DataAccess implements UserBaseService {
         UserBase result = null;
         setup();
         openConnection();
-        result=(UserBase) em.createNamedQuery("AppUser.fingByNAME").setParameter("name", username).getSingleResult();
+        try {
+            result = (UserBase) em.createNamedQuery("AppUser.fingByNAME").setParameter("name", username).getSingleResult();
+        } catch (NoResultException ex) {
+            LOGGER.error("No result found for Query. Exception: {}", ex);
+        }
         shutDown();
         return result;
     }
-    
-     
-    
+
 }

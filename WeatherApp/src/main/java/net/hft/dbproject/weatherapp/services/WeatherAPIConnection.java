@@ -30,7 +30,7 @@ public abstract class WeatherAPIConnection implements WeatherService {
         configuredURL = configuredURL.replaceFirst("XXX", cityName);
         return json2Weather();
     }
-
+    
     private static WeatherInformation json2Weather() {
         WeatherInformation tmp = new WeatherInformation();
         URL url = null;
