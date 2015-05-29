@@ -125,12 +125,17 @@ public class Mainpageactions {
             controller.getfImage().setOnMouseEntered(fHoverAction);
             controller.getfImage().setOnMouseExited(fExitHoverAction);
             
-            String minval = String.valueOf(Utilities.toCelsius(Double.valueOf(controller.getMinTempValue().getText())));
-            controller.getMinTempValue().setText(minval);
-            String maxval = String.valueOf(Utilities.toCelsius(Double.valueOf(controller.getMaxTempValue().getText())));
-            controller.getMaxTempValue().setText(maxval);
-            String avgval = String.valueOf(Utilities.toCelsius(Double.valueOf(controller.getAvgTempValue().getText())));
-            controller.getAvgTempValue().setText(avgval);
+            String minvalString = Utilities.cleanDegreeValue(controller.getMinTempValue().getText());
+            String minval = String.valueOf(Utilities.toCelsius(Double.valueOf(minvalString)));
+            controller.getMinTempValue().setText(minval.concat("°C"));
+            
+            String maxvalString = Utilities.cleanDegreeValue(controller.getMaxTempValue().getText());
+            String maxval = String.valueOf(Utilities.toCelsius(Double.valueOf(maxvalString)));
+            controller.getMaxTempValue().setText(maxval.concat("°C"));
+            
+            String avgvalString = Utilities.cleanDegreeValue(controller.getAvgTempValue().getText());
+            String avgval = String.valueOf(Utilities.toCelsius(Double.valueOf(avgvalString)));
+            controller.getAvgTempValue().setText(avgval.concat("°C"));
         }
     };
 
@@ -163,12 +168,17 @@ public class Mainpageactions {
             controller.getcImage().setOnMouseEntered(cHoverAction);
             controller.getcImage().setOnMouseExited(cExitHoverAction);
             
-            String minval = String.valueOf(Utilities.toFahrenheit(Double.valueOf(controller.getMinTempValue().getText())));
-            controller.getMinTempValue().setText(minval);
-            String maxval = String.valueOf(Utilities.toFahrenheit(Double.valueOf(controller.getMaxTempValue().getText())));
-            controller.getMaxTempValue().setText(maxval);
-            String avgval = String.valueOf(Utilities.toFahrenheit(Double.valueOf(controller.getAvgTempValue().getText())));
-            controller.getAvgTempValue().setText(avgval);
+            String minvalString = Utilities.cleanDegreeValue(controller.getMinTempValue().getText());
+            String minval = String.valueOf(Utilities.toFahrenheit(Double.valueOf(minvalString)));
+            controller.getMinTempValue().setText(minval.concat("°F"));
+            
+            String maxvalString = Utilities.cleanDegreeValue(controller.getMaxTempValue().getText());
+            String maxval = String.valueOf(Utilities.toFahrenheit(Double.valueOf(maxvalString)));
+            controller.getMaxTempValue().setText(maxval.concat("°F"));
+            
+            String avgvalString = Utilities.cleanDegreeValue(controller.getAvgTempValue().getText());
+            String avgval = String.valueOf(Utilities.toFahrenheit(Double.valueOf(avgvalString)));
+            controller.getAvgTempValue().setText(avgval.concat("°F"));
         }
     };
 

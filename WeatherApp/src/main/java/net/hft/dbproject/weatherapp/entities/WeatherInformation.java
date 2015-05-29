@@ -73,8 +73,7 @@ public class WeatherInformation implements Serializable {
 
     @Override
     public String toString() {
-        return new StringBuilder(" City Name : ").append(this.cityName)
-                .toString();
+        return "WeatherInformation{" + "id=" + id + ", cityName=" + cityName + ", weatherDescription=" + weatherDescription + ", temperature=" + temperature + ", zipCode=" + zipCode + ", image=" + image + '}';
     }
 
     public Long getId() {
