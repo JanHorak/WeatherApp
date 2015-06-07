@@ -50,8 +50,8 @@ public class Loginpageactions {
             List<String> errorMessages = new ArrayList<>();
             boolean inError = false;
 
-            if (typedInUserName.isEmpty() || typenInPassword.isEmpty() 
-                    || typedInUserName.equals("unknown") 
+            if (typedInUserName.isEmpty() || typenInPassword.isEmpty()
+                    || typedInUserName.equals("unknown")
                     || typenInPassword.equals("unknown")) {
                 controlsInError.add(controller.getNameField());
                 controlsInError.add(controller.getPasswordField());
@@ -73,6 +73,8 @@ public class Loginpageactions {
                     LOGGER.info("Welcome User : {}", user.getName());
                     controller.getNameField().setText("");
                     controller.getPasswordField().setText("");
+                    new Stagemanager().openStageAsRoot(null, getClass().getResource("/fxml/mainpage/Dashboard.fxml"), CSSFile.CSS_DEFAULT, 251, 397, true);
+
                 } else {
                     errorMessages.add("Username or Password are invalid!");
                     NotificationService.fireNotification(controlsInError, errorMessages);
