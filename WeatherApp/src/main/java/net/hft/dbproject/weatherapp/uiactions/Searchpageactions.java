@@ -13,63 +13,76 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Control;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import net.hft.dbproject.weatherapp.controller.MainpageController;
 import net.hft.dbproject.weatherapp.controller.SearchingDialogController;
+import net.hft.dbproject.weatherapp.entities.WeatherImage;
 import net.hft.dbproject.weatherapp.entities.WeatherInformation;
 import net.hft.dbproject.weatherapp.enums.CSSFile;
-import net.hft.dbproject.weatherapp.helper.DummyWeatherService;
+import net.hft.dbproject.weatherapp.helper.JSONConvertObject;
 import net.hft.dbproject.weatherapp.manager.ControllerContainer;
 import net.hft.dbproject.weatherapp.manager.Stagemanager;
+import net.hft.dbproject.weatherapp.persistence.WeatherBaseService;
+import net.hft.dbproject.weatherapp.persistence.WeatherPersistenceService;
+import net.hft.dbproject.weatherapp.services.Locationfinder;
 import net.hft.dbproject.weatherapp.services.NotificationService;
+import net.hft.dbproject.weatherapp.services.OfflineLocationFinder;
+import net.hft.dbproject.weatherapp.services.OnlineLocationFinder;
+import net.hft.dbproject.weatherapp.services.PropertiesService;
+import net.hft.dbproject.weatherapp.services.WeatherAPIConnection;
 import net.hft.dbproject.weatherapp.services.WeatherService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author Jan
  */
 public class Searchpageactions {
+    
+    private static final Logger LOGGER = LoggerFactory.getLogger(Searchpageactions.class);
 
     private SearchingDialogController controller;
 
     private WeatherService weatherService;
 
+    private WeatherBaseService weatherPersistenceService;
+
+    private Locationfinder locationfinder;
+
     public Searchpageactions() {
         this.controller = (SearchingDialogController) ControllerContainer.getController(SearchingDialogController.class);
-        this.weatherService = new DummyWeatherService();
     }
 
     public EventHandler<ActionEvent> searchAction = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent t) {
+            updateProgress(-1);
+            controller.getWeatherList().setItems(null);
             String name = controller.getCityField().getText();
-            String zip = controller.getZipField().getText();
+
             // Validation
             List<Control> controlsInError = new ArrayList<>();
             List<String> errorMessages = new ArrayList<>();
             boolean inError = false;
-            int zipCode = 0;
 
-            try {
-                zipCode = Integer.decode(zip);
-            } catch (NumberFormatException ex) {
-                controlsInError.add(controller.getZipField());
-                errorMessages.add("Zip code must a number!");
-                inError = true;
-            }
-            if (name.isEmpty() && zip.isEmpty()) {
+            if (name.isEmpty()) {
                 controlsInError.add(controller.getCityField());
-                controlsInError.add(controller.getZipField());
-                errorMessages.add("Name or Zipcode must be filled!");
+                errorMessages.add("Name must be filled!");
                 inError = true;
             }
             if (inError) {
+                updateProgress(100);
                 NotificationService.fireNotification(controlsInError, errorMessages);
-                new Stagemanager().openStageAsRoot(null, getClass().getResource("/fxml/dialogs/Notification.fxml"), CSSFile.CSS_TEST, 350, 100, false);
+                new Stagemanager().openStageAsRoot(null, getClass().getResource("/fxml/dialogs/Notification.fxml"), CSSFile.CSS_DEFAULT, 350, 100, false);
             } else {
-                updateProgress(0.0);
                 // Do the API- Request
-                updateProgress(30.0);
-                ObservableList<WeatherInformation> items = FXCollections.observableArrayList(weatherService.getWeatherListByCityName("Test"));
+                if (controller.getOffline().isSelected()) {
+                    locationfinder = new OfflineLocationFinder();
+                } else {
+                    locationfinder = new OnlineLocationFinder();
+                }
+                ObservableList<JSONConvertObject> items = FXCollections.observableArrayList(locationfinder.getLocationsByCityName(name));
 
                 controller.getWeatherList().setItems(items);
                 updateProgress(100);
@@ -80,8 +93,12 @@ public class Searchpageactions {
         }
     };
 
+    private void closeWindow() {
+        Stage thisStage = (Stage) controller.getPane().getScene().getWindow();
+        thisStage.close();
+    }
+
     private void updateProgress(double value) {
-        controller.getIndicator().setProgress(value);
         controller.getProgressBar().setProgress(value);
     }
 
@@ -90,12 +107,12 @@ public class Searchpageactions {
         public void handle(MouseEvent t) {
             if (controller.getWeatherList().getSelectionModel().getSelectedIndex() >= 0) {
                 controller.getApplyButton().setDisable(false);
-                WeatherInformation wi = controller.getWeatherList().getSelectionModel().getSelectedItem();
-                controller.setSelectedWeather(wi);
-
+                JSONConvertObject wi = controller.getWeatherList().getSelectionModel().getSelectedItem();
+                System.out.println(wi.getId());
+                controller.setSelectedLocation(wi);
             } else {
                 controller.getApplyButton().setDisable(true);
-                controller.setSelectedWeather(new WeatherInformation());
+                controller.setSelectedLocation(new JSONConvertObject());
             }
         }
     };
@@ -105,7 +122,41 @@ public class Searchpageactions {
         @Override
         public void handle(ActionEvent t) {
             MainpageController mpc = (MainpageController) ControllerContainer.getController(MainpageController.class);
-            mpc.processWeather(controller.getSelectedWeather());
+            weatherPersistenceService = new WeatherPersistenceService();
+            WeatherInformation wi = null;
+            if (controller.getOnline().isSelected()) {
+                wi = OnlineLocationFinder.getWeatherFromCacheById(controller.getSelectedLocation().getId());
+                LOGGER.debug("Online detected");
+                LOGGER.debug("Got weather: {}", wi.toString());
+            } else {
+                // Replacing the stored Image (dummy) with a real from the database
+                LOGGER.debug("Offline detected");
+                wi = WeatherAPIConnection.requestCityByID(controller.getSelectedLocation().getId());
+                LOGGER.debug("Got weather: {}", wi.toString() );
+            }
+
+            WeatherImage image = weatherPersistenceService.getImageByIconID(wi.getImage().getIconId());
+            wi.setImage(image);
+            mpc.processWeather(wi);
+            PropertiesService propertiesService = new PropertiesService();
+            propertiesService.storeCityAndId(wi.getCityName(), wi.getCityIdentifier());
+            closeWindow();
+        }
+    };
+
+    public EventHandler<ActionEvent> doClickOnline = new EventHandler<ActionEvent>() {
+
+        @Override
+        public void handle(ActionEvent t) {
+            controller.getOffline().setSelected(false);
+        }
+    };
+
+    public EventHandler<ActionEvent> doClickOffline = new EventHandler<ActionEvent>() {
+
+        @Override
+        public void handle(ActionEvent t) {
+            controller.getOnline().setSelected(false);
         }
     };
 

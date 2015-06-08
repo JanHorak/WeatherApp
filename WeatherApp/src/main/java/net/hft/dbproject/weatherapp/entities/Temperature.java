@@ -38,6 +38,12 @@ public class Temperature implements Serializable {
     @OneToMany(mappedBy = "temperature", targetEntity = WeatherInformation.class)
     private List<WeatherInformation> information;
 
+    public Temperature(double averageTemp, double minTemp, double maxTemp) {
+        this.averageTemp = averageTemp;
+        this.minTemp = minTemp;
+        this.maxTemp = maxTemp;
+    }
+    
     public double getAverageTemp() {
         return averageTemp;
     }
@@ -76,6 +82,11 @@ public class Temperature implements Serializable {
 
     public void setInformation(List<WeatherInformation> information) {
         this.information = information;
+    }
+
+    @Override
+    public String toString() {
+        return "Temperature{" + "averageTemp=" + averageTemp + ", minTemp=" + minTemp + ", maxTemp=" + maxTemp + '}';
     }
 
 }
