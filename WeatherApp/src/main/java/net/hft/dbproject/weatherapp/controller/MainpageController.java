@@ -1,17 +1,24 @@
 package net.hft.dbproject.weatherapp.controller;
 
+import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.CountDownLatch;
+import java.util.logging.Level;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import net.hft.dbproject.weatherapp.entities.WeatherImage;
 import net.hft.dbproject.weatherapp.entities.WeatherInformation;
 import net.hft.dbproject.weatherapp.manager.ControllerContainer;
+import net.hft.dbproject.weatherapp.persistence.WeatherPersistenceService;
 import net.hft.dbproject.weatherapp.services.InetHeartBeat;
 import net.hft.dbproject.weatherapp.services.PropertiesService;
 import net.hft.dbproject.weatherapp.services.WeatherAPIConnection;
@@ -47,12 +54,6 @@ public class MainpageController implements Initializable {
     private ImageView fImage;
 
     @FXML
-    private TextField nameField;
-
-    @FXML
-    private TextField zipField;
-
-    @FXML
     private Button searchButton;
 
     @FXML
@@ -81,20 +82,23 @@ public class MainpageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ControllerContainer.addController(MainpageController.class, this);
+        currentWeather = new WeatherInformation();
         new InetHeartBeat(inetConImage).startHeartBeat();
-        WeatherInformation currentWeatherTmp = new WeatherInformation();
-        this.propertiesService = new PropertiesService();
+        propertiesService = new PropertiesService();
 
-        initUIActions();
-
-        if (InetHeartBeat.isOnline()) {
-            currentWeatherTmp = new WeatherInformation(this.propertiesService.getName());
-            currentWeather = WeatherAPIConnection.getWeatherByCity(currentWeatherTmp.getCityName());
-            initUIInputs();
-            LOGGER.info("Started completely. Current weather is loaded for: {}", currentWeather.getCityName());
-        } else {
-            LOGGER.info("No data are loaded");
-        }
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                initUIActions();
+                initUIInputs();
+                currentWeather = WeatherAPIConnection.requestCityByID(Integer.valueOf(propertiesService.getIdentCode()));
+                WeatherImage i = new WeatherImage();
+                WeatherPersistenceService p = new WeatherPersistenceService();
+                i = p.getImageByIconID(currentWeather.getImage().getIconId());
+                currentWeather.setImage(i);
+                processWeather(currentWeather);
+            }
+        });
 
     }
 
@@ -123,8 +127,6 @@ public class MainpageController implements Initializable {
     }
 
     private void initUIInputs() {
-        nameField.setText(currentWeather.getCityName());
-        zipField.setText(currentWeather.getZipCode());
         if (propertiesService.getCalculation().equals("C")) {
             new Mainpageactions().cClick.handle(null);
             this.fahrenheit = false;
@@ -132,15 +134,8 @@ public class MainpageController implements Initializable {
             new Mainpageactions().fClick.handle(null);
             this.fahrenheit = true;
         }
+        System.out.println(propertiesService.getIdentCode());
         LOGGER.info("Preparing UI... done");
-    }
-
-    public TextField getNameField() {
-        return this.nameField;
-    }
-
-    public TextField getZipField() {
-        return this.zipField;
     }
 
     public void setCurrentWeather(WeatherInformation currentWeather) {
@@ -195,6 +190,7 @@ public class MainpageController implements Initializable {
             dAvg = Utilities.toCelsius(weatherInformation.getTemperature().getAverageTemp());
         } else {
             suffix = "°F";
+            System.out.println(weatherInformation.toString());
             dMin = weatherInformation.getTemperature().getMinTemp();
             dMax = weatherInformation.getTemperature().getMaxTemp();
             dAvg = weatherInformation.getTemperature().getAverageTemp();
@@ -202,6 +198,7 @@ public class MainpageController implements Initializable {
         maxTempValue.setText(String.valueOf(dMax).concat(suffix));
         minTempValue.setText(String.valueOf(dMin).concat(suffix));
         avgTempValue.setText(String.valueOf(dAvg).concat(suffix));
+        weatherImage.setImage(new Image(new ByteArrayInputStream(weatherInformation.getImage().getImagedataDay())));
         cityNameValue.setText(weatherInformation.getCityName());
     }
 

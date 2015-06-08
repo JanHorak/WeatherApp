@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -33,18 +34,30 @@ public class WeatherInformation implements Serializable {
     @NotNull
     @ManyToOne(targetEntity = Temperature.class)
     private Temperature temperature;
-    
+
     @NotNull
-    private String zipCode;
+    private int cityIdentifier;
+
+    @Transient
+    private String countryCode;
+
+    @Transient
+    private float lat;
+
+    @Transient
+    private float lon;
 
     @NotNull
     @ManyToOne(targetEntity = WeatherImage.class)
     private WeatherImage image;
 
-    public WeatherInformation(String cityName, String weatherDescription, Temperature temp) {
+    public WeatherInformation(int ident, String cityName, String countryCode, Temperature temp, float lat, float lon) {
+        this.cityIdentifier = ident;
         this.cityName = cityName;
-        this.weatherDescription = weatherDescription;
+        this.countryCode = countryCode;
         this.temperature = temp;
+        this.lat = lat;
+        this.lon = lon;
     }
 
     public WeatherInformation() {
@@ -73,7 +86,7 @@ public class WeatherInformation implements Serializable {
 
     @Override
     public String toString() {
-        return "WeatherInformation{" + "id=" + id + ", cityName=" + cityName + ", weatherDescription=" + weatherDescription + ", temperature=" + temperature + ", zipCode=" + zipCode + ", image=" + image + '}';
+        return "WeatherInformation{" + "id=" + id + ", cityName=" + cityName + ", weatherDescription=" + weatherDescription + ", temperature=" + temperature.toString() + ",image=" + image + ",ident=" + cityIdentifier + '}';
     }
 
     public Long getId() {
@@ -108,14 +121,36 @@ public class WeatherInformation implements Serializable {
         this.image = image;
     }
 
-    public String getZipCode() {
-        return zipCode;
+    public int getCityIdentifier() {
+        return cityIdentifier;
     }
 
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
+    public void setCityIdentifier(int cityIdentifier) {
+        this.cityIdentifier = cityIdentifier;
     }
-    
-    
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public float getLat() {
+        return lat;
+    }
+
+    public void setLat(float lat) {
+        this.lat = lat;
+    }
+
+    public float getLon() {
+        return lon;
+    }
+
+    public void setLon(float lon) {
+        this.lon = lon;
+    }
 
 }

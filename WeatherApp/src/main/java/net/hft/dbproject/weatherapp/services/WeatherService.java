@@ -9,6 +9,6 @@ import net.hft.dbproject.weatherapp.entities.WeatherInformation;
  */
 public interface WeatherService {
     
-    public List<WeatherInformation> getWeatherListByCityName(String name);
+    public WeatherInformation getWeatherByCityID(int id);
     
 }

@@ -5,14 +5,14 @@
  */
 package net.hft.dbproject.weatherapp.services;
 
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.List;
 import net.hft.dbproject.weatherapp.entities.WeatherInformation;
 
-import java.util.logging.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,43 +24,61 @@ public abstract class WeatherAPIConnection implements WeatherService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WeatherAPIConnection.class);
     private static final String APIKEY = "8207b192ff2c645813be5259681c74d6";
-    private static String configuredURL = "http://api.openweathermap.org/data/2.5/weather?q=XXX";
+    private static  String configuredURL;
+    private static String configuredURLLike = "http://api.openweathermap.org/data/2.5/find?q=XXX&type=like";
+    private static String configuredURLID = "http://api.openweathermap.org/data/2.5/weather?id=XXX";
 
-    public static WeatherInformation getWeatherByCity(String cityName) {
-        configuredURL = configuredURL.replaceFirst("XXX", cityName);
+    /**
+     * Returns a List of WeatherInformation which is rquested by the cityname.
+     * The API will do a LIKE- Search. So its possible that the result of e.g.
+     * 'London' will return multiple results.
+     *
+     * @param cityName
+     * @return List of Weatherinformation from the API
+     */
+    public static List<WeatherInformation> requestCitiesByLike(String cityName) {
+        configuredURL = configuredURLLike.replaceFirst("XXX", cityName);
         return json2Weather();
     }
     
-    private static WeatherInformation json2Weather() {
-        WeatherInformation tmp = new WeatherInformation();
+    public static WeatherInformation requestCityByID(int cityId) {
+        configuredURL = configuredURLID.replaceFirst("XXX", String.valueOf(cityId));
+        return json2Weather().get(0);
+    }
+
+    /**
+     * Creates tje Connection to the API by using the {@link #APIKEY} and the
+     * {@link #configuredURL}.
+     *
+     * @return
+     */
+    private static List<WeatherInformation> json2Weather() {
+        List<WeatherInformation> result = new ArrayList<>();
         URL url = null;
         HttpURLConnection urlConnect = null;
-        InputStreamReader inputStream = null;
         try {
             url = new URL(configuredURL);
         } catch (MalformedURLException ex) {
-            java.util.logging.Logger.getLogger(WeatherAPIConnection.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(ex.toString());
         }
         LOGGER.info("Requested URL: {} using Key: {}", url.toString(), APIKEY);
         try {
             urlConnect = (HttpURLConnection) url.openConnection();
             urlConnect.setRequestMethod("GET");
         } catch (IOException ex) {
-            java.util.logging.Logger.getLogger(WeatherAPIConnection.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(ex.toString());
         }
         urlConnect.setRequestProperty("Authorization", "APPID=" + APIKEY);
         urlConnect.setRequestProperty("Accept", "application/json");
         try {
-            inputStream = new InputStreamReader(urlConnect.getInputStream());
-            tmp = JSONParser.toWeather(inputStream);
-            inputStream.close();
+            result = JSONParser.toWeatherList(urlConnect.getInputStream());
         } catch (IOException ex) {
-            java.util.logging.Logger.getLogger(WeatherAPIConnection.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(ex.toString());
         }
 
         urlConnect.disconnect();
 
-        return tmp;
+        return result;
     }
 
 }

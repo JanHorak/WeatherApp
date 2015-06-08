@@ -1,0 +1,183 @@
+{
+    "message": "like",
+    "cod": "200",
+    "count": 5,
+    "list": [{
+            "id": 951650,
+            "name": "Stutterheim",
+            "coord": {
+                "lon": 27.42396,
+                "lat": -32.570759
+            },
+            "main": {
+                "temp": 289.134,
+                "temp_min": 289.134,
+                "temp_max": 289.134,
+                "pressure": 939.08,
+                "sea_level": 1031.68,
+                "grnd_level": 939.08,
+                "humidity": 47
+            },
+            "dt": 1433681610,
+            "wind": {
+                "speed": 1.6,
+                "deg": 278.006
+            },
+            "sys": {
+                "country": "ZA"
+            },
+            "clouds": {
+                "all": 8
+            },
+            "weather": [{
+                    "id": 800,
+                    "main": "Clear",
+                    "description": "Sky is Clear",
+                    "icon": "02d"
+                }]
+        }, {
+            "id": 2825297,
+            "name": "Stuttgart",
+            "coord": {
+                "lon": 9.17702,
+                "lat": 48.782318
+            },
+            "main": {
+                "temp": 293.284,
+                "temp_min": 293.284,
+                "temp_max": 293.284,
+                "pressure": 979.85,
+                "sea_level": 1038.04,
+                "grnd_level": 979.85,
+                "humidity": 95
+            },
+            "dt": 1433681400,
+            "wind": {
+                "speed": 1.7,
+                "deg": 352.506
+            },
+            "sys": {
+                "country": "DE"
+            },
+            "rain": {
+                "3h": 2.37
+            },
+            "clouds": {
+                "all": 76
+            },
+            "weather": [{
+                    "id": 500,
+                    "main": "Rain",
+                    "description": "light rain",
+                    "icon": "10d"
+                }]
+        }, {
+            "id": 6930414,
+            "name": "Stuttgart-Ost",
+            "coord": {
+                "lon": 9.21032,
+                "lat": 48.78363
+            },
+            "main": {
+                "temp": 293.284,
+                "temp_min": 293.284,
+                "temp_max": 293.284,
+                "pressure": 979.85,
+                "sea_level": 1038.04,
+                "grnd_level": 979.85,
+                "humidity": 95
+            },
+            "dt": 1433681610,
+            "wind": {
+                "speed": 1.7,
+                "deg": 352.506
+            },
+            "sys": {
+                "country": "DE"
+            },
+            "rain": {
+                "3h": 2.37
+            },
+            "clouds": {
+                "all": 76
+            },
+            "weather": [{
+                    "id": 500,
+                    "main": "Rain",
+                    "description": "light rain",
+                    "icon": "10d"
+                }]
+        }, {
+            "id": 2867993,
+            "name": "Stuttgart Muehlhausen",
+            "coord": {
+                "lon": 9.23028,
+                "lat": 48.842319
+            },
+            "main": {
+                "temp": 293.284,
+                "temp_min": 293.284,
+                "temp_max": 293.284,
+                "pressure": 979.85,
+                "sea_level": 1038.04,
+                "grnd_level": 979.85,
+                "humidity": 95
+            },
+            "dt": 1433681550,
+            "wind": {
+                "speed": 1.7,
+                "deg": 352.506
+            },
+            "sys": {
+                "country": "DE"
+            },
+            "rain": {
+                "3h": 2.37
+            },
+            "clouds": {
+                "all": 76
+            },
+            "weather": [{
+                    "id": 500,
+                    "main": "Rain",
+                    "description": "light rain",
+                    "icon": "10d"
+                }]
+        }, {
+            "id": 2927043,
+            "name": "Stuttgart Feuerbach",
+            "coord": {
+                "lon": 9.15719,
+                "lat": 48.80867
+            },
+            "main": {
+                "temp": 293.284,
+                "temp_min": 293.284,
+                "temp_max": 293.284,
+                "pressure": 979.85,
+                "sea_level": 1038.04,
+                "grnd_level": 979.85,
+                "humidity": 95
+            },
+            "dt": 1433681549,
+            "wind": {
+                "speed": 1.7,
+                "deg": 352.506
+            },
+            "sys": {
+                "country": "DE"
+            },
+            "rain": {
+                "3h": 2.37
+            },
+            "clouds": {
+                "all": 76
+            },
+            "weather": [{
+                    "id": 500,
+                    "main": "Rain",
+                    "description": "light rain",
+                    "icon": "10d"
+                }]
+        }]
+}

@@ -15,7 +15,9 @@ import java.util.logging.Logger;
  *
  * @author Jan
  */
-public abstract class Utilities {
+public class Utilities {
+    
+    
 
     public static byte[] getBytesOfFile(String filePath) {
         byte[] restult = null;
@@ -29,17 +31,20 @@ public abstract class Utilities {
 
         return restult;
     }
-    
-    public static double toFahrenheit(double celcius){
+
+    public static double toFahrenheit(double celcius) {
         return Math.round((celcius * 1.8) + 32.0);
     }
-      
-    
-    public static double toCelsius(double fahrenheit){
-        return Math.round((fahrenheit - 32.0) * (5.0/9.0));
+
+    public static double toCelsius(double fahrenheit) {
+        return Math.round((fahrenheit - 32.0) * (5.0 / 9.0));
+    }
+
+    public static String cleanDegreeValue(String degree) {
+        return degree.split("°")[0];
     }
     
-    public static String cleanDegreeValue(String degree){
-        return degree.split("°")[0];
+    public static double fromKelvinToFahrenheit(double kelvin){
+        return (kelvin - 273.15)* 1.8000 + 32.00;
     }
 }

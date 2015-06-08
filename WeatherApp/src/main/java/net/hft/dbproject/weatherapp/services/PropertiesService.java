@@ -24,13 +24,13 @@ public class PropertiesService extends PropertiesHelper {
         loadProperties();
     }
 
-    public void storeCityAndZip(String name, String zip) {
+    public void storeCityAndId(String name, int id) {
         if (isPropertiesFileExisting()) {
             properties.setProperty("name", name);
-            properties.setProperty("zip", zip);
+            properties.setProperty("ident", String.valueOf(id));
             try {
                 properties.store(new FileOutputStream(INIFILE), "WEATHERAPP- PROPERTIESFILE");
-                LOGGER.info("New values stored: {}, {}", name, zip);
+                LOGGER.info("New values stored: {}, {}", name, id);
             } catch (FileNotFoundException ex) {
                 LOGGER.error(ex.toString());
             } catch (IOException ex) {
@@ -68,8 +68,8 @@ public class PropertiesService extends PropertiesHelper {
         return properties.getProperty("name");
     }
 
-    public String getZipCode() {
-        return properties.getProperty("zip");
+    public String getIdentCode() {
+        return properties.getProperty("ident");
     }
     
     public String getCalculation() {

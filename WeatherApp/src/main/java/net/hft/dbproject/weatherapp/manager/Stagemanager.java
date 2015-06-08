@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import net.hft.dbproject.weatherapp.controller.MainpageController;
 import net.hft.dbproject.weatherapp.enums.CSSFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

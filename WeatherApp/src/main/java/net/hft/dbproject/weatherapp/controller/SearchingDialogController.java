@@ -12,9 +12,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import net.hft.dbproject.weatherapp.entities.WeatherInformation;
+import javafx.scene.layout.Pane;
+import net.hft.dbproject.weatherapp.helper.JSONConvertObject;
 import net.hft.dbproject.weatherapp.manager.ControllerContainer;
 import net.hft.dbproject.weatherapp.uiactions.Searchpageactions;
 
@@ -29,7 +30,10 @@ public class SearchingDialogController implements Initializable {
     private TextField cityField;
 
     @FXML
-    private TextField zipField;
+    private RadioButton offline;
+
+    @FXML
+    private RadioButton online;
 
     @FXML
     private Button searchButton;
@@ -38,40 +42,38 @@ public class SearchingDialogController implements Initializable {
     private Button applyButton;
 
     @FXML
-    private ListView<WeatherInformation> weatherList;
+    private ListView<JSONConvertObject> locationList;
 
     @FXML
     private ProgressBar progressBar;
-
+    
     @FXML
-    private ProgressIndicator indicator;
+    private Pane pane;
 
-    private WeatherInformation selectedWeather;
+    private JSONConvertObject selectedLocation;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ControllerContainer.addController(SearchingDialogController.class, this);
-        this.selectedWeather = new WeatherInformation();
+        this.selectedLocation = new JSONConvertObject();
         initActions();
     }
 
     private void initActions() {
         Searchpageactions actions = new Searchpageactions();
         this.searchButton.setOnAction(actions.searchAction);
-        this.weatherList.setOnMouseClicked(actions.handleSelection);
+        this.locationList.setOnMouseClicked(actions.handleSelection);
         this.applyButton.setOnAction(actions.applyWeatherSelection);
+        this.online.setOnAction(actions.doClickOnline);
+        this.offline.setOnAction(actions.doClickOffline);
     }
 
     public TextField getCityField() {
         return cityField;
     }
 
-    public TextField getZipField() {
-        return zipField;
-    }
-
-    public ListView<WeatherInformation> getWeatherList() {
-        return weatherList;
+    public ListView<JSONConvertObject> getWeatherList() {
+        return locationList;
     }
 
     public Button getApplyButton() {
@@ -82,16 +84,32 @@ public class SearchingDialogController implements Initializable {
         return progressBar;
     }
 
-    public ProgressIndicator getIndicator() {
-        return indicator;
+    public JSONConvertObject getSelectedLocation() {
+        return selectedLocation;
     }
 
-    public WeatherInformation getSelectedWeather() {
-        return selectedWeather;
+    public void setSelectedLocation(JSONConvertObject selectedLocation) {
+        this.selectedLocation = selectedLocation;
     }
 
-    public void setSelectedWeather(WeatherInformation selectedWeather) {
-        this.selectedWeather = selectedWeather;
+    public RadioButton getOffline() {
+        return offline;
+    }
+
+    public void setOffline(RadioButton offline) {
+        this.offline = offline;
+    }
+
+    public RadioButton getOnline() {
+        return online;
+    }
+
+    public void setOnline(RadioButton online) {
+        this.online = online;
+    }
+
+    public Pane getPane() {
+        return pane;
     }
 
     
