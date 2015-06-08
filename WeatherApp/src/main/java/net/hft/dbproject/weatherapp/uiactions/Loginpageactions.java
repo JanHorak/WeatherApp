@@ -30,7 +30,7 @@ public class Loginpageactions {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Loginpageactions.class);
     private UserBaseService userservice;
-    private String typenInPassword = "unknown";
+    private String typedInPassword = "unknown";
     private String typedInUserName = "unknown";
     private LoginController controller;
 
@@ -44,15 +44,15 @@ public class Loginpageactions {
         public void handle(ActionEvent t) {
             AppUser liu = null;
             typedInUserName = controller.getNameField().getText();
-            typenInPassword = controller.getPasswordField().getText();
+            typedInPassword = controller.getPasswordField().getText();
             // Validation
             List<Control> controlsInError = new ArrayList<>();
             List<String> errorMessages = new ArrayList<>();
             boolean inError = false;
 
-            if (typedInUserName.isEmpty() || typenInPassword.isEmpty()
+            if (typedInUserName.isEmpty() || typedInPassword.isEmpty()
                     || typedInUserName.equals("unknown")
-                    || typenInPassword.equals("unknown")) {
+                    || typedInPassword.equals("unknown")) {
                 controlsInError.add(controller.getNameField());
                 controlsInError.add(controller.getPasswordField());
                 errorMessages.add("Both values have to be filled!");
@@ -73,7 +73,7 @@ public class Loginpageactions {
                     LOGGER.info("Welcome User : {}", user.getName());
                     controller.getNameField().setText("");
                     controller.getPasswordField().setText("");
-                    new Stagemanager().openStageAsRoot(null, getClass().getResource("/fxml/mainpage/Dashboard.fxml"), CSSFile.CSS_DEFAULT, 251, 397, true);
+                    new Stagemanager().openStageAsRoot(null, getClass().getResource("/fxml/mainpage/Dashboard.fxml"), CSSFile.CSS_DEFAULT, 251, 397, false);
 
                 } else {
                     errorMessages.add("Username or Password are invalid!");
@@ -89,7 +89,7 @@ public class Loginpageactions {
 
     private boolean isPswValid(AppUser psw) {
         boolean isValid = false;
-        if (psw.getPassword().equals(typenInPassword)) {
+        if (psw.getPassword().equals(typedInPassword)) {
             isValid = true;
         }
         return isValid;

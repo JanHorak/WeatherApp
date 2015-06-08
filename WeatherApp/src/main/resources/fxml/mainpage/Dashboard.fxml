@@ -25,23 +25,23 @@
                   <Font size="14.0" />
                </font>
             </Button>
-            <Pane layoutX="8.0" layoutY="107.0" prefHeight="180.0" prefWidth="71.0">
+            <Pane fx:id="dayonefahr" layoutX="8.0" layoutY="107.0" prefHeight="180.0" prefWidth="71.0">
                <children>
-                  <Label fx:id="label13" layoutX="11.0" layoutY="136.0" prefHeight="30.0" prefWidth="50.0" text="Fahr" />
-                  <Label fx:id="label12" layoutX="11.0" layoutY="106.0" prefHeight="30.0" prefWidth="50.0" text="Celcius" />
-                  <ImageView fx:id="imageView1" fitHeight="50.0" fitWidth="50.0" layoutX="11.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+                  <Label fx:id="dayonefahr" layoutX="11.0" layoutY="136.0" prefHeight="30.0" prefWidth="50.0" text="Fahr" />
+                  <Label fx:id="dayonecelcius" layoutX="11.0" layoutY="106.0" prefHeight="30.0" prefWidth="50.0" text="Celcius" />
+                  <ImageView fx:id="imageViewOne" fitHeight="50.0" fitWidth="50.0" layoutX="11.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../images/weather/Status-weather-clouds-icon.png" />
                      </image></ImageView>
-                  <Label fx:id="label11" layoutX="19.0" layoutY="14.0" prefHeight="20.0" prefWidth="33.0" text="Days" />
+                  <Label fx:id="dayone" layoutX="19.0" layoutY="14.0" prefHeight="20.0" prefWidth="33.0" text="Days" />
                </children>
             </Pane>
             <Pane layoutX="89.0" layoutY="107.0" prefHeight="180.0" prefWidth="71.0">
                <children>
-                  <Label fx:id="label22" layoutX="11.0" layoutY="106.0" prefHeight="30.0" prefWidth="50.0" text="Celcius" />
-                  <Label fx:id="label23" layoutX="11.0" layoutY="136.0" prefHeight="30.0" prefWidth="50.0" text="Fahr" />
-                  <Label fx:id="label21" layoutX="19.0" layoutY="14.0" prefHeight="20.0" prefWidth="33.0" text="Days" />
-                  <ImageView fx:id="imageView2" fitHeight="50.0" fitWidth="50.0" layoutX="11.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+                  <Label fx:id="daytwocelcius" layoutX="11.0" layoutY="106.0" prefHeight="30.0" prefWidth="50.0" text="Celcius" />
+                  <Label fx:id="daytwofahr" layoutX="11.0" layoutY="136.0" prefHeight="30.0" prefWidth="50.0" text="Fahr" />
+                  <Label fx:id="daytwo" layoutX="19.0" layoutY="14.0" prefHeight="20.0" prefWidth="33.0" text="Days" />
+                  <ImageView fx:id="imageViewTwo" fitHeight="50.0" fitWidth="50.0" layoutX="11.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../images/weather/Status-weather-showers-day-icon.png" />
                      </image></ImageView>
@@ -49,13 +49,13 @@
             </Pane>
             <Pane layoutX="166.0" layoutY="107.0" prefHeight="180.0" prefWidth="71.0">
                <children>
-                  <Label fx:id="label32" layoutX="11.0" layoutY="106.0" prefHeight="30.0" prefWidth="50.0" text="Celcius" />
-                  <ImageView fx:id="imageView3" fitHeight="50.0" fitWidth="50.0" layoutX="11.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+                  <Label fx:id="daythreecelcius" layoutX="11.0" layoutY="106.0" prefHeight="30.0" prefWidth="50.0" text="Celcius" />
+                  <ImageView fx:id="imageViewThree" fitHeight="50.0" fitWidth="50.0" layoutX="11.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../images/weather/Status-weather-snow-scattered-day-icon.png" />
                      </image></ImageView>
-                  <Label fx:id="label33" layoutX="11.0" layoutY="136.0" prefHeight="30.0" prefWidth="50.0" text="Fahr" />
-                  <Label fx:id="label31" layoutX="19.0" layoutY="14.0" prefHeight="20.0" prefWidth="33.0" text="Days" />
+                  <Label fx:id="daythreefahr" layoutX="11.0" layoutY="136.0" prefHeight="30.0" prefWidth="50.0" text="Fahr" />
+                  <Label fx:id="daythree" layoutX="19.0" layoutY="14.0" prefHeight="20.0" prefWidth="33.0" text="Days" />
                </children>
             </Pane>
             <Label layoutX="96.0" layoutY="14.0" prefHeight="28.0" prefWidth="71.0" text="  History" textAlignment="CENTER">

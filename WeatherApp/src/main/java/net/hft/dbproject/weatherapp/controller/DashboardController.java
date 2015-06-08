@@ -26,36 +26,37 @@ public class DashboardController implements Initializable {
 
     @FXML
     private AnchorPane anchor;
+   
     @FXML
-    private Pane Dashboard;
+    private Label dayone;
     @FXML
-    private Label label22;
+    private Label daytwo;
     @FXML
-    private ImageView imageView1;
+    private Label daythree;
     @FXML
-    private Label label23;
+    private Label dayonecelcius;
     @FXML
-    private Label label13;
+    private Label daytwocelcius;
     @FXML
-    private Label label31;
+    private Label daythreecelcius;
     @FXML
-    private Label label11;
+    private Label dayonefahr;
     @FXML
-    private Label label33;
+    private Label daytwofahr;
     @FXML
-    private ImageView imageView3;
+    private Label daythreefahr;
     @FXML
-    private Label label12;
+    private Label imageViewOne;
     @FXML
-    private ImageView imageView2;
+    private Label imageViewTwo;
     @FXML
-    private Label label21;
-    @FXML
-    private Label label32;
+    private Label imageViewThree;
     @FXML
     private Button profileButton;
     @FXML
     private Button compareButton;
+    @FXML
+    private Pane dashboardPane;
     
 
     /**

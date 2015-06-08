@@ -27,7 +27,7 @@ public Dashboardactions() {
 public EventHandler<ActionEvent> openProfilePage = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent t) {
-             new Stagemanager().openStageAsRoot(null, getClass().getResource("/fxml/mainpage/Changepassword.fxml"), CSSFile.CSS_DEFAULT, 251, 397, true);
+             new Stagemanager().openStageAsRoot(null, getClass().getResource("/fxml/mainpage/Profile.fxml"), CSSFile.CSS_DEFAULT, 251, 397, true);
         }
     };
 
