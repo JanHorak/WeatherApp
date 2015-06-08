@@ -6,6 +6,7 @@
 package net.hft.dbproject.weatherapp.services;
 
 import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -167,7 +168,6 @@ public abstract class JSONParser {
                             queryJSONReader.beginArray();
                             queryJSONReader.beginObject();
                             while (queryJSONReader.hasNext()) {
-
                                 String id = queryJSONReader.nextName();
                                 if (id.equals("id")) {
                                     imageIconID = queryJSONReader.nextInt();
@@ -176,7 +176,18 @@ public abstract class JSONParser {
                                 }
                             }
                             queryJSONReader.endObject();
+                            JsonToken t = queryJSONReader.peek();
+                            if (t == JsonToken.BEGIN_OBJECT) {
+                                queryJSONReader.beginObject();
+                                while (t != JsonToken.END_OBJECT) {
+                                    String v = queryJSONReader.nextName();
+                                    queryJSONReader.skipValue();
+                                    t = queryJSONReader.peek();
+                                }
+                                queryJSONReader.endObject();
+                            }
                             queryJSONReader.endArray();
+
                             // set this flat to the last element which is requested!
                             passedCounter++;
                             break;
@@ -192,7 +203,6 @@ public abstract class JSONParser {
                 WeatherImage wi = new WeatherImage();
                 wi.setIconId(imageIconID);
                 result.setImage(wi);
-                
 
             }
 
