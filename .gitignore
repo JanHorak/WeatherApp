@@ -41,4 +41,5 @@ WeatherApp.db
 derby.log
 derby.properties
 
-weatherapp.ini
+WeatherApp/weatherapp.ini
+WeatherApp/Test.json

@@ -31,8 +31,8 @@ public class JSONExtractionTest {
 
     @Test
     public void shouldReturnWeatherFromService() {
-        List<WeatherInformation> d = WeatherAPIConnection.requestCitiesByLike("Stutt");
-        Assert.assertThat(d.size(), is(5));
+        List<WeatherInformation> d = WeatherAPIConnection.requestCitiesByLike("Berlin");
+        Assert.assertThat(d.size(), is(10));
 
     }
 
