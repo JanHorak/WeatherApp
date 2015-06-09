@@ -25,5 +25,9 @@ public abstract class LoggedInUser {
         }
         return currentuser;
     }
+    
+    public static void setLoggedInUser(AppUser user){
+        currentuser = user;
+    }
 
 }

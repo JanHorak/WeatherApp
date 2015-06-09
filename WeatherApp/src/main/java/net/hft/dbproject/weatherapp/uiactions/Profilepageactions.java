@@ -34,7 +34,7 @@ public class Profilepageactions {
     private UserBaseService userService;
     private String typedInOldPassword = "unknown";
     private String typedInUserName = "unknown";
-    private String typedInNewPassword ;
+    private String typedInNewPassword;
 
     public Profilepageactions() {
 
@@ -44,19 +44,17 @@ public class Profilepageactions {
     public EventHandler<ActionEvent> saveAction = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent t) {
-            
-        
+
             typedInUserName = controller.getPnameField().getText();
             typedInOldPassword = controller.getOldpasswordField().getText();
             typedInNewPassword = controller.getNewpasswordField().getText();
-            
-            
+
             // Validation
             List<Control> controlsInError = new ArrayList<>();
             List<String> errorMessages = new ArrayList<>();
             boolean inError = false;
             if (typedInUserName.isEmpty() || typedInOldPassword.isEmpty() || typedInNewPassword.isEmpty() || typedInUserName.equals("unknown")
-                    || typedInOldPassword.equals("unknown") ) {
+                    || typedInOldPassword.equals("unknown")) {
                 controlsInError.add(controller.getPnameField());
                 controlsInError.add(controller.getOldpasswordField());
                 controlsInError.add(controller.getNewpasswordField());
@@ -68,27 +66,27 @@ public class Profilepageactions {
                 new Stagemanager().openStageAsRoot(null, getClass().getResource("/fxml/dialogs/Notification.fxml"), CSSFile.CSS_TEST, 350, 100, false);
             } else {
                 userService = new UserService();
-                AppUser puser=LoggedInUser.getInstance();
-                UserService us =new UserService();
-                us.updatePasswortByUserId(puser.getId().intValue(), typedInNewPassword);
-                        
-                
-                if(isPswValid(puser)){
+                AppUser puser = LoggedInUser.getInstance();
+                UserService us = new UserService();
+                us.updatePasswortByUserId(puser.getId(), typedInNewPassword);
+
+                if (isPswValid(puser)) {
                     us.updatePasswortByUserId(puser.getId().intValue(), typedInNewPassword);
-                    LOGGER.info("New Password Changed:{}",puser.getName());
+                    LOGGER.info("New Password Changed:{}", puser.getName());
                     NotificationService.resetErrorBorder();
-                    
+
                 }
-                    
-                }
-                    
-                }
+
+            }
+
+        }
     };
-         private boolean isPswValid(AppUser opw) {
+
+    private boolean isPswValid(AppUser opw) {
         boolean isValid = false;
         if (opw.getPassword().equals(typedInOldPassword)) {
             isValid = true;
         }
         return isValid;
-    }     
-            }
+    }
+}

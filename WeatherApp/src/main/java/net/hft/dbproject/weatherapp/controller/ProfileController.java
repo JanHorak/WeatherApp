@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import net.hft.dbproject.weatherapp.entities.AppUser;
+import net.hft.dbproject.weatherapp.helper.LoggedInUser;
 import net.hft.dbproject.weatherapp.manager.ControllerContainer;
 import net.hft.dbproject.weatherapp.uiactions.Profilepageactions;
 
@@ -30,6 +32,8 @@ public class ProfileController implements Initializable {
     private TextField newpasswordField;
     @FXML
     private Button saveButton;
+    
+    private AppUser currentUser;
 
     /**
      * Initializes the controller class.
@@ -39,6 +43,8 @@ public class ProfileController implements Initializable {
         ControllerContainer.addController(ProfileController.class, this);
         Profilepageactions spa = new Profilepageactions();
         saveButton.setOnAction(spa.saveAction);
+        currentUser = LoggedInUser.getInstance();
+        pnameField.setText(currentUser.getName());
     }
 
     public TextField getPnameField() {

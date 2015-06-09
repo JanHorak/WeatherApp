@@ -66,10 +66,9 @@ public class Loginpageactions {
                 AppUser user = (AppUser) userservice.getUserByName(controller.getNameField().getText());
 
                 if (isPswValid(user)) {
-                    liu = LoggedInUser.getInstance();
                     LOGGER.info("User is Logged:");
 
-                    liu = user;
+                    LoggedInUser.setLoggedInUser(user);
                     LOGGER.info("Welcome User : {}", user.getName());
                     controller.getNameField().setText("");
                     controller.getPasswordField().setText("");

@@ -46,11 +46,11 @@ public class DashboardController implements Initializable {
     @FXML
     private Label daythreefahr;
     @FXML
-    private Label imageViewOne;
+    private ImageView imageViewOne;
     @FXML
-    private Label imageViewTwo;
+    private ImageView imageViewTwo;
     @FXML
-    private Label imageViewThree;
+    private ImageView imageViewThree;
     @FXML
     private Button profileButton;
     @FXML

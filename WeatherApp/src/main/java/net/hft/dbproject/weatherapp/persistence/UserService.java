@@ -32,7 +32,7 @@ public class UserService extends DataAccess implements UserBaseService {
      * @param user
      */
     @Override
-    public void updatePasswortByUserId(int userid, String newPassword) {
+    public void updatePasswortByUserId(long userid, String newPassword) {
         setup();
         openConnection();
         em.createNamedQuery("AppUser.updateByPASSWORD").setParameter("newPassword", newPassword).setParameter("id", userid).executeUpdate();

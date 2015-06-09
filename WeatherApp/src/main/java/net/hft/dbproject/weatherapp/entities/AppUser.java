@@ -20,5 +20,7 @@ import javax.persistence.NamedQuery;
         @NamedQuery(name="AppUser.fingByNAME", query="SELECT u FROM AppUser u WHERE u.name =:name"),
        @NamedQuery(name="AppUser.updateByPASSWORD", query="UPDATE AppUser u SET u.password = :newPassword WHERE u.id = :id")})
 public class AppUser extends UserBase implements Serializable {
+    
+    
 
 }
