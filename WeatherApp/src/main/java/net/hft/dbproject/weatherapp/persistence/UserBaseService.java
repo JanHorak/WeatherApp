@@ -17,5 +17,6 @@ public interface UserBaseService {
     
     public void saveNewUser(UserBase user);
     public UserBase getUserByName(String username);
+    public void updatePasswortByUserId(long userid, String newPassword);
    
 }

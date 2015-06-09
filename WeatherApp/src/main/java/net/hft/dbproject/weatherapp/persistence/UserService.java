@@ -27,6 +27,20 @@ public class UserService extends DataAccess implements UserBaseService {
         shutDown();
     }
 
+    /**
+     *
+     * @param user
+     */
+    @Override
+    public void updatePasswortByUserId(long userid, String newPassword) {
+        setup();
+        openConnection();
+        em.createNamedQuery("AppUser.updateByPASSWORD").setParameter("newPassword", newPassword).setParameter("id", userid).executeUpdate();
+        commitStatement();
+        shutDown();
+    }
+
+
     @Override
     public UserBase getUserByName(String username) {
         UserBase result = null;
@@ -41,4 +55,4 @@ public class UserService extends DataAccess implements UserBaseService {
         return result;
     }
 
-}
+    }

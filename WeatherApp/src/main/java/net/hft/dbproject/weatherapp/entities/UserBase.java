@@ -55,4 +55,11 @@ public class UserBase implements Serializable {
         this.password = password;
     }
 
+    @Override
+    public String toString() {
+        return "UserBase{" + "id=" + id + ", name=" + name + ", password=" + password + '}';
+    }
+    
+    
+
 }
