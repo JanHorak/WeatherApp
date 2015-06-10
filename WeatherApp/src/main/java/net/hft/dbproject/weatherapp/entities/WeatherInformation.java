@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
@@ -20,6 +22,12 @@ import javax.validation.constraints.NotNull;
  * @author admin
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "WeatherInformation.findLastThreeInfo", query = "SELECT i FROM WeatherInformation i ORDER BY i.id DESC"),
+    @NamedQuery(name = "WeatherInformation.findAll", query = "SELECT i FROM WeatherInformation i ORDER BY i.id DESC"),
+    @NamedQuery(name = "WeatherInformation.findThreeByName", query = "SELECT i FROM WeatherInformation i WHERE i.cityName = :cityName ORDER BY i.id DESC"),
+    @NamedQuery(name = "WeatherInformation.find", query = "SELECT i FROM WeatherInformation i")
+})
 public class WeatherInformation implements Serializable {
 
     @Id

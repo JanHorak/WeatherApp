@@ -5,7 +5,9 @@
  */
 package net.hft.dbproject.weatherapp.persistence;
 
+import java.util.List;
 import net.hft.dbproject.weatherapp.entities.WeatherImage;
+import net.hft.dbproject.weatherapp.entities.WeatherInformation;
 
 /**
  *
@@ -22,6 +24,33 @@ public class WeatherPersistenceService extends DataAccess implements WeatherBase
         shutDown();
         return result;
     }
+
+    // Startup
+    @Override
+    public List<WeatherInformation> getFirstThreeInfo() {
+        List<WeatherInformation> result;
+        setup();
+        openConnection();
+        result = (List<WeatherInformation>) em.createNamedQuery("WeatherInformation.findLastThreeInfo").setMaxResults(3).getResultList();
+        shutDown();
+        return result;
+    }
+
+    // Selection
+    @Override
+    public List<WeatherInformation> getThreeInfoByName(String cityName) {
+        List<WeatherInformation> result;
+        setup();
+        openConnection();
+        result = (List<WeatherInformation>) em.createNamedQuery("WeatherInformation.findThreeByName").setParameter("cityName", cityName).setMaxResults(3).getResultList();
+        shutDown();
+        return result;
+    }
     
-    
+    // Combobox
+    @Override
+    public List<WeatherInformation> findAll() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

@@ -14,7 +14,7 @@
    <children>
       <Pane fx:id="dashboardPane" prefHeight="397.0" prefWidth="259.0" AnchorPane.leftAnchor="0.0">
          <children>
-            <ComboBox layoutX="8.0" layoutY="54.0" prefHeight="30.0" prefWidth="222.0" promptText="Select City" />
+            <ComboBox fx:id="cityCombobox" layoutX="8.0" layoutY="54.0" prefHeight="30.0" prefWidth="222.0" promptText="Select City" />
             <Button fx:id="profileButton" layoutX="14.0" layoutY="324.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="94.0" text="Profile">
                <font>
                   <Font size="14.0" />
