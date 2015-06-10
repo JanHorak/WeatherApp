@@ -33,7 +33,7 @@ public class WeatherInformation implements Serializable {
     private String weatherDescription;
 
     @NotNull
-    @ManyToOne(targetEntity = Temperature.class)
+    @ManyToOne(targetEntity = Temperature.class ,cascade = CascadeType.ALL)
     private Temperature temperature;
 
     @NotNull

@@ -35,10 +35,12 @@ public class Profilepageactions {
     private String typedInOldPassword = "unknown";
     private String typedInUserName = "unknown";
     private String typedInNewPassword;
+    private AppUser currentUser;
 
     public Profilepageactions() {
 
         this.controller = (ProfileController) ControllerContainer.getController(ProfileController.class);
+
     }
 
     public EventHandler<ActionEvent> saveAction = new EventHandler<ActionEvent>() {
@@ -76,9 +78,10 @@ public class Profilepageactions {
                     NotificationService.resetErrorBorder();
 
                 }
+                currentUser = LoggedInUser.getInstance();
 
             }
-
+            controller.getPnameField().setText(currentUser.getName());
         }
     };
 
@@ -89,4 +92,39 @@ public class Profilepageactions {
         }
         return isValid;
     }
+
+    public EventHandler<ActionEvent> deleteAction = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent t) {
+
+            typedInUserName = controller.getPnameField().getText();
+            typedInOldPassword = controller.getOldpasswordField().getText();
+
+            List<Control> controlsInError = new ArrayList<>();
+            List<String> errorMessages = new ArrayList<>();
+            boolean inError = false;
+            if (typedInUserName.isEmpty() || typedInOldPassword.isEmpty() || typedInUserName.equals("unknown")
+                    || typedInOldPassword.equals("unknown")) {
+                controlsInError.add(controller.getPnameField());
+                controlsInError.add(controller.getOldpasswordField());
+                errorMessages.add("User name and old password have to be filled!");
+                inError = true;
+            }
+            if (inError) {
+                NotificationService.fireNotification(controlsInError, errorMessages);
+                new Stagemanager().openStageAsRoot(null, getClass().getResource("/fxml/dialogs/Notification.fxml"), CSSFile.CSS_TEST, 350, 100, false);
+            } else {
+                userService = new UserService();
+                AppUser puser = LoggedInUser.getInstance();
+                UserService dus = new UserService();
+                dus.deleteUser(puser.getId());
+                if (isPswValid(puser)) {
+
+                    LOGGER.info("User Deleted:{}", puser.getName());
+                    NotificationService.resetErrorBorder();
+
+                }
+            }
+        }
+    };
 }
