@@ -23,9 +23,8 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "WeatherImage.findByIconID", query = "SELECT i FROM WeatherImage i WHERE i.iconId = :iconId"),
-    @NamedQuery(name = "WeatherImage.displayByIconID", query = "SELECT i FROM WeatherImage i WHERE i.iconId=:iconId")})
-
+    @NamedQuery(name = "WeatherImage.findByIconID", query = "SELECT i FROM WeatherImage i WHERE i.iconId = :iconId")
+})
 public class WeatherImage implements Serializable {
 
     @Id

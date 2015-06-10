@@ -5,11 +5,13 @@
  */
 package net.hft.dbproject.weatherapp.uiactions;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Control;
+import javafx.scene.image.Image;
 import net.hft.dbproject.weatherapp.controller.ProfileController;
 import net.hft.dbproject.weatherapp.entities.AppUser;
 import net.hft.dbproject.weatherapp.entities.UserBase;

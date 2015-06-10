@@ -16,7 +16,7 @@
       <Pane fx:id="profilePane" prefHeight="294.0" prefWidth="251.0">
          <children>
             <Label layoutX="19.0" layoutY="72.0" prefHeight="36.0" prefWidth="67.0" text="Username" />
-            <TextField fx:id="pnameField" layoutX="103.0" layoutY="71.0" prefHeight="30.0" prefWidth="133.0" />
+            <TextField fx:id="pnameField" editable="false" layoutX="103.0" layoutY="71.0" prefHeight="30.0" prefWidth="133.0" />
             <Label layoutX="17.0" layoutY="138.0" prefHeight="23.0" prefWidth="67.0" text="OldPassword" />
             <TextField fx:id="oldpasswordField" layoutX="103.0" layoutY="135.0" prefHeight="30.0" prefWidth="133.0" />
             <Label layoutX="19.0" layoutY="197.0" prefHeight="23.0" prefWidth="74.0" text="NewPassword" />
