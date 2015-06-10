@@ -7,6 +7,7 @@ package net.hft.dbproject.weatherapp.persistence;
 
 import net.hft.dbproject.weatherapp.entities.AppUser;
 import net.hft.dbproject.weatherapp.entities.UserBase;
+import net.hft.dbproject.weatherapp.entities.WeatherInformation;
 
 /**
  * Interface for the UserService
@@ -22,5 +23,7 @@ public interface UserBaseService {
     public void updatePasswortByUserId(long userid, String newPassword);
 
     public void deleteUser(long userid);
+    
+    public void addNewWeatherInfoToUser(UserBase user, WeatherInformation info);
 
 }

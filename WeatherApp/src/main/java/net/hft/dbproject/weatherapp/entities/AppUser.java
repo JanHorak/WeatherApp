@@ -6,9 +6,12 @@
 package net.hft.dbproject.weatherapp.entities;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -16,11 +19,39 @@ import javax.persistence.NamedQuery;
  */
 @Entity
 @NamedQueries({
-        @NamedQuery(name = "AppUser.findByID", query = "SELECT u FROM AppUser u WHERE u.id = :id"),
-        @NamedQuery(name="AppUser.fingByNAME", query="SELECT u FROM AppUser u WHERE u.name =:name"),
-       @NamedQuery(name="AppUser.updateByPASSWORD", query="UPDATE AppUser u SET u.password = :newPassword WHERE u.id = :id")})
+    @NamedQuery(name = "AppUser.findByID", query = "SELECT u FROM AppUser u WHERE u.id = :id"),
+    @NamedQuery(name = "AppUser.fingByNAME", query = "SELECT u FROM AppUser u WHERE u.name =:name"),
+    @NamedQuery(name = "AppUser.findAll", query = "SELECT u FROM AppUser u"),
+    @NamedQuery(name = "AppUser.updateByPASSWORD", query = "UPDATE AppUser u SET u.password = :newPassword WHERE u.id = :id")})
 public class AppUser extends UserBase implements Serializable {
-    
-    
 
+    @OneToMany(mappedBy = "target", targetEntity = Notification.class,
+                cascade = CascadeType.ALL)
+    private List<Notification> notifications;
+    
+    @OneToMany(mappedBy = "searcher", targetEntity = WeatherInformation.class,
+                cascade = CascadeType.ALL)
+    private List<WeatherInformation> searchedWeather;
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
+    
+    public List<WeatherInformation> getSearchedWeather() {
+        return searchedWeather;
+    }
+
+    public void setSearchedWeather(List<WeatherInformation> searchedWeather) {
+        this.searchedWeather = searchedWeather;
+    }
+
+    @Override
+    public String toString() {
+        return super.getName();
+    }
+    
 }

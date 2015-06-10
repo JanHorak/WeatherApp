@@ -34,9 +34,12 @@ public class Temperature implements Serializable {
     @NotNull
     private double maxTemp;
 
-    @NotNull
     @OneToMany(mappedBy = "temperature", targetEntity = WeatherInformation.class)
     private List<WeatherInformation> information;
+    
+    protected Temperature(){
+        
+    }
 
     public Temperature(double averageTemp, double minTemp, double maxTemp) {
         this.averageTemp = averageTemp;

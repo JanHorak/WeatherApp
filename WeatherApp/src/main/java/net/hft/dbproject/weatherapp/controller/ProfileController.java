@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import net.hft.dbproject.weatherapp.helper.LoggedInUser;
 import net.hft.dbproject.weatherapp.manager.ControllerContainer;
 import net.hft.dbproject.weatherapp.uiactions.Profilepageactions;
@@ -24,6 +25,9 @@ public class ProfileController implements Initializable {
 
     @FXML
     private TextField pnameField;
+    
+    @FXML
+    private Pane pane; 
 
     @FXML
     private TextField oldpasswordField;
@@ -33,6 +37,8 @@ public class ProfileController implements Initializable {
     private Button saveButton;
     @FXML
     private Button deleteButton;
+    
+    
 
     /**
      * Initializes the controller class.
@@ -65,4 +71,14 @@ public class ProfileController implements Initializable {
     public Button getDeleteButton() {
         return deleteButton;
     }
+
+    public Pane getPane() {
+        return pane;
+    }
+
+    public void setPane(Pane pane) {
+        this.pane = pane;
+    }
+    
+    
 }

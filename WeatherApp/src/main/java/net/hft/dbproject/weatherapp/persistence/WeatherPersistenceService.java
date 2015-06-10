@@ -50,7 +50,12 @@ public class WeatherPersistenceService extends DataAccess implements WeatherBase
     // Combobox
     @Override
     public List<WeatherInformation> findAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        List<WeatherInformation> result;
+        setup();
+        openConnection();
+        result = (List<WeatherInformation>) em.createNamedQuery("WeatherInformation.find").getResultList();
+        shutDown();
+        return result;
     }
 
 }

@@ -3,10 +3,7 @@ package net.hft.dbproject.weatherapp.controller;
 import java.io.ByteArrayInputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.CountDownLatch;
-import java.util.logging.Level;
 import javafx.application.Platform;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -55,6 +52,9 @@ public class MainpageController implements Initializable {
 
     @FXML
     private Button searchButton;
+    
+    @FXML
+    private Hyperlink adminHyperlink;
 
     @FXML
     private Hyperlink signinLink;
@@ -122,6 +122,7 @@ public class MainpageController implements Initializable {
         // Links
         registerLink.setOnAction(actions.openRegisterPage);
         signinLink.setOnAction(actions.openLoginPage);
+        adminHyperlink.setOnAction(actions.openAdminPage);
 
         LOGGER.info("Loading UI- Actions... done");
     }
@@ -202,4 +203,7 @@ public class MainpageController implements Initializable {
         cityNameValue.setText(weatherInformation.getCityName());
     }
 
+    public WeatherInformation getCurrentWeather() {
+        return currentWeather;
+    }
 }

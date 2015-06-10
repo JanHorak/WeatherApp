@@ -10,6 +10,7 @@ import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Control;
+import javafx.stage.Stage;
 import net.hft.dbproject.weatherapp.controller.RegisterController;
 import net.hft.dbproject.weatherapp.entities.AppUser;
 import net.hft.dbproject.weatherapp.entities.UserBase;
@@ -37,7 +38,7 @@ public class Registerpageactions {
     private RegisterController controller;
 
     private UserBaseService userService;
-
+    
     public EventHandler<ActionEvent> registerAction = new EventHandler<ActionEvent>() {
 
         @Override
@@ -68,9 +69,15 @@ public class Registerpageactions {
                 NotificationService.resetErrorBorder();
                 controller.getNameField().setText("");
                 controller.getPasswordField().setText("");
+                closeWindow();
 
             }
         }
     };
+    
+    private void closeWindow() {
+        Stage thisStage = (Stage) controller.getPane().getScene().getWindow();
+        thisStage.close();
+    }
 
 }

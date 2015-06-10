@@ -7,7 +7,7 @@
 
 <AnchorPane layoutX="-3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="153.0" prefWidth="221.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.hft.dbproject.weatherapp.controller.RegisterController">
    <children>
-       <Pane fx:id="registerPane" layoutX="-3.0" prefHeight="153.0" prefWidth="228.0">
+       <Pane fx:id="pane" layoutX="-3.0" prefHeight="153.0" prefWidth="228.0">
          <children>
             <TextField fx:id="nameField" layoutX="27.0" layoutY="25.0" prefHeight="30.0" prefWidth="158.0" promptText="Username" />
             <Button fx:id="registerButton" layoutX="75.0" layoutY="105.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="113.0" text="Register Me">

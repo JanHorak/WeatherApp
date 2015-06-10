@@ -2,7 +2,7 @@
     -fx-font-weight: bold;
 }
 
-#mainpagePane, #loginPane, #registerPane, #dashboardPane, #comparecitiesPane, #profilePane{
+#mainpagePane, #loginPane, #registerPane, #comparecitiesPane, #profilePane{
     -fx-background-image: url("../images/UI/TestBackground.png");
     -fx-background-repeat: stretch; 
     -fx-background-position: center center;

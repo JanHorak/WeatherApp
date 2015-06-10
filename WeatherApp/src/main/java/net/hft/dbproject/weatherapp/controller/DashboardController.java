@@ -111,32 +111,46 @@ public class DashboardController implements Initializable {
 
     private void initUIActions() {
         Dashboardactions actions = new Dashboardactions();
-
         profileButton.setOnAction(actions.openProfilePage);
         compareButton.setOnAction(actions.openComparePage);
         cityCombobox.valueProperty().addListener(actions.cityListSelection);
-        
+
     }
 
     public void updateHistory(List<WeatherInformation> history) {
+        
+        String notAvailableText = "n/a";
 
         // Day 1
         dayone.setText(history.get(0).getCityName());
         imageViewOne.setImage(new Image(new ByteArrayInputStream(history.get(0).getImage().getImagedataDay())));
-        dayonecelcius.setText(String.valueOf(Utilities.toCelsius(history.get(0).getTemperature().getAverageTemp())));
-        dayonefahr.setText(String.valueOf(history.get(0).getTemperature().getAverageTemp()));
+        dayonecelcius.setText(String.valueOf(Utilities.toCelsius(history.get(0).getTemperature().getAverageTemp())) + "°C");
+        dayonefahr.setText(String.valueOf(history.get(0).getTemperature().getAverageTemp()) + "°F");
 
         // Day 2
-        daytwo.setText(history.get(1).getCityName());
-        imageViewTwo.setImage(new Image(new ByteArrayInputStream(history.get(1).getImage().getImagedataDay())));
-        daytwocelcius.setText(String.valueOf(Utilities.toCelsius(history.get(1).getTemperature().getAverageTemp())));
-        daytwofahr.setText(String.valueOf(history.get(1).getTemperature().getAverageTemp()));
-
+        if (history.size() >= 2) {
+            daytwo.setText(history.get(1).getCityName());
+            imageViewTwo.setImage(new Image(new ByteArrayInputStream(history.get(1).getImage().getImagedataDay())));
+            daytwocelcius.setText(String.valueOf(Utilities.toCelsius(history.get(1).getTemperature().getAverageTemp())) + "°C");
+            daytwofahr.setText(String.valueOf(history.get(1).getTemperature().getAverageTemp()) + "°F");
+        } else {
+            daytwo.setText(notAvailableText);
+            imageViewTwo.setImage(new Image(new ByteArrayInputStream(history.get(0).getImage().getImagedataDay())));
+            daytwocelcius.setText(notAvailableText);
+            daytwofahr.setText(notAvailableText);
+        }
         // Day 3
-        daythree.setText(history.get(2).getCityName());
-        imageViewThree.setImage(new Image(new ByteArrayInputStream(history.get(2).getImage().getImagedataDay())));
-        daythreecelcius.setText(String.valueOf(Utilities.toCelsius(history.get(2).getTemperature().getAverageTemp())));
-        daythreefahr.setText(String.valueOf(history.get(2).getTemperature().getAverageTemp()));
+        if (history.size() == 3) {
+            daythree.setText(history.get(2).getCityName());
+            imageViewThree.setImage(new Image(new ByteArrayInputStream(history.get(2).getImage().getImagedataDay())));
+            daythreecelcius.setText(String.valueOf(Utilities.toCelsius(history.get(2).getTemperature().getAverageTemp())) + "°C");
+            daythreefahr.setText(String.valueOf(history.get(2).getTemperature().getAverageTemp()) + "°F");
+        } else {
+            daythree.setText(notAvailableText);
+            imageViewThree.setImage(new Image(new ByteArrayInputStream(history.get(0).getImage().getImagedataDay())));
+            daythreecelcius.setText(notAvailableText);
+            daythreefahr.setText(notAvailableText);
+        }
 
     }
 
