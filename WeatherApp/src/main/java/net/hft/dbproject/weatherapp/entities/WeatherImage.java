@@ -22,9 +22,10 @@ import javax.validation.constraints.NotNull;
  * @author Jan
  */
 @Entity
-@NamedQueries ({
-    @NamedQuery(name = "WeatherImage.findByIconID", query = "SELECT i FROM WeatherImage i WHERE i.iconId = :iconId")
-})
+@NamedQueries({
+    @NamedQuery(name = "WeatherImage.findByIconID", query = "SELECT i FROM WeatherImage i WHERE i.iconId = :iconId"),
+    @NamedQuery(name = "WeatherImage.displayByIconID", query = "SELECT i FROM WeatherImage i WHERE i.iconId=:iconId")})
+
 public class WeatherImage implements Serializable {
 
     @Id
@@ -34,7 +35,7 @@ public class WeatherImage implements Serializable {
     @NotNull
     @Column(columnDefinition = "blob")
     private byte[] imagedataDay;
-    
+
     @NotNull
     @Column(columnDefinition = "blob")
     private byte[] imagedataNight;
@@ -69,7 +70,6 @@ public class WeatherImage implements Serializable {
     public void setIconId(int iconId) {
         this.iconId = iconId;
     }
-
 
     public Long getId() {
         return id;

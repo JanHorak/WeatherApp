@@ -21,6 +21,7 @@ import net.hft.dbproject.weatherapp.uiactions.Loginpageactions;
  * @author AVATSP
  */
 public class LoginController implements Initializable {
+
     @FXML
     private TextField nameField;
     @FXML
@@ -29,25 +30,26 @@ public class LoginController implements Initializable {
     private Pane loginPane;
     @FXML
     private Button loginButton;
-        
-     /**
+
+    /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) { 
+    public void initialize(URL url, ResourceBundle rb) {
         ControllerContainer.addController(LoginController.class, this);
         Loginpageactions lpa = new Loginpageactions();
         loginButton.setOnAction(lpa.loginAction);
-    }    
+    }
 
     public TextField getNameField() {
-          return nameField;
+        return nameField;
     }
 
     public TextField getPasswordField() {
         return passwordField;
     }
-    
+
 }

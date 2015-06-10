@@ -10,13 +10,17 @@ import net.hft.dbproject.weatherapp.entities.UserBase;
 
 /**
  * Interface for the UserService
- * 
+ *
  * @author Jan
  */
 public interface UserBaseService {
-    
+
     public void saveNewUser(UserBase user);
+
     public UserBase getUserByName(String username);
+
     public void updatePasswortByUserId(long userid, String newPassword);
-   
+
+    public void deleteUser(long userid);
+
 }

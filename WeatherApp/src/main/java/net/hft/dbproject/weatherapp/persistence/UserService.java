@@ -6,6 +6,7 @@
 package net.hft.dbproject.weatherapp.persistence;
 
 import javax.persistence.NoResultException;
+import net.hft.dbproject.weatherapp.entities.AppUser;
 import net.hft.dbproject.weatherapp.entities.UserBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +28,20 @@ public class UserService extends DataAccess implements UserBaseService {
         shutDown();
     }
 
+    @Override
+    public void deleteUser(long userid) {
+        setup();
+        AppUser user = em.find(AppUser.class, userid);
+        openConnection();
+        em.remove(user);
+        commitStatement();
+        shutDown();
+    }
+
     /**
      *
-     * @param user
+     * @param userid
+     * @param newPassword
      */
     @Override
     public void updatePasswortByUserId(long userid, String newPassword) {
@@ -39,7 +51,6 @@ public class UserService extends DataAccess implements UserBaseService {
         commitStatement();
         shutDown();
     }
-
 
     @Override
     public UserBase getUserByName(String username) {
@@ -55,4 +66,4 @@ public class UserService extends DataAccess implements UserBaseService {
         return result;
     }
 
-    }
+}

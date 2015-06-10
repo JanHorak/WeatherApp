@@ -32,8 +32,10 @@ public class ProfileController implements Initializable {
     private TextField newpasswordField;
     @FXML
     private Button saveButton;
+    @FXML
+    private Button deleteButton;
     
-    private AppUser currentUser;
+  
 
     /**
      * Initializes the controller class.
@@ -41,10 +43,11 @@ public class ProfileController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ControllerContainer.addController(ProfileController.class, this);
-        Profilepageactions spa = new Profilepageactions();
-        saveButton.setOnAction(spa.saveAction);
-        currentUser = LoggedInUser.getInstance();
-        pnameField.setText(currentUser.getName());
+         Profilepageactions spa = new Profilepageactions();
+         this.saveButton.setOnAction(spa.saveAction);
+          this.deleteButton.setOnAction(spa.deleteAction);
+        
+       
     }
 
     public TextField getPnameField() {
@@ -57,5 +60,11 @@ public class ProfileController implements Initializable {
 
     public TextField getNewpasswordField() {
         return newpasswordField;
+    }
+    public Button getSaveButton() {
+        return saveButton;
+    }
+    public Button getDeleteButton() {
+        return deleteButton;
     }
 }
