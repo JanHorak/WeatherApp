@@ -7,7 +7,7 @@ package net.hft.dbproject.weatherapp.helper;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.hft.dbproject.weatherapp.entities.WeatherInformation;
+import net.hft.dbproject.weatherapp.entities.Location;
 
 /**
  *
@@ -70,10 +70,10 @@ public class JSONConvertObject {
         return name + ", " + country;
     }
 
-    public static List<JSONConvertObject> toJSONConvertList(List<WeatherInformation> list) {
+    public static List<JSONConvertObject> toJSONConvertList(List<Location> list) {
         List<JSONConvertObject> result = new ArrayList<>();
 
-        for (WeatherInformation w : list) {
+        for (Location w : list) {
             JSONConvertObject j = new JSONConvertObject();
             j._id = w.getCityIdentifier();
             j.country = w.getCountryCode();

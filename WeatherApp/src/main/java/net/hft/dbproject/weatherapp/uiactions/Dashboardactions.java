@@ -13,8 +13,8 @@ import net.hft.dbproject.weatherapp.controller.DashboardController;
 import net.hft.dbproject.weatherapp.enums.CSSFile;
 import net.hft.dbproject.weatherapp.manager.ControllerContainer;
 import net.hft.dbproject.weatherapp.manager.Stagemanager;
-import net.hft.dbproject.weatherapp.persistence.WeatherBaseService;
-import net.hft.dbproject.weatherapp.persistence.WeatherPersistenceService;
+import net.hft.dbproject.weatherapp.persistence.LocationBaseService;
+import net.hft.dbproject.weatherapp.persistence.LocationPersistenceService;
 import net.hft.dbproject.weatherapp.services.PropertiesService;
 
 /**
@@ -47,13 +47,12 @@ public class Dashboardactions {
         }
 
     };
-     
 
     public ChangeListener cityListSelection = new ChangeListener() {
         @Override
         public void changed(ObservableValue ov, Object t, Object t1) {
-            WeatherBaseService service = new WeatherPersistenceService();
-            controller.updateHistory(service.getThreeInfoByName((String) t1));
+            LocationBaseService service = new LocationPersistenceService();
+            controller.updateHistory(service.getThreeLocationsByName((String) t1));
         }
     };
 };

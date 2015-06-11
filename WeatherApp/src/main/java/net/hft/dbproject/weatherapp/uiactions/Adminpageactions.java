@@ -13,7 +13,7 @@ import javafx.event.EventHandler;
 import net.hft.dbproject.weatherapp.controller.AdminController;
 import net.hft.dbproject.weatherapp.entities.AppUser;
 import net.hft.dbproject.weatherapp.entities.Notification;
-import net.hft.dbproject.weatherapp.entities.WeatherInformation;
+import net.hft.dbproject.weatherapp.entities.Location;
 import net.hft.dbproject.weatherapp.manager.ControllerContainer;
 import net.hft.dbproject.weatherapp.persistence.AdminFunctions;
 import net.hft.dbproject.weatherapp.persistence.AdminManager;
@@ -36,7 +36,7 @@ public class Adminpageactions {
         @Override
         public void changed(ObservableValue ov, Object t, Object t1) {
             controller.setSelectedUser((AppUser) t1);
-            List<WeatherInformation> history = ((AppUser) t1).getSearchedWeather();
+            List<Location> history = ((AppUser) t1).getSearchedWeather();
             List<Notification> notList = controller.getSelectedUser().getNotifications();
             controller.updateHistory(history);
             controller.updateNotifications(notList);

@@ -34,8 +34,8 @@ public class Temperature implements Serializable {
     @NotNull
     private double maxTemp;
 
-    @OneToMany(mappedBy = "temperature", targetEntity = WeatherInformation.class)
-    private List<WeatherInformation> information;
+    @OneToMany(mappedBy = "temperature", targetEntity = Location.class)
+    private List<Location> location;
     
     protected Temperature(){
         
@@ -79,12 +79,12 @@ public class Temperature implements Serializable {
         this.id = id;
     }
 
-    public List<WeatherInformation> getInformation() {
-        return information;
+    public List<Location> getInformation() {
+        return location;
     }
 
-    public void setInformation(List<WeatherInformation> information) {
-        this.information = information;
+    public void setInformation(List<Location> information) {
+        this.location = information;
     }
 
     @Override

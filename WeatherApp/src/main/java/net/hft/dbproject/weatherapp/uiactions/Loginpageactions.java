@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import net.hft.dbproject.weatherapp.controller.LoginController;
 import net.hft.dbproject.weatherapp.controller.MainpageController;
 import net.hft.dbproject.weatherapp.entities.AppUser;
-import net.hft.dbproject.weatherapp.entities.WeatherInformation;
+import net.hft.dbproject.weatherapp.entities.Location;
 import net.hft.dbproject.weatherapp.enums.CSSFile;
 import net.hft.dbproject.weatherapp.helper.LoggedInUser;
 import net.hft.dbproject.weatherapp.manager.ControllerContainer;
@@ -78,7 +78,7 @@ public class Loginpageactions {
 
                     LoggedInUser.setLoggedInUser(user);
                     MainpageController mpc = (MainpageController) ControllerContainer.getController(MainpageController.class);
-                    WeatherInformation currentWeather = mpc.getCurrentWeather();
+                    Location currentWeather = mpc.getCurrentWeather();
                     
                     userservice.addNewWeatherInfoToUser(user, currentWeather);
                     LOGGER.info("Welcome User : {}", user.getName());

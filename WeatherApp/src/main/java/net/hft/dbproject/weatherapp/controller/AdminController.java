@@ -21,7 +21,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import net.hft.dbproject.weatherapp.entities.AppUser;
 import net.hft.dbproject.weatherapp.entities.Notification;
-import net.hft.dbproject.weatherapp.entities.WeatherInformation;
+import net.hft.dbproject.weatherapp.entities.Location;
 import net.hft.dbproject.weatherapp.manager.ControllerContainer;
 import net.hft.dbproject.weatherapp.persistence.AdminFunctions;
 import net.hft.dbproject.weatherapp.persistence.AdminManager;
@@ -129,10 +129,10 @@ public class AdminController implements Initializable {
         notificationList.setItems(hist);
     }
 
-    public void updateHistory(List<WeatherInformation> incoming) {
+    public void updateHistory(List<Location> incoming) {
         history.setItems(null);
         List<String> historyList = new ArrayList<>();
-        for (WeatherInformation i : incoming) {
+        for (Location i : incoming) {
             String entry = i.getCityName() + ",  Ident:" + String.valueOf(i.getCityIdentifier());
             historyList.add(entry);
         }

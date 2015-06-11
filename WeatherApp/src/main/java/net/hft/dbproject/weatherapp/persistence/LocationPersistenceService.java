@@ -7,13 +7,13 @@ package net.hft.dbproject.weatherapp.persistence;
 
 import java.util.List;
 import net.hft.dbproject.weatherapp.entities.WeatherImage;
-import net.hft.dbproject.weatherapp.entities.WeatherInformation;
+import net.hft.dbproject.weatherapp.entities.Location;
 
 /**
  *
  * @author Jan
  */
-public class WeatherPersistenceService extends DataAccess implements WeatherBaseService {
+public class LocationPersistenceService extends DataAccess implements LocationBaseService {
 
     @Override
     public WeatherImage getImageByIconID(int id) {
@@ -27,33 +27,33 @@ public class WeatherPersistenceService extends DataAccess implements WeatherBase
 
     // Startup
     @Override
-    public List<WeatherInformation> getFirstThreeInfo() {
-        List<WeatherInformation> result;
+    public List<Location> getFirstThreeLocations() {
+        List<Location> result;
         setup();
         openConnection();
-        result = (List<WeatherInformation>) em.createNamedQuery("WeatherInformation.findLastThreeInfo").setMaxResults(3).getResultList();
+        result = (List<Location>) em.createNamedQuery("Location.findLastThreeInfo").setMaxResults(3).getResultList();
         shutDown();
         return result;
     }
 
     // Selection
     @Override
-    public List<WeatherInformation> getThreeInfoByName(String cityName) {
-        List<WeatherInformation> result;
+    public List<Location> getThreeLocationsByName(String cityName) {
+        List<Location> result;
         setup();
         openConnection();
-        result = (List<WeatherInformation>) em.createNamedQuery("WeatherInformation.findThreeByName").setParameter("cityName", cityName).setMaxResults(3).getResultList();
+        result = (List<Location>) em.createNamedQuery("Location.findThreeByName").setParameter("cityName", cityName).setMaxResults(3).getResultList();
         shutDown();
         return result;
     }
-    
+
     // Combobox
     @Override
-    public List<WeatherInformation> findAll() {
-        List<WeatherInformation> result;
+    public List<Location> findAll() {
+        List<Location> result;
         setup();
         openConnection();
-        result = (List<WeatherInformation>) em.createNamedQuery("WeatherInformation.find").getResultList();
+        result = (List<Location>) em.createNamedQuery("Location.find").getResultList();
         shutDown();
         return result;
     }

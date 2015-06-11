@@ -47,8 +47,8 @@ public class WeatherImage implements Serializable {
     @Column(unique = true)
     private int iconId;
 
-    @OneToMany(mappedBy = "image", targetEntity = WeatherInformation.class)
-    private List<WeatherInformation> info;
+    @OneToMany(mappedBy = "image", targetEntity = Location.class)
+    private List<Location> location;
 
     public byte[] getImagedataDay() {
         return imagedataDay;
@@ -82,12 +82,12 @@ public class WeatherImage implements Serializable {
         this.id = id;
     }
 
-    public List<WeatherInformation> getInfo() {
-        return info;
+    public List<Location> getInfo() {
+        return location;
     }
 
-    public void setInfo(List<WeatherInformation> info) {
-        this.info = info;
+    public void setInfo(List<Location> info) {
+        this.location = info;
     }
 
 }

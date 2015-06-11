@@ -17,20 +17,20 @@ import javafx.stage.Stage;
 import net.hft.dbproject.weatherapp.controller.MainpageController;
 import net.hft.dbproject.weatherapp.controller.SearchingDialogController;
 import net.hft.dbproject.weatherapp.entities.WeatherImage;
-import net.hft.dbproject.weatherapp.entities.WeatherInformation;
+import net.hft.dbproject.weatherapp.entities.Location;
 import net.hft.dbproject.weatherapp.enums.CSSFile;
 import net.hft.dbproject.weatherapp.helper.JSONConvertObject;
 import net.hft.dbproject.weatherapp.manager.ControllerContainer;
 import net.hft.dbproject.weatherapp.manager.Stagemanager;
-import net.hft.dbproject.weatherapp.persistence.WeatherBaseService;
-import net.hft.dbproject.weatherapp.persistence.WeatherPersistenceService;
+import net.hft.dbproject.weatherapp.persistence.LocationBaseService;
+import net.hft.dbproject.weatherapp.persistence.LocationPersistenceService;
 import net.hft.dbproject.weatherapp.services.Locationfinder;
 import net.hft.dbproject.weatherapp.services.NotificationService;
 import net.hft.dbproject.weatherapp.services.OfflineLocationFinder;
 import net.hft.dbproject.weatherapp.services.OnlineLocationFinder;
 import net.hft.dbproject.weatherapp.services.PropertiesService;
 import net.hft.dbproject.weatherapp.services.WeatherAPIConnection;
-import net.hft.dbproject.weatherapp.services.WeatherService;
+import net.hft.dbproject.weatherapp.services.LocationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,9 +44,7 @@ public class Searchpageactions {
 
     private SearchingDialogController controller;
 
-    private WeatherService weatherService;
-
-    private WeatherBaseService weatherPersistenceService;
+    private LocationBaseService weatherPersistenceService;
 
     private Locationfinder locationfinder;
 
@@ -122,8 +120,8 @@ public class Searchpageactions {
         @Override
         public void handle(ActionEvent t) {
             MainpageController mpc = (MainpageController) ControllerContainer.getController(MainpageController.class);
-            weatherPersistenceService = new WeatherPersistenceService();
-            WeatherInformation wi = null;
+            weatherPersistenceService = new LocationPersistenceService();
+            Location wi = null;
             if (controller.getOnline().isSelected()) {
                 wi = OnlineLocationFinder.getWeatherFromCacheById(controller.getSelectedLocation().getId());
                 LOGGER.debug("Online detected");

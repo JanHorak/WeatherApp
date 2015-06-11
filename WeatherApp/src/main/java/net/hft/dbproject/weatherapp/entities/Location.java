@@ -23,12 +23,12 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "WeatherInformation.findLastThreeInfo", query = "SELECT i FROM WeatherInformation i ORDER BY i.id DESC"),
-    @NamedQuery(name = "WeatherInformation.findAll", query = "SELECT i FROM WeatherInformation i ORDER BY i.id DESC"),
-    @NamedQuery(name = "WeatherInformation.findThreeByName", query = "SELECT i FROM WeatherInformation i WHERE i.cityName = :cityName ORDER BY i.id DESC"),
-    @NamedQuery(name = "WeatherInformation.find", query = "SELECT i FROM WeatherInformation i")
+    @NamedQuery(name = "Location.findLastThreeInfo", query = "SELECT i FROM Location i ORDER BY i.id DESC"),
+    @NamedQuery(name = "Location.findAll", query = "SELECT i FROM Location i ORDER BY i.id DESC"),
+    @NamedQuery(name = "Location.findThreeByName", query = "SELECT i FROM Location i WHERE i.cityName = :cityName ORDER BY i.id DESC"),
+    @NamedQuery(name = "Location.find", query = "SELECT i FROM Location i")
 })
-public class WeatherInformation implements Serializable {
+public class Location implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -40,9 +40,9 @@ public class WeatherInformation implements Serializable {
     private String weatherDescription;
 
     @NotNull
-    @ManyToOne(targetEntity = Temperature.class ,cascade = CascadeType.ALL)
+    @ManyToOne(targetEntity = Temperature.class, cascade = CascadeType.ALL)
     private Temperature temperature;
-    
+
     @ManyToOne(targetEntity = AppUser.class, cascade = CascadeType.ALL)
     private AppUser searcher;
 
@@ -62,7 +62,7 @@ public class WeatherInformation implements Serializable {
     @ManyToOne(targetEntity = WeatherImage.class)
     private WeatherImage image;
 
-    public WeatherInformation(int ident, String cityName, String countryCode, Temperature temp, float lat, float lon) {
+    public Location(int ident, String cityName, String countryCode, Temperature temp, float lat, float lon) {
         this.cityIdentifier = ident;
         this.cityName = cityName;
         this.countryCode = countryCode;
@@ -71,11 +71,11 @@ public class WeatherInformation implements Serializable {
         this.lon = lon;
     }
 
-    public WeatherInformation() {
+    public Location() {
 
     }
 
-    public WeatherInformation(String cityName) {
+    public Location(String cityName) {
         this.cityName = cityName;
     }
 
@@ -97,7 +97,7 @@ public class WeatherInformation implements Serializable {
 
     @Override
     public String toString() {
-        return "WeatherInformation{" + "id=" + id + ", cityName=" + cityName + ", weatherDescription=" + weatherDescription + ", temperature=" + temperature.toString() + ",image=" + image + ",ident=" + cityIdentifier + '}';
+        return "Location{" + "id=" + id + ", cityName=" + cityName + ", weatherDescription=" + weatherDescription + ", temperature=" + temperature.toString() + ",image=" + image + ",ident=" + cityIdentifier + '}';
     }
 
     public Long getId() {
@@ -171,7 +171,5 @@ public class WeatherInformation implements Serializable {
     public void setSearcher(AppUser searcher) {
         this.searcher = searcher;
     }
-    
-    
 
 }
