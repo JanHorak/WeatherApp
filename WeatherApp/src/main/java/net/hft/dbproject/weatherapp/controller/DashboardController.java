@@ -7,6 +7,7 @@ package net.hft.dbproject.weatherapp.controller;
 
 import java.io.ByteArrayInputStream;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -54,6 +55,12 @@ public class DashboardController implements Initializable {
     @FXML
     private Label daythreefahr;
     @FXML
+    private Label dayonetime;
+    @FXML
+    private Label daytwotime;
+    @FXML
+    private Label daythreetime;
+    @FXML
     private ImageView imageViewOne;
     @FXML
     private ImageView imageViewTwo;
@@ -84,7 +91,7 @@ public class DashboardController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         ControllerContainer.addController(DashboardController.class, this);
-        
+
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -109,7 +116,7 @@ public class DashboardController implements Initializable {
     }
 
     public void updateHistory(List<Location> history) {
-        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyy \n HH:mm");
         String notAvailableText = "n/a";
 
         // Day 1
@@ -117,18 +124,20 @@ public class DashboardController implements Initializable {
         imageViewOne.setImage(new Image(new ByteArrayInputStream(history.get(0).getImage().getImagedataDay())));
         dayonecelcius.setText(String.valueOf(Math.round(Utilities.toCelsius(history.get(0).getTemperature().getAverageTemp()))) + "°C");
         dayonefahr.setText(String.valueOf(Math.round(history.get(0).getTemperature().getAverageTemp())) + "°F");
-
+        dayonetime.setText(sdf.format(history.get(0).getRequestTime()));
         // Day 2
         if (history.size() >= 2) {
             daytwo.setText(history.get(1).getCityName());
             imageViewTwo.setImage(new Image(new ByteArrayInputStream(history.get(1).getImage().getImagedataDay())));
             daytwocelcius.setText(String.valueOf(Math.round(Utilities.toCelsius(history.get(1).getTemperature().getAverageTemp()))) + "°C");
             daytwofahr.setText(String.valueOf(Math.round(history.get(1).getTemperature().getAverageTemp())) + "°F");
+            daytwotime.setText(sdf.format(history.get(1).getRequestTime()));
         } else {
             daytwo.setText(notAvailableText);
             imageViewTwo.setImage(new Image(new ByteArrayInputStream(history.get(0).getImage().getImagedataDay())));
             daytwocelcius.setText(notAvailableText);
             daytwofahr.setText(notAvailableText);
+            daytwotime.setText(notAvailableText);
         }
         // Day 3
         if (history.size() == 3) {
@@ -136,11 +145,13 @@ public class DashboardController implements Initializable {
             imageViewThree.setImage(new Image(new ByteArrayInputStream(history.get(2).getImage().getImagedataDay())));
             daythreecelcius.setText(String.valueOf(Math.round(Utilities.toCelsius(history.get(2).getTemperature().getAverageTemp()))) + "°C");
             daythreefahr.setText(String.valueOf(Math.round(history.get(2).getTemperature().getAverageTemp())) + "°F");
+            daythreetime.setText(sdf.format(history.get(2).getRequestTime()));
         } else {
             daythree.setText(notAvailableText);
             imageViewThree.setImage(new Image(new ByteArrayInputStream(history.get(0).getImage().getImagedataDay())));
             daythreecelcius.setText(notAvailableText);
             daythreefahr.setText(notAvailableText);
+            daythreetime.setText(notAvailableText);
         }
 
     }

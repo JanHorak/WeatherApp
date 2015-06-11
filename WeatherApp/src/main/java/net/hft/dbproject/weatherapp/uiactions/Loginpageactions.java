@@ -78,7 +78,7 @@ public class Loginpageactions {
 
                     LoggedInUser.setLoggedInUser(user);
                     MainpageController mpc = (MainpageController) ControllerContainer.getController(MainpageController.class);
-                    Location currentWeather = mpc.getCurrentWeather();
+                    Location currentWeather = mpc.getCurrentLocation();
                     
                     userservice.addNewWeatherInfoToUser(user, currentWeather);
                     LOGGER.info("Welcome User : {}", user.getName());

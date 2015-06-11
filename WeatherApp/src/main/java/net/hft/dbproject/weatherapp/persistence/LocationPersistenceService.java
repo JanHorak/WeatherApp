@@ -53,7 +53,7 @@ public class LocationPersistenceService extends DataAccess implements LocationBa
         List<Location> result;
         setup();
         openConnection();
-        result = (List<Location>) em.createNamedQuery("Location.find").getResultList();
+        result = (List<Location>) em.createNamedQuery("Location.findAll").getResultList();
         shutDown();
         return result;
     }
