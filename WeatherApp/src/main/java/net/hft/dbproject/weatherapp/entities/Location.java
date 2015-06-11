@@ -6,6 +6,7 @@
 package net.hft.dbproject.weatherapp.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -15,6 +16,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import net.hft.dbproject.weatherapp.trigger.CounterTrigger;
@@ -29,9 +32,9 @@ import net.hft.dbproject.weatherapp.trigger.CounterTrigger;
 })
 @NamedQueries({
     @NamedQuery(name = "Location.findLastThreeInfo", query = "SELECT i FROM Location i ORDER BY i.id DESC"),
-    @NamedQuery(name = "Location.findAll", query = "SELECT i FROM Location i ORDER BY i.id DESC"),
-    @NamedQuery(name = "Location.findThreeByName", query = "SELECT i FROM Location i WHERE i.cityName = :cityName ORDER BY i.id DESC"),
-    @NamedQuery(name = "Location.find", query = "SELECT i FROM Location i")
+    @NamedQuery(name = "Location.findAllOrderdByTime", query = "SELECT i FROM Location i ORDER BY i.requestTime DESC"),
+    @NamedQuery(name = "Location.findThreeByName", query = "SELECT i FROM Location i WHERE i.cityName = :cityName ORDER BY i.requestTime DESC"),
+    @NamedQuery(name = "Location.findAll", query = "SELECT i FROM Location i")
 })
 public class Location implements Serializable {
 
@@ -63,6 +66,9 @@ public class Location implements Serializable {
     @Transient
     private float lon;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date requestTime;
+
     @NotNull
     @ManyToOne(targetEntity = WeatherImage.class)
     private WeatherImage image;
@@ -77,7 +83,6 @@ public class Location implements Serializable {
     }
 
     public Location() {
-
     }
 
     public Location(String cityName) {
@@ -175,6 +180,14 @@ public class Location implements Serializable {
 
     public void setSearcher(AppUser searcher) {
         this.searcher = searcher;
+    }
+
+    public Date getRequestTime() {
+        return requestTime;
+    }
+
+    public void setRequestTime(Date requestTime) {
+        this.requestTime = requestTime;
     }
 
 }

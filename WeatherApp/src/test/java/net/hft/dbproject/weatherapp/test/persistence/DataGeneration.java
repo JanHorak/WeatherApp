@@ -6,6 +6,7 @@
 package net.hft.dbproject.weatherapp.test.persistence;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -542,21 +543,27 @@ public class DataGeneration {
         not5.setTargetLocation("München");
 
         Location wi1 = new Location(1225, "Köln", "DE", t, 25, 25);
+        wi1.setRequestTime(new Date());
         wi1.setImage(i);
 
         Location wi2 = new Location(12252, "Stuttgart", "DE", t1, 25, 25);
+        wi2.setRequestTime(new Date());
         wi2.setImage(i1);
 
         Location wi3 = new Location(12253, "Berlin", "DE", t2, 25, 25);
+        wi3.setRequestTime(new Date());
         wi3.setImage(i2);
 
         Location wi4 = new Location(12255, "Bielefeld", "DE", t3, 25, 25);
+        wi4.setRequestTime(new Date());
         wi4.setImage(i3);
 
         Location wi5 = new Location(122525, "Leipzig", "DE", t4, 25, 25);
+        wi5.setRequestTime(new Date());
         wi5.setImage(i4);
 
         Location wi6 = new Location(122533, "München", "DE", t5, 25, 25);
+        wi6.setRequestTime(new Date());
         wi6.setImage(i5);
 
         em.persist(t);
