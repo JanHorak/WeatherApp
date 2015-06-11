@@ -6,6 +6,7 @@
 package net.hft.dbproject.weatherapp.controller;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -132,8 +133,9 @@ public class AdminController implements Initializable {
     public void updateHistory(List<Location> incoming) {
         history.setItems(null);
         List<String> historyList = new ArrayList<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyy - HH:mm");
         for (Location i : incoming) {
-            String entry = i.getCityName() + ",  Ident:" + String.valueOf(i.getCityIdentifier());
+            String entry = i.getCityName() + ", \t@ " + String.valueOf(sdf.format(i.getRequestTime()));
             historyList.add(entry);
         }
         ObservableList<String> hist

@@ -2,6 +2,7 @@ package net.hft.dbproject.weatherapp.controller;
 
 import java.io.ByteArrayInputStream;
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -92,6 +93,7 @@ public class MainpageController implements Initializable {
                 initUIActions();
                 initUIInputs();
                 currentLocation = WeatherAPIConnection.requestCityByID(Integer.valueOf(propertiesService.getIdentCode()));
+                currentLocation.setRequestTime(new Date());
                 WeatherImage i = new WeatherImage();
                 LocationPersistenceService p = new LocationPersistenceService();
                 i = p.getImageByIconID(currentLocation.getImage().getIconId());
@@ -203,7 +205,7 @@ public class MainpageController implements Initializable {
         cityNameValue.setText(location.getCityName());
     }
 
-    public Location getCurrentWeather() {
+    public Location getCurrentLocation() {
         return currentLocation;
     }
 }
