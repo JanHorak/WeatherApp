@@ -29,9 +29,9 @@ public class AppUser extends UserBase implements Serializable {
                 cascade = CascadeType.ALL)
     private List<Notification> notifications;
     
-    @OneToMany(mappedBy = "searcher", targetEntity = WeatherInformation.class,
+    @OneToMany(mappedBy = "searcher", targetEntity = Location.class,
                 cascade = CascadeType.ALL)
-    private List<WeatherInformation> searchedWeather;
+    private List<Location> searchedLocation;
 
     public List<Notification> getNotifications() {
         return notifications;
@@ -41,12 +41,12 @@ public class AppUser extends UserBase implements Serializable {
         this.notifications = notifications;
     }
     
-    public List<WeatherInformation> getSearchedWeather() {
-        return searchedWeather;
+    public List<Location> getSearchedWeather() {
+        return searchedLocation;
     }
 
-    public void setSearchedWeather(List<WeatherInformation> searchedWeather) {
-        this.searchedWeather = searchedWeather;
+    public void setSearchedWeather(List<Location> searchedWeather) {
+        this.searchedLocation = searchedWeather;
     }
 
     @Override

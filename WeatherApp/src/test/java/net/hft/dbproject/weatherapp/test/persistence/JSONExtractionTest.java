@@ -6,7 +6,7 @@
 package net.hft.dbproject.weatherapp.test.persistence;
 
 import java.util.List;
-import net.hft.dbproject.weatherapp.entities.WeatherInformation;
+import net.hft.dbproject.weatherapp.entities.Location;
 import net.hft.dbproject.weatherapp.helper.CityBulk;
 import net.hft.dbproject.weatherapp.helper.JSONConvertObject;
 import net.hft.dbproject.weatherapp.services.Locationfinder;
@@ -31,14 +31,14 @@ public class JSONExtractionTest {
 
     @Test
     public void shouldReturnWeatherFromService() {
-        List<WeatherInformation> d = WeatherAPIConnection.requestCitiesByLike("Berlin");
+        List<Location> d = WeatherAPIConnection.requestCitiesByLike("Berlin");
         Assert.assertThat(d.size(), is(10));
 
     }
 
     @Test
     public void shouldReturnWeatherFromService2() {
-        WeatherInformation d = WeatherAPIConnection.requestCityByID(2825297);
+        Location d = WeatherAPIConnection.requestCityByID(2825297);
         System.out.println(d.getCityName());
 
     }

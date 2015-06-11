@@ -20,13 +20,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import net.hft.dbproject.weatherapp.entities.WeatherInformation;
+import net.hft.dbproject.weatherapp.entities.Location;
 import net.hft.dbproject.weatherapp.manager.ControllerContainer;
-import net.hft.dbproject.weatherapp.persistence.WeatherBaseService;
-import net.hft.dbproject.weatherapp.persistence.WeatherPersistenceService;
-import net.hft.dbproject.weatherapp.services.PropertiesService;
+import net.hft.dbproject.weatherapp.persistence.LocationBaseService;
+import net.hft.dbproject.weatherapp.persistence.LocationPersistenceService;
 import net.hft.dbproject.weatherapp.uiactions.Dashboardactions;
 import net.hft.dbproject.weatherapp.utilities.Utilities;
 
@@ -36,9 +34,6 @@ import net.hft.dbproject.weatherapp.utilities.Utilities;
  * @author AVATSP
  */
 public class DashboardController implements Initializable {
-
-    @FXML
-    private AnchorPane anchor;
 
     @FXML
     private Label dayone;
@@ -75,11 +70,9 @@ public class DashboardController implements Initializable {
     @FXML
     private Button logoutButton;
 
-    private WeatherInformation historyInfo;
-    private PropertiesService propertiesService;
     private DashboardController controller;
 
-    WeatherBaseService p = null;
+    private LocationBaseService locationService = null;
 
     /**
      * Initializes the controller class.
@@ -91,16 +84,14 @@ public class DashboardController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         ControllerContainer.addController(DashboardController.class, this);
-        historyInfo = new WeatherInformation();
-
+        
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 initUIActions();
-                propertiesService = new PropertiesService();
-                p = new WeatherPersistenceService();
+                locationService = new LocationPersistenceService();
 
-                List<WeatherInformation> history = p.getFirstThreeInfo();
+                List<Location> history = locationService.getFirstThreeLocations();
                 selectCitylist();
                 updateHistory(history);
             }
@@ -117,22 +108,22 @@ public class DashboardController implements Initializable {
 
     }
 
-    public void updateHistory(List<WeatherInformation> history) {
+    public void updateHistory(List<Location> history) {
         
         String notAvailableText = "n/a";
 
         // Day 1
         dayone.setText(history.get(0).getCityName());
         imageViewOne.setImage(new Image(new ByteArrayInputStream(history.get(0).getImage().getImagedataDay())));
-        dayonecelcius.setText(String.valueOf(Utilities.toCelsius(history.get(0).getTemperature().getAverageTemp())) + "°C");
-        dayonefahr.setText(String.valueOf(history.get(0).getTemperature().getAverageTemp()) + "°F");
+        dayonecelcius.setText(String.valueOf(Math.round(Utilities.toCelsius(history.get(0).getTemperature().getAverageTemp()))) + "°C");
+        dayonefahr.setText(String.valueOf(Math.round(history.get(0).getTemperature().getAverageTemp())) + "°F");
 
         // Day 2
         if (history.size() >= 2) {
             daytwo.setText(history.get(1).getCityName());
             imageViewTwo.setImage(new Image(new ByteArrayInputStream(history.get(1).getImage().getImagedataDay())));
-            daytwocelcius.setText(String.valueOf(Utilities.toCelsius(history.get(1).getTemperature().getAverageTemp())) + "°C");
-            daytwofahr.setText(String.valueOf(history.get(1).getTemperature().getAverageTemp()) + "°F");
+            daytwocelcius.setText(String.valueOf(Math.round(Utilities.toCelsius(history.get(1).getTemperature().getAverageTemp()))) + "°C");
+            daytwofahr.setText(String.valueOf(Math.round(history.get(1).getTemperature().getAverageTemp())) + "°F");
         } else {
             daytwo.setText(notAvailableText);
             imageViewTwo.setImage(new Image(new ByteArrayInputStream(history.get(0).getImage().getImagedataDay())));
@@ -143,8 +134,8 @@ public class DashboardController implements Initializable {
         if (history.size() == 3) {
             daythree.setText(history.get(2).getCityName());
             imageViewThree.setImage(new Image(new ByteArrayInputStream(history.get(2).getImage().getImagedataDay())));
-            daythreecelcius.setText(String.valueOf(Utilities.toCelsius(history.get(2).getTemperature().getAverageTemp())) + "°C");
-            daythreefahr.setText(String.valueOf(history.get(2).getTemperature().getAverageTemp()) + "°F");
+            daythreecelcius.setText(String.valueOf(Math.round(Utilities.toCelsius(history.get(2).getTemperature().getAverageTemp()))) + "°C");
+            daythreefahr.setText(String.valueOf(Math.round(history.get(2).getTemperature().getAverageTemp())) + "°F");
         } else {
             daythree.setText(notAvailableText);
             imageViewThree.setImage(new Image(new ByteArrayInputStream(history.get(0).getImage().getImagedataDay())));
@@ -159,10 +150,10 @@ public class DashboardController implements Initializable {
         cityCombobox.setItems(null);
 
         // Filling List
-        List<WeatherInformation> allWi = p.findAll();
+        List<Location> allWi = locationService.findAll();
         List<String> inputs = new ArrayList<>();
 
-        for (WeatherInformation i : allWi) {
+        for (Location i : allWi) {
             if (!inputs.contains(i.getCityName())) {
                 inputs.add(i.getCityName());
             }

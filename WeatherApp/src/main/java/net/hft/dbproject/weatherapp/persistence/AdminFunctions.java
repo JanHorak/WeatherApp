@@ -7,7 +7,6 @@ package net.hft.dbproject.weatherapp.persistence;
 
 import java.util.List;
 import net.hft.dbproject.weatherapp.entities.AppUser;
-import net.hft.dbproject.weatherapp.entities.WeatherInformation;
 import net.hft.dbproject.weatherapp.entities.Notification;
 
 /**

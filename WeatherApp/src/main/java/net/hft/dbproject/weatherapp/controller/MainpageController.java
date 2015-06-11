@@ -13,9 +13,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import net.hft.dbproject.weatherapp.entities.WeatherImage;
-import net.hft.dbproject.weatherapp.entities.WeatherInformation;
+import net.hft.dbproject.weatherapp.entities.Location;
 import net.hft.dbproject.weatherapp.manager.ControllerContainer;
-import net.hft.dbproject.weatherapp.persistence.WeatherPersistenceService;
+import net.hft.dbproject.weatherapp.persistence.LocationPersistenceService;
 import net.hft.dbproject.weatherapp.services.InetHeartBeat;
 import net.hft.dbproject.weatherapp.services.PropertiesService;
 import net.hft.dbproject.weatherapp.services.WeatherAPIConnection;
@@ -77,12 +77,12 @@ public class MainpageController implements Initializable {
     @FXML
     private Label cityNameValue;
 
-    private WeatherInformation currentWeather;
+    private Location currentLocation;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ControllerContainer.addController(MainpageController.class, this);
-        currentWeather = new WeatherInformation();
+        currentLocation = new Location();
         new InetHeartBeat(inetConImage).startHeartBeat();
         propertiesService = new PropertiesService();
 
@@ -91,12 +91,12 @@ public class MainpageController implements Initializable {
             public void run() {
                 initUIActions();
                 initUIInputs();
-                currentWeather = WeatherAPIConnection.requestCityByID(Integer.valueOf(propertiesService.getIdentCode()));
+                currentLocation = WeatherAPIConnection.requestCityByID(Integer.valueOf(propertiesService.getIdentCode()));
                 WeatherImage i = new WeatherImage();
-                WeatherPersistenceService p = new WeatherPersistenceService();
-                i = p.getImageByIconID(currentWeather.getImage().getIconId());
-                currentWeather.setImage(i);
-                processWeather(currentWeather);
+                LocationPersistenceService p = new LocationPersistenceService();
+                i = p.getImageByIconID(currentLocation.getImage().getIconId());
+                currentLocation.setImage(i);
+                processWeather(currentLocation);
             }
         });
 
@@ -139,8 +139,8 @@ public class MainpageController implements Initializable {
         LOGGER.info("Preparing UI... done");
     }
 
-    public void setCurrentWeather(WeatherInformation currentWeather) {
-        this.currentWeather = currentWeather;
+    public void setCurrentWeather(Location currentWeather) {
+        this.currentLocation = currentWeather;
     }
 
     public ImageView getcImage() {
@@ -179,31 +179,31 @@ public class MainpageController implements Initializable {
         this.avgTempValue = avgTempValue;
     }
 
-    public void processWeather(WeatherInformation weatherInformation) {
+    public void processWeather(Location location) {
         double dMin;
         double dMax;
         double dAvg;
         String suffix = "";
         if (!fahrenheit) {
             suffix = "°C";
-            dMin = Utilities.toCelsius(weatherInformation.getTemperature().getMinTemp());
-            dMax = Utilities.toCelsius(weatherInformation.getTemperature().getMaxTemp());
-            dAvg = Utilities.toCelsius(weatherInformation.getTemperature().getAverageTemp());
+            dMin = Utilities.toCelsius(location.getTemperature().getMinTemp());
+            dMax = Utilities.toCelsius(location.getTemperature().getMaxTemp());
+            dAvg = Utilities.toCelsius(location.getTemperature().getAverageTemp());
         } else {
             suffix = "°F";
-            System.out.println(weatherInformation.toString());
-            dMin = weatherInformation.getTemperature().getMinTemp();
-            dMax = weatherInformation.getTemperature().getMaxTemp();
-            dAvg = weatherInformation.getTemperature().getAverageTemp();
+            System.out.println(location.toString());
+            dMin = location.getTemperature().getMinTemp();
+            dMax = location.getTemperature().getMaxTemp();
+            dAvg = location.getTemperature().getAverageTemp();
         }
         maxTempValue.setText(String.valueOf(dMax).concat(suffix));
         minTempValue.setText(String.valueOf(dMin).concat(suffix));
         avgTempValue.setText(String.valueOf(dAvg).concat(suffix));
-        weatherImage.setImage(new Image(new ByteArrayInputStream(weatherInformation.getImage().getImagedataDay())));
-        cityNameValue.setText(weatherInformation.getCityName());
+        weatherImage.setImage(new Image(new ByteArrayInputStream(location.getImage().getImagedataDay())));
+        cityNameValue.setText(location.getCityName());
     }
 
-    public WeatherInformation getCurrentWeather() {
-        return currentWeather;
+    public Location getCurrentWeather() {
+        return currentLocation;
     }
 }

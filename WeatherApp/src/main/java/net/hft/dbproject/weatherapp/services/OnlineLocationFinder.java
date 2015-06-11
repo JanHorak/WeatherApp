@@ -7,7 +7,7 @@ package net.hft.dbproject.weatherapp.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import net.hft.dbproject.weatherapp.entities.WeatherInformation;
+import net.hft.dbproject.weatherapp.entities.Location;
 import net.hft.dbproject.weatherapp.helper.JSONConvertObject;
 
 /**
@@ -16,19 +16,19 @@ import net.hft.dbproject.weatherapp.helper.JSONConvertObject;
  */
 public class OnlineLocationFinder implements Locationfinder {
 
-    private static List<WeatherInformation> weatherInfoCache = new ArrayList<>();
+    private static List<Location> locationCache = new ArrayList<>();
 
     @Override
     public List<JSONConvertObject> getLocationsByCityName(String name) {
         List<JSONConvertObject> result = null;
-        weatherInfoCache = WeatherAPIConnection.requestCitiesByLike(name);
-        result = JSONConvertObject.toJSONConvertList(weatherInfoCache);
+        locationCache = WeatherAPIConnection.requestCitiesByLike(name);
+        result = JSONConvertObject.toJSONConvertList(locationCache);
         return result;
     }
     
-    public static WeatherInformation getWeatherFromCacheById(int id){
-        WeatherInformation result = new WeatherInformation();
-        for (WeatherInformation wi : weatherInfoCache){
+    public static Location getWeatherFromCacheById(int id){
+        Location result = new Location();
+        for (Location wi : locationCache){
             if (wi.getCityIdentifier() == id){
                 result = wi;
                 break;

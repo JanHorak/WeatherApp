@@ -7,17 +7,17 @@ package net.hft.dbproject.weatherapp.persistence;
 
 import java.util.List;
 import net.hft.dbproject.weatherapp.entities.WeatherImage;
-import net.hft.dbproject.weatherapp.entities.WeatherInformation;
+import net.hft.dbproject.weatherapp.entities.Location;
 
 /**
  *
  * @author Jan
  */
-public interface WeatherBaseService {
+public interface LocationBaseService {
     
     public WeatherImage getImageByIconID(int id);
-    public List<WeatherInformation> getFirstThreeInfo();
-    public List<WeatherInformation> findAll();
-    public List<WeatherInformation> getThreeInfoByName(String cityName);
+    public List<Location> getFirstThreeLocations();
+    public List<Location> findAll();
+    public List<Location> getThreeLocationsByName(String cityName);
     
 }

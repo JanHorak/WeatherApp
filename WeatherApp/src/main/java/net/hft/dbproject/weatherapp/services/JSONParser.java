@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import net.hft.dbproject.weatherapp.entities.Temperature;
 import net.hft.dbproject.weatherapp.entities.WeatherImage;
-import net.hft.dbproject.weatherapp.entities.WeatherInformation;
+import net.hft.dbproject.weatherapp.entities.Location;
 import net.hft.dbproject.weatherapp.utilities.Utilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,18 +32,18 @@ public abstract class JSONParser {
     private static boolean singleObject = false;
 
     /**
-     * Returns the list of {@link WeatherInformation} depending on the incoming
-     * JSON- Stream.
+     * Returns the list of {@link Location} depending on the incoming JSON-
+     * Stream.
      *
      * @param queryResult
-     * @return List of Weatherinformation
+     * @return List of Location
      * @throws IOException
      */
-    public static List<WeatherInformation> toWeatherList(InputStream queryResult) throws IOException {
+    public static List<Location> toLocationList(InputStream queryResult) throws IOException {
 
         initialize(queryResult);
 
-        List<WeatherInformation> result = new ArrayList<WeatherInformation>();
+        List<Location> result = new ArrayList<Location>();
 
         queryJSONReader.beginObject();
         while (queryJSONReader.hasNext()) {
@@ -53,7 +53,7 @@ public abstract class JSONParser {
                 queryJSONReader.beginArray();
                 while (queryJSONReader.hasNext()) {
                     queryJSONReader.beginObject();
-                    WeatherInformation currWeather = toWeather();
+                    Location currWeather = toLocation();
                     queryJSONReader.endObject();
                     if (currWeather != null) {
                         result.add(currWeather);
@@ -62,7 +62,7 @@ public abstract class JSONParser {
                 queryJSONReader.endArray();
             } else if (name.equals("coord")) {
                 singleObject = true;
-                result.add(toWeather());
+                result.add(toLocation());
             } else {
                 queryJSONReader.skipValue();
             }
@@ -77,11 +77,11 @@ public abstract class JSONParser {
     /**
      * Parsingmethod for the single JSON- Objects.
      *
-     * @return Parsed Weatherinformation
+     * @return Parsed Location
      */
-    private static WeatherInformation toWeather() {
+    private static Location toLocation() {
 
-        WeatherInformation result = new WeatherInformation();
+        Location result = new Location();
         String cityName = "";
         Temperature cityTemperature = null;
         double tempAvg = 0.0;
@@ -199,7 +199,7 @@ public abstract class JSONParser {
 
                 }
 
-                result = new WeatherInformation(ident, cityName, countryCode, cityTemperature, lat, lon);
+                result = new Location(ident, cityName, countryCode, cityTemperature, lat, lon);
                 WeatherImage wi = new WeatherImage();
                 wi.setIconId(imageIconID);
                 result.setImage(wi);
