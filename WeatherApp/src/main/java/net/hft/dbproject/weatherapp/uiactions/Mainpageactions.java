@@ -85,7 +85,14 @@ public class Mainpageactions {
     public EventHandler<ActionEvent> openLoginPage = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent t) {
-            functions.openStageAsRoot(null, getClass().getResource("/fxml/mainpage/login.fxml"), CSSFile.CSS_DEFAULT, 251, 397, true);
+            functions.openStageAsRoot(null, getClass().getResource("/fxml/mainpage/login.fxml"), CSSFile.CSS_DEFAULT, 230, 218, true);
+        }
+    };
+    
+    public EventHandler<ActionEvent> openAdminPage = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent t) {
+            functions.openStageAsRoot(null, getClass().getResource("/fxml/mainpage/Admin.fxml"), CSSFile.CSS_DEFAULT, 448, 481, true);
         }
     };
 

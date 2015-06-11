@@ -10,7 +10,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import net.hft.dbproject.weatherapp.controller.DashboardController;
-import net.hft.dbproject.weatherapp.entities.WeatherInformation;
 import net.hft.dbproject.weatherapp.enums.CSSFile;
 import net.hft.dbproject.weatherapp.manager.ControllerContainer;
 import net.hft.dbproject.weatherapp.manager.Stagemanager;
@@ -54,9 +53,7 @@ public class Dashboardactions {
         @Override
         public void changed(ObservableValue ov, Object t, Object t1) {
             WeatherBaseService service = new WeatherPersistenceService();
-            WeatherInformation selection = (WeatherInformation) t1;
-
-            controller.updateHistory(service.getThreeInfoByName(selection.getCityName()));
+            controller.updateHistory(service.getThreeInfoByName((String) t1));
         }
     };
 };

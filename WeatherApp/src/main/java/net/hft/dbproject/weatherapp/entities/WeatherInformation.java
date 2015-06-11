@@ -37,12 +37,14 @@ public class WeatherInformation implements Serializable {
     @NotNull
     private String cityName;
 
-    @NotNull
     private String weatherDescription;
 
     @NotNull
     @ManyToOne(targetEntity = Temperature.class ,cascade = CascadeType.ALL)
     private Temperature temperature;
+    
+    @ManyToOne(targetEntity = AppUser.class, cascade = CascadeType.ALL)
+    private AppUser searcher;
 
     @NotNull
     private int cityIdentifier;
@@ -161,5 +163,15 @@ public class WeatherInformation implements Serializable {
     public void setLon(float lon) {
         this.lon = lon;
     }
+
+    public AppUser getSearcher() {
+        return searcher;
+    }
+
+    public void setSearcher(AppUser searcher) {
+        this.searcher = searcher;
+    }
+    
+    
 
 }

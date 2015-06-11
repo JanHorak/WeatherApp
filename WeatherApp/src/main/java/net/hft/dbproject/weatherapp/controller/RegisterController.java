@@ -27,12 +27,12 @@ public class RegisterController implements Initializable {
     
     @FXML
     private TextField passwordField;
-    
-    @FXML
-    private Pane registerPane;
-    
+   
     @FXML
     private Button registerButton;
+    
+    @FXML
+    private Pane pane;
     
     /**
      * Initializes the controller class.
@@ -53,8 +53,13 @@ public class RegisterController implements Initializable {
     public TextField getPasswordField() {
         return passwordField;
     }
-    
-    
-    
+
+    public Pane getPane() {
+        return pane;
+    }
+
+    public void setPane(Pane pane) {
+        this.pane = pane;
+    }
     
 }

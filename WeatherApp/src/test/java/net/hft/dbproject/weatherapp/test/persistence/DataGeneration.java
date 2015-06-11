@@ -6,13 +6,18 @@
 package net.hft.dbproject.weatherapp.test.persistence;
 
 import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import net.hft.dbproject.weatherapp.entities.AppUser;
+import net.hft.dbproject.weatherapp.entities.Notification;
+import net.hft.dbproject.weatherapp.entities.Temperature;
 import net.hft.dbproject.weatherapp.entities.WeatherImage;
 import net.hft.dbproject.weatherapp.entities.WeatherInformation;
 import net.hft.dbproject.weatherapp.utilities.Utilities;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -443,10 +448,158 @@ public class DataGeneration {
         em.persist(scatteredClouds);
         em.persist(brokenClouds);
         em.persist(overcast);
-        
+
         em.getTransaction().commit();
         em.close();
 
     }
 
+    @Test
+    public void createTestData() {
+        EntityManager em;
+        EntityManagerFactory emf;
+        emf = Persistence.createEntityManagerFactory("test");
+        em = emf.createEntityManager();
+
+        em.getTransaction().begin();
+
+        AppUser testUser = new AppUser();
+        testUser.setName("Test");
+        testUser.setPassword("Test");
+
+        AppUser testUser1 = new AppUser();
+        testUser1.setName("Test1");
+        testUser1.setPassword("Test1");
+
+        WeatherImage i = new WeatherImage();
+        i.setIconId(4);
+        i.setImagedataDay(clearSkyD);
+        i.setImagedataNight(mistD);
+        WeatherImage i1 = new WeatherImage();
+        i1.setIconId(2);
+        i1.setImagedataDay(mistD);
+        i1.setImagedataNight(rainD);
+        WeatherImage i2 = new WeatherImage();
+        i2.setIconId(54);
+        i2.setImagedataDay(showerRainD);
+        i2.setImagedataNight(snowD);
+        WeatherImage i3 = new WeatherImage();
+        i3.setIconId(11);
+        i3.setImagedataDay(showerRainD);
+        i3.setImagedataNight(clearSkyD);
+        WeatherImage i4 = new WeatherImage();
+        i4.setIconId(41);
+        i4.setImagedataDay(snowN);
+        i4.setImagedataNight(thunderstormD);
+        WeatherImage i5 = new WeatherImage();
+        i5.setIconId(14);
+        i5.setImagedataDay(thunderstormN);
+        i5.setImagedataNight(brokenCloudsN);
+
+        em.persist(i);
+        em.persist(i1);
+        em.persist(i2);
+        em.persist(i3);
+        em.persist(i4);
+        em.persist(i5);
+
+        Temperature t = new Temperature(150, 150, 150);
+        Temperature t1 = new Temperature(150, 150, 150);
+        Temperature t2 = new Temperature(150, 150, 150);
+        Temperature t3 = new Temperature(150, 150, 150);
+        Temperature t4 = new Temperature(150, 150, 150);
+        Temperature t5 = new Temperature(150, 150, 150);
+
+        Notification not = new Notification();
+        not.setEmailAddress("normal@Spy.com");
+        not.setTarget(testUser);
+        not.setTargetLocation("Stuttgart");
+        Notification not1 = new Notification();
+        not1.setEmailAddress("normal@Spy.com");
+        not1.setTarget(testUser);
+        not1.setTargetLocation("Berlin");
+        Notification not2 = new Notification();
+        not2.setEmailAddress("normal2@Spy.com");
+        not2.setTarget(testUser);
+        not2.setTargetLocation("Kiel");
+
+        Notification not3 = new Notification();
+        not3.setEmailAddress("normal@Spy.com");
+        not3.setTarget(testUser1);
+        not3.setTargetLocation("London");
+        Notification not4 = new Notification();
+        not4.setEmailAddress("normal@Spy.com");
+        not4.setTarget(testUser1);
+        not4.setTargetLocation("Paris");
+        Notification not5 = new Notification();
+        not5.setEmailAddress("normal2@Spy.com");
+        not5.setTarget(testUser1);
+        not5.setTargetLocation("München");
+
+        WeatherInformation wi1 = new WeatherInformation(1225, "Köln", "DE", t, 25, 25);
+        wi1.setImage(i);
+
+        WeatherInformation wi2 = new WeatherInformation(12252, "Stuttgart", "DE", t1, 25, 25);
+        wi2.setImage(i1);
+
+        WeatherInformation wi3 = new WeatherInformation(12253, "Berlin", "DE", t2, 25, 25);
+        wi3.setImage(i2);
+
+        WeatherInformation wi4 = new WeatherInformation(12255, "Bielefeld", "DE", t3, 25, 25);
+        wi4.setImage(i3);
+
+        WeatherInformation wi5 = new WeatherInformation(122525, "Leipzig", "DE", t4, 25, 25);
+        wi5.setImage(i4);
+
+        WeatherInformation wi6 = new WeatherInformation(122533, "München", "DE", t5, 25, 25);
+        wi6.setImage(i5);
+
+        em.persist(t);
+        em.persist(t1);
+        em.persist(t2);
+        em.persist(t3);
+        em.persist(t4);
+        em.persist(t5);
+
+        em.persist(wi1);
+        em.persist(wi2);
+        em.persist(wi3);
+        em.persist(wi4);
+        em.persist(wi5);
+        em.persist(wi6);
+
+        em.persist(testUser);
+        em.persist(testUser1);
+
+        em.persist(not);
+        em.persist(not1);
+        em.persist(not2);
+        em.persist(not3);
+        em.persist(not4);
+        em.persist(not5);
+
+        wi4.setSearcher(testUser1);
+        wi5.setSearcher(testUser1);
+        wi6.setSearcher(testUser1);
+
+        wi1.setSearcher(testUser);
+        wi2.setSearcher(testUser);
+        wi3.setSearcher(testUser);
+
+        List<WeatherInformation> weatherHist1 = new ArrayList<>();
+        weatherHist1.add(wi3);
+        weatherHist1.add(wi2);
+        weatherHist1.add(wi1);
+
+        List<WeatherInformation> weatherHist2 = new ArrayList<>();
+        weatherHist1.add(wi4);
+        weatherHist1.add(wi5);
+        weatherHist1.add(wi6);
+
+        testUser.setSearchedWeather(weatherHist1);
+        testUser1.setSearchedWeather(weatherHist2);
+
+        em.getTransaction().commit();
+        em.close();
+    }
 }

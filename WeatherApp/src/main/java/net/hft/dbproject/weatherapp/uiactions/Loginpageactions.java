@@ -10,8 +10,11 @@ import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Control;
+import javafx.stage.Stage;
 import net.hft.dbproject.weatherapp.controller.LoginController;
+import net.hft.dbproject.weatherapp.controller.MainpageController;
 import net.hft.dbproject.weatherapp.entities.AppUser;
+import net.hft.dbproject.weatherapp.entities.WeatherInformation;
 import net.hft.dbproject.weatherapp.enums.CSSFile;
 import net.hft.dbproject.weatherapp.helper.LoggedInUser;
 import net.hft.dbproject.weatherapp.manager.ControllerContainer;
@@ -36,6 +39,11 @@ public class Loginpageactions {
 
     public Loginpageactions() {
         this.controller = (LoginController) ControllerContainer.getController(LoginController.class);
+    }
+    
+    private void closeWindow() {
+        Stage thisStage = (Stage) controller.getPane().getScene().getWindow();
+        thisStage.close();
     }
 
     public EventHandler<ActionEvent> loginAction = new EventHandler<ActionEvent>() {
@@ -69,11 +77,16 @@ public class Loginpageactions {
                     LOGGER.info("User is Logged:");
 
                     LoggedInUser.setLoggedInUser(user);
+                    MainpageController mpc = (MainpageController) ControllerContainer.getController(MainpageController.class);
+                    WeatherInformation currentWeather = mpc.getCurrentWeather();
+                    
+                    userservice.addNewWeatherInfoToUser(user, currentWeather);
                     LOGGER.info("Welcome User : {}", user.getName());
                     controller.getNameField().setText("");
                     controller.getPasswordField().setText("");
-                    new Stagemanager().openStageAsRoot(null, getClass().getResource("/fxml/mainpage/Dashboard.fxml"), CSSFile.CSS_DEFAULT, 251, 397, false);
-
+                    new Stagemanager().openStageAsRoot(null, getClass().getResource("/fxml/mainpage/Dashboard.fxml"), CSSFile.CSS_DEFAULT, 327, 397, false);
+                    closeWindow();
+                    
                 } else {
                     errorMessages.add("Username or Password are invalid!");
                     NotificationService.fireNotification(controlsInError, errorMessages);

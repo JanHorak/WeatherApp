@@ -5,16 +5,14 @@
  */
 package net.hft.dbproject.weatherapp.uiactions;
 
-import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Control;
-import javafx.scene.image.Image;
+import javafx.stage.Stage;
 import net.hft.dbproject.weatherapp.controller.ProfileController;
 import net.hft.dbproject.weatherapp.entities.AppUser;
-import net.hft.dbproject.weatherapp.entities.UserBase;
 import net.hft.dbproject.weatherapp.enums.CSSFile;
 import net.hft.dbproject.weatherapp.helper.LoggedInUser;
 import net.hft.dbproject.weatherapp.manager.ControllerContainer;
@@ -40,9 +38,7 @@ public class Profilepageactions {
     private AppUser currentUser;
 
     public Profilepageactions() {
-
         this.controller = (ProfileController) ControllerContainer.getController(ProfileController.class);
-
     }
 
     public EventHandler<ActionEvent> saveAction = new EventHandler<ActionEvent>() {
@@ -73,12 +69,13 @@ public class Profilepageactions {
                 AppUser puser = LoggedInUser.getInstance();
                 UserService us = new UserService();
                 us.updatePasswortByUserId(puser.getId(), typedInNewPassword);
-
+                
+                
                 if (isPswValid(puser)) {
                     us.updatePasswortByUserId(puser.getId().intValue(), typedInNewPassword);
                     LOGGER.info("New Password Changed:{}", puser.getName());
                     NotificationService.resetErrorBorder();
-
+                    closeWindow();
                 }
                 currentUser = LoggedInUser.getInstance();
 
@@ -93,6 +90,11 @@ public class Profilepageactions {
             isValid = true;
         }
         return isValid;
+    }
+    
+    private void closeWindow() {
+        Stage thisStage = (Stage) controller.getPane().getScene().getWindow();
+        thisStage.close();
     }
 
     public EventHandler<ActionEvent> deleteAction = new EventHandler<ActionEvent>() {
@@ -124,7 +126,7 @@ public class Profilepageactions {
 
                     LOGGER.info("User Deleted:{}", puser.getName());
                     NotificationService.resetErrorBorder();
-
+                    closeWindow();
                 }
             }
         }

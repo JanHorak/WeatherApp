@@ -8,6 +8,7 @@ package net.hft.dbproject.weatherapp.persistence;
 import javax.persistence.NoResultException;
 import net.hft.dbproject.weatherapp.entities.AppUser;
 import net.hft.dbproject.weatherapp.entities.UserBase;
+import net.hft.dbproject.weatherapp.entities.WeatherInformation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -64,6 +65,16 @@ public class UserService extends DataAccess implements UserBaseService {
         }
         shutDown();
         return result;
+    }
+
+    @Override
+    public void addNewWeatherInfoToUser(UserBase user, WeatherInformation info) {
+        setup();
+        openConnection();
+        AppUser current = (AppUser) em.createNamedQuery("AppUser.fingByNAME").setParameter("name", user.getName()).getSingleResult();
+        current.getSearchedWeather().add(info);
+        commitStatement();
+        shutDown();
     }
 
 }

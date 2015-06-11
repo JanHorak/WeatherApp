@@ -13,7 +13,7 @@
         <URL value="@/styles/CommonStyles.css" />
     </stylesheets>
    <children>
-      <Pane fx:id="profilePane" prefHeight="294.0" prefWidth="251.0">
+      <Pane fx:id="pane" prefHeight="294.0" prefWidth="251.0">
          <children>
             <Label layoutX="19.0" layoutY="72.0" prefHeight="36.0" prefWidth="67.0" text="Username" />
             <TextField fx:id="pnameField" editable="false" layoutX="103.0" layoutY="71.0" prefHeight="30.0" prefWidth="133.0" />
