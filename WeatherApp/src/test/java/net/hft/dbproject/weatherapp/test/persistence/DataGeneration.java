@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import net.hft.dbproject.weatherapp.entities.AppStatistic;
 import net.hft.dbproject.weatherapp.entities.AppUser;
 import net.hft.dbproject.weatherapp.entities.Notification;
 import net.hft.dbproject.weatherapp.entities.Temperature;
@@ -462,6 +463,10 @@ public class DataGeneration {
         em = emf.createEntityManager();
 
         em.getTransaction().begin();
+        
+        AppStatistic appstat = new AppStatistic();
+        appstat.setNumberOfSaves(0);
+
 
         AppUser testUser = new AppUser();
         testUser.setName("Test");
@@ -598,7 +603,9 @@ public class DataGeneration {
 
         testUser.setSearchedWeather(weatherHist1);
         testUser1.setSearchedWeather(weatherHist2);
-
+        
+        
+        em.persist(appstat);
         em.getTransaction().commit();
         em.close();
     }

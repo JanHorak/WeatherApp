@@ -8,6 +8,7 @@ package net.hft.dbproject.weatherapp.entities;
 import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,12 +17,16 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
+import net.hft.dbproject.weatherapp.trigger.CounterTrigger;
 
 /**
  *
  * @author admin
  */
 @Entity
+@EntityListeners({
+    CounterTrigger.class
+})
 @NamedQueries({
     @NamedQuery(name = "Location.findLastThreeInfo", query = "SELECT i FROM Location i ORDER BY i.id DESC"),
     @NamedQuery(name = "Location.findAll", query = "SELECT i FROM Location i ORDER BY i.id DESC"),
