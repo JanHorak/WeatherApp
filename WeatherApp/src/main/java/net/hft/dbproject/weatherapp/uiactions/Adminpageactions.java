@@ -10,11 +10,15 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.stage.Stage;
 import net.hft.dbproject.weatherapp.controller.AdminController;
 import net.hft.dbproject.weatherapp.entities.AppUser;
 import net.hft.dbproject.weatherapp.entities.Notification;
 import net.hft.dbproject.weatherapp.entities.Location;
+import net.hft.dbproject.weatherapp.enums.CSSFile;
+import net.hft.dbproject.weatherapp.helper.LoggedInUser;
 import net.hft.dbproject.weatherapp.manager.ControllerContainer;
+import net.hft.dbproject.weatherapp.manager.Stagemanager;
 import net.hft.dbproject.weatherapp.persistence.AdminFunctions;
 import net.hft.dbproject.weatherapp.persistence.AdminManager;
 
@@ -46,7 +50,7 @@ public class Adminpageactions {
     public ChangeListener notificationListSelection = new ChangeListener() {
         @Override
         public void changed(ObservableValue ov, Object t, Object t1) {
-            
+
         }
     };
 

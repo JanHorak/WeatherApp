@@ -9,8 +9,10 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.stage.Stage;
 import net.hft.dbproject.weatherapp.controller.DashboardController;
 import net.hft.dbproject.weatherapp.enums.CSSFile;
+import net.hft.dbproject.weatherapp.helper.LoggedInUser;
 import net.hft.dbproject.weatherapp.manager.ControllerContainer;
 import net.hft.dbproject.weatherapp.manager.Stagemanager;
 import net.hft.dbproject.weatherapp.persistence.LocationBaseService;
@@ -55,4 +57,19 @@ public class Dashboardactions {
             controller.updateHistory(service.getThreeLocationsByName((String) t1));
         }
     };
-};
+    public EventHandler<ActionEvent> logout = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent t) {
+//            new Stagemanager().openStageAsRoot(null, getClass().getResource("/fxml/mainpage/Scene.fxml"),CSSFile.CSS_DEFAULT, 260, 397, true);
+            LoggedInUser.setLoggedInUser(null);
+            closeWindow();
+        }
+    };
+    
+    
+    private void closeWindow() {
+        Stage thisStage = (Stage) controller.getPane().getScene().getWindow();
+        thisStage.close();
+    }
+
+}
