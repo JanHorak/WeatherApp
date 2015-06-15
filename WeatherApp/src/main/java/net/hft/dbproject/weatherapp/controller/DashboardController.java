@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -80,6 +80,9 @@ public class DashboardController implements Initializable {
     private DashboardController controller;
 
     private LocationBaseService locationService = null;
+    
+    @FXML
+    private Pane pane;
 
     /**
      * Initializes the controller class.
@@ -112,6 +115,7 @@ public class DashboardController implements Initializable {
         profileButton.setOnAction(actions.openProfilePage);
         compareButton.setOnAction(actions.openComparePage);
         cityCombobox.valueProperty().addListener(actions.cityListSelection);
+        logoutButton.setOnAction(actions.logout);
 
     }
 
@@ -223,4 +227,10 @@ public class DashboardController implements Initializable {
     public void setDayThreeCelcius(Label daythreecelcius) {
         this.daythreecelcius = daythreecelcius;
     }
+
+    public Pane getPane() {
+        return pane;
+    }
+    
+    
 }

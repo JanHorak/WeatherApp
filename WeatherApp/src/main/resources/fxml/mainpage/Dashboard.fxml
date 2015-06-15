@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="anchor" prefHeight="397.0" prefWidth="327.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.hft.dbproject.weatherapp.controller.DashboardController">
+<AnchorPane fx:id="pane" prefHeight="397.0" prefWidth="327.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.hft.dbproject.weatherapp.controller.DashboardController">
    <children>
       <Pane fx:id="dashboardPane" prefHeight="397.0" prefWidth="327.0" AnchorPane.leftAnchor="0.0">
          <children>
@@ -76,7 +76,7 @@
                </font>
             </Label>
             <Separator layoutX="15.0" layoutY="295.0" prefHeight="0.0" prefWidth="296.0" />
-            <Button layoutX="264.0" layoutY="4.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="56.0" text="Logout" />
+            <Button fx:id="logoutButton" layoutX="264.0" layoutY="4.0" mnemonicParsing="false" prefHeight="22.0" prefWidth="56.0" text="Logout" />
             <Separator layoutX="13.0" layoutY="40.0" prefHeight="3.0" prefWidth="222.0" />
          </children>
       </Pane>

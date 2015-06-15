@@ -20,6 +20,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import net.hft.dbproject.weatherapp.entities.AppUser;
 import net.hft.dbproject.weatherapp.entities.Notification;
 import net.hft.dbproject.weatherapp.entities.Location;
@@ -57,6 +58,9 @@ public class AdminController implements Initializable {
     @FXML
     private Button deleteNotificationButton;
 
+    @FXML
+    private Pane pane;
+   
     private String selectedNotification;
 
     @Override
@@ -73,6 +77,7 @@ public class AdminController implements Initializable {
         saveNotificationButton.setOnAction(actions.saveNotificationEvent);
         deleteNotificationButton.setOnAction(actions.deleteNotificationEvent);
         
+
         // TODO
         notificationList.getSelectionModel().selectionModeProperty().addListener(new ChangeListener() {
 
@@ -177,6 +182,10 @@ public class AdminController implements Initializable {
 
     public void setSelectedNotification(String selectedNotification) {
         this.selectedNotification = selectedNotification;
+    }
+
+    public Pane getPane() {
+        return pane;
     }
 
 }
