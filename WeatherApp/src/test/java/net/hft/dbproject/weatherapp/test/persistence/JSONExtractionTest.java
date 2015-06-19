@@ -38,7 +38,7 @@ public class JSONExtractionTest {
 
     @Test
     public void shouldReturnWeatherFromService2() {
-        Location d = WeatherAPIConnection.requestCityByID(2825297);
+        Location d = WeatherAPIConnection.requestCityByID(3117735);
         System.out.println(d.getCityName());
 
     }

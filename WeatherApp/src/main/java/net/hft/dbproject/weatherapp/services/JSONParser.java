@@ -210,7 +210,7 @@ public abstract class JSONParser {
                 result = new Location(ident, cityName, countryCode, cityTemperature, lat, lon);
                 result.setWeatherDescription(weatherDescription);
                 WeatherImage wi = new WeatherImage();
-                wi.setDayImage(isDayImage);
+                wi.setDayTime(isDayImage);
                 wi.setIconId(imageIconID);
                 result.setImage(wi);
             }

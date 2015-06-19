@@ -63,7 +63,7 @@
                   <Image url="@../../images/weather/Status-weather-clouds-icon.png" />
                </image>
             </ImageView>
-            <Label fx:id="cityNameValue" alignment="TOP_LEFT" layoutX="23.0" layoutY="140.0" prefHeight="137.0" prefWidth="197.0" text="{Cityname}">
+            <Label fx:id="cityNameValue" alignment="TOP_LEFT" layoutX="23.0" layoutY="140.0" prefHeight="136.0" prefWidth="197.0" text="{Cityname}">
                <font>
                   <Font size="25.0" />
                </font>
@@ -81,6 +81,10 @@
             <Label layoutX="13.0" layoutY="119.0" text="Avg" />
             <Label fx:id="avgTempValue" layoutX="41.0" layoutY="120.0" prefHeight="17.0" prefWidth="51.0" text="0" />
             <Separator layoutX="14.0" layoutY="65.0" prefHeight="3.0" prefWidth="116.0" />
+            <Label fx:id="weatherDescValue" layoutX="157.0" layoutY="128.0" prefHeight="19.0" prefWidth="95.0" text="Desc" textAlignment="CENTER">
+               <font>
+                  <Font size="13.0" />
+               </font></Label>
          </children>
       </Pane>
     </children>
