@@ -53,9 +53,6 @@ public class MainpageController implements Initializable {
 
     @FXML
     private Button searchButton;
-    
-    @FXML
-    private Hyperlink adminHyperlink;
 
     @FXML
     private Hyperlink signinLink;
@@ -124,7 +121,6 @@ public class MainpageController implements Initializable {
         // Links
         registerLink.setOnAction(actions.openRegisterPage);
         signinLink.setOnAction(actions.openLoginPage);
-        adminHyperlink.setOnAction(actions.openAdminPage);
 
         LOGGER.info("Loading UI- Actions... done");
     }
@@ -201,8 +197,13 @@ public class MainpageController implements Initializable {
         maxTempValue.setText(String.valueOf(dMax).concat(suffix));
         minTempValue.setText(String.valueOf(dMin).concat(suffix));
         avgTempValue.setText(String.valueOf(dAvg).concat(suffix));
-        weatherImage.setImage(new Image(new ByteArrayInputStream(location.getImage().getImagedataDay())));
+        if (location.getImage().isDayImage()){
+            weatherImage.setImage(new Image(new ByteArrayInputStream(location.getImage().getImagedataDay())));
+        } else {
+            weatherImage.setImage(new Image(new ByteArrayInputStream(location.getImage().getImagedataNight())));
+        }
         cityNameValue.setText(location.getCityName());
+        currentLocation = location;
     }
 
     public Location getCurrentLocation() {

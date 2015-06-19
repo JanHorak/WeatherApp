@@ -73,6 +73,7 @@ public class UserService extends DataAccess implements UserBaseService {
         openConnection();
         AppUser current = (AppUser) em.createNamedQuery("AppUser.fingByNAME").setParameter("name", user.getName()).getSingleResult();
         current.getSearchedWeather().add(location);
+        location.setSearcher(current);
         commitStatement();
         shutDown();
     }

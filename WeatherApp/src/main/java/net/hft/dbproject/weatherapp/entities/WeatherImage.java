@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -46,6 +47,9 @@ public class WeatherImage implements Serializable {
     @NotNull
     @Column(unique = true)
     private int iconId;
+    
+    @NotNull
+    private boolean dayImage;
 
     @OneToMany(mappedBy = "image", targetEntity = Location.class)
     private List<Location> location;
@@ -89,5 +93,15 @@ public class WeatherImage implements Serializable {
     public void setInfo(List<Location> info) {
         this.location = info;
     }
+
+    public boolean isDayImage() {
+        return dayImage;
+    }
+
+    public void setDayImage(boolean dayImage) {
+        this.dayImage = dayImage;
+    }
+    
+    
 
 }

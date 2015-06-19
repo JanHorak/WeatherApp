@@ -472,33 +472,41 @@ public class DataGeneration {
         AppUser testUser = new AppUser();
         testUser.setName("Test");
         testUser.setPassword("Test");
+        testUser.setAdmin(true);
 
         AppUser testUser1 = new AppUser();
         testUser1.setName("Test1");
         testUser1.setPassword("Test1");
+        testUser1.setAdmin(false);
 
         WeatherImage i = new WeatherImage();
         i.setIconId(4);
+        i.setDayImage(true);
         i.setImagedataDay(clearSkyD);
         i.setImagedataNight(mistD);
         WeatherImage i1 = new WeatherImage();
         i1.setIconId(2);
+        i1.setDayImage(true);
         i1.setImagedataDay(mistD);
         i1.setImagedataNight(rainD);
         WeatherImage i2 = new WeatherImage();
         i2.setIconId(54);
+        i2.setDayImage(true);
         i2.setImagedataDay(showerRainD);
         i2.setImagedataNight(snowD);
         WeatherImage i3 = new WeatherImage();
         i3.setIconId(11);
+        i3.setDayImage(true);
         i3.setImagedataDay(showerRainD);
         i3.setImagedataNight(clearSkyD);
         WeatherImage i4 = new WeatherImage();
         i4.setIconId(41);
+        i4.setDayImage(true);
         i4.setImagedataDay(snowN);
         i4.setImagedataNight(thunderstormD);
         WeatherImage i5 = new WeatherImage();
         i5.setIconId(14);
+        i5.setDayImage(true);
         i5.setImagedataDay(thunderstormN);
         i5.setImagedataNight(brokenCloudsN);
 
@@ -544,26 +552,32 @@ public class DataGeneration {
 
         Location wi1 = new Location(1225, "Köln", "DE", t, 25, 25);
         wi1.setRequestTime(new Date());
+        wi1.setWeatherDescription("broken clouds");
         wi1.setImage(i);
 
         Location wi2 = new Location(12252, "Stuttgart", "DE", t1, 25, 25);
         wi2.setRequestTime(new Date());
+        wi2.setWeatherDescription("broken clouds");
         wi2.setImage(i1);
 
         Location wi3 = new Location(12253, "Berlin", "DE", t2, 25, 25);
         wi3.setRequestTime(new Date());
+        wi3.setWeatherDescription("broken clouds");
         wi3.setImage(i2);
 
         Location wi4 = new Location(12255, "Bielefeld", "DE", t3, 25, 25);
         wi4.setRequestTime(new Date());
+        wi4.setWeatherDescription("broken clouds");
         wi4.setImage(i3);
 
         Location wi5 = new Location(122525, "Leipzig", "DE", t4, 25, 25);
         wi5.setRequestTime(new Date());
+        wi5.setWeatherDescription("broken clouds");
         wi5.setImage(i4);
 
         Location wi6 = new Location(122533, "München", "DE", t5, 25, 25);
         wi6.setRequestTime(new Date());
+        wi6.setWeatherDescription("broken clouds");
         wi6.setImage(i5);
 
         em.persist(t);

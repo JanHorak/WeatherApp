@@ -90,7 +90,7 @@ public abstract class JSONParser {
         String countryCode = "";
         int imageIconID = 0;
         int ident = 0;
-
+        boolean isDayImage = false;
         String weatherDescription = "";
 
         // GPS- Coordinates
@@ -153,8 +153,8 @@ public abstract class JSONParser {
                         case "sys": {
                             queryJSONReader.beginObject();
                             while (queryJSONReader.hasNext()) {
-                                String country = queryJSONReader.nextName();
-                                if (country.equals("country")) {
+                                String attribute = queryJSONReader.nextName();
+                                if (attribute.equals("country")) {
                                     countryCode = queryJSONReader.nextString();
                                 } else {
                                     queryJSONReader.skipValue();
@@ -168,9 +168,18 @@ public abstract class JSONParser {
                             queryJSONReader.beginArray();
                             queryJSONReader.beginObject();
                             while (queryJSONReader.hasNext()) {
-                                String id = queryJSONReader.nextName();
-                                if (id.equals("id")) {
+                                String attribute = queryJSONReader.nextName();
+                                if (attribute.equals("id")) {
                                     imageIconID = queryJSONReader.nextInt();
+                                }
+                                else if (attribute.equals("description")) {
+                                    weatherDescription = queryJSONReader.nextString();
+                                }
+                                else if (attribute.equals("icon")) {
+                                    String val = queryJSONReader.nextString();
+                                    if (val.endsWith("d")) {
+                                        isDayImage = true;
+                                    }
                                 } else {
                                     queryJSONReader.skipValue();
                                 }
@@ -187,8 +196,7 @@ public abstract class JSONParser {
                                 queryJSONReader.endObject();
                             }
                             queryJSONReader.endArray();
-
-                            // set this flat to the last element which is requested!
+                            
                             passedCounter++;
                             break;
                         }
@@ -200,10 +208,11 @@ public abstract class JSONParser {
                 }
 
                 result = new Location(ident, cityName, countryCode, cityTemperature, lat, lon);
+                result.setWeatherDescription(weatherDescription);
                 WeatherImage wi = new WeatherImage();
+                wi.setDayImage(isDayImage);
                 wi.setIconId(imageIconID);
                 result.setImage(wi);
-
             }
 
         } catch (IOException ex) {

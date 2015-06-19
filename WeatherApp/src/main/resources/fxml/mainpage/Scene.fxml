@@ -81,7 +81,6 @@
             <Label layoutX="13.0" layoutY="119.0" text="Avg" />
             <Label fx:id="avgTempValue" layoutX="41.0" layoutY="120.0" prefHeight="17.0" prefWidth="51.0" text="0" />
             <Separator layoutX="14.0" layoutY="65.0" prefHeight="3.0" prefWidth="116.0" />
-            <Hyperlink fx:id="adminHyperlink" layoutX="118.0" layoutY="361.0" text="AdmnView" />
          </children>
       </Pane>
     </children>
