@@ -25,10 +25,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import net.hft.dbproject.weatherapp.entities.AppUser;
 import net.hft.dbproject.weatherapp.entities.Location;
+import net.hft.dbproject.weatherapp.entities.Notification;
 import net.hft.dbproject.weatherapp.helper.LoggedInUser;
 import net.hft.dbproject.weatherapp.manager.ControllerContainer;
 import net.hft.dbproject.weatherapp.persistence.LocationBaseService;
 import net.hft.dbproject.weatherapp.persistence.LocationPersistenceService;
+import net.hft.dbproject.weatherapp.persistence.NotificationPS;
+import net.hft.dbproject.weatherapp.persistence.UserService;
+import net.hft.dbproject.weatherapp.services.MailService;
 import net.hft.dbproject.weatherapp.uiactions.Dashboardactions;
 import net.hft.dbproject.weatherapp.utilities.Utilities;
 
@@ -117,6 +121,7 @@ public class DashboardController implements Initializable {
                 List<Location> history = locationService.getFirstThreeLocations();
                 loadCitylist();
                 updateHistory(history);
+                fireMailNotification(currentUser, history.get(0));
             }
 
         });
@@ -212,6 +217,15 @@ public class DashboardController implements Initializable {
                 = FXCollections.observableArrayList(inputs);
 
         cityCombobox.setItems(optionsForComboList);
+    }
+    
+     private void fireMailNotification(AppUser user, Location location) {
+        NotificationPS ns = new NotificationPS();
+        Notification not = ns.getNotificationInTagetlist(user, location.getCityName());
+        if (not != null) {
+            String targetName = new UserService().getUsernameByID(user.getId());
+            new MailService().sendMail(not.getEmailAddress(), "Weatherapp: Notification", MailService.getMailMessage(targetName, location.getCityName()));
+        }
     }
 
     public Label getDayOneFahr() {

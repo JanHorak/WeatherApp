@@ -78,4 +78,13 @@ public class UserService extends DataAccess implements UserBaseService {
         shutDown();
     }
 
+    public String getUsernameByID(Long id) {
+        setup();
+        openConnection();
+        String name = (String) em.createNamedQuery("AppUser.findNameByID").setParameter("id", id).getSingleResult();
+        commitStatement();
+        shutDown();
+        return name;
+    }
+
 }

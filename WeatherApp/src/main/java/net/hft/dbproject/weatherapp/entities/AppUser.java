@@ -23,6 +23,7 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name = "AppUser.findByID", query = "SELECT u FROM AppUser u WHERE u.id = :id"),
     @NamedQuery(name = "AppUser.fingByNAME", query = "SELECT u FROM AppUser u WHERE u.name =:name"),
     @NamedQuery(name = "AppUser.findAll", query = "SELECT u FROM AppUser u"),
+    @NamedQuery(name = "AppUser.findNameByID", query = "SELECT u.name FROM AppUser u WHERE u.id = :id"),
     @NamedQuery(name = "AppUser.updateByPASSWORD", query = "UPDATE AppUser u SET u.password = :newPassword WHERE u.id = :id")})
 public class AppUser extends UserBase implements Serializable {
 

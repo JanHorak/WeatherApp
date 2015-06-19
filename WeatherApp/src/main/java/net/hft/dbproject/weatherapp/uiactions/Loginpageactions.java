@@ -7,7 +7,6 @@ package net.hft.dbproject.weatherapp.uiactions;
 
 import java.util.ArrayList;
 import java.util.List;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Control;
@@ -102,5 +101,5 @@ public class Loginpageactions {
             isValid = true;
         }
         return isValid;
-    }
+    }   
 }

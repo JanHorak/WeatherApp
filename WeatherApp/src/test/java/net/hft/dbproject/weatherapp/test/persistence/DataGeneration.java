@@ -518,28 +518,28 @@ public class DataGeneration {
         Temperature t5 = new Temperature(150, 150, 150);
 
         Notification not = new Notification();
-        not.setEmailAddress("normal@Spy.com");
+        not.setEmailAddress("42hoja1mst@hft-stuttgart.de");
         not.setTarget(testUser);
         not.setTargetLocation("Stuttgart");
         Notification not1 = new Notification();
-        not1.setEmailAddress("normal@Spy.com");
+        not1.setEmailAddress("42hoja1mst@hft-stuttgart.de");
         not1.setTarget(testUser);
         not1.setTargetLocation("Berlin");
         Notification not2 = new Notification();
-        not2.setEmailAddress("normal2@Spy.com");
+        not2.setEmailAddress("42hoja1mst@hft-stuttgart.de");
         not2.setTarget(testUser);
         not2.setTargetLocation("Kiel");
 
         Notification not3 = new Notification();
-        not3.setEmailAddress("normal@Spy.com");
+        not3.setEmailAddress("42hoja1mst@hft-stuttgart.de");
         not3.setTarget(testUser1);
         not3.setTargetLocation("London");
         Notification not4 = new Notification();
-        not4.setEmailAddress("normal@Spy.com");
+        not4.setEmailAddress("42hoja1mst@hft-stuttgart.de");
         not4.setTarget(testUser1);
         not4.setTargetLocation("Paris");
         Notification not5 = new Notification();
-        not5.setEmailAddress("normal2@Spy.com");
+        not5.setEmailAddress("42hoja1mst@hft-stuttgart.de");
         not5.setTarget(testUser1);
         not5.setTargetLocation("München");
 
