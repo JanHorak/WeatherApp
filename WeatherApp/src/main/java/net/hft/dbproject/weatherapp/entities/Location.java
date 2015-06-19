@@ -45,6 +45,7 @@ public class Location implements Serializable {
     @NotNull
     private String cityName;
 
+    @NotNull
     private String weatherDescription;
 
     @NotNull
@@ -95,14 +96,6 @@ public class Location implements Serializable {
 
     public String getCityName() {
         return this.cityName;
-    }
-
-    public void setweatherDescription(String cdescription) {
-        this.weatherDescription = cdescription;
-    }
-
-    public String getweatherDescription() {
-        return this.weatherDescription;
     }
 
     @Override

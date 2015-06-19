@@ -57,6 +57,14 @@ public class Dashboardactions {
             controller.updateHistory(service.getThreeLocationsByName((String) t1));
         }
     };
+
+    public EventHandler<ActionEvent> openAdminPage = new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent t) {
+            new Stagemanager().openStageAsRoot(null, getClass().getResource("/fxml/mainpage/Admin.fxml"), CSSFile.CSS_DEFAULT, 448, 481, true);
+        }
+    };
+
     public EventHandler<ActionEvent> logout = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent t) {
@@ -65,8 +73,7 @@ public class Dashboardactions {
             closeWindow();
         }
     };
-    
-    
+
     private void closeWindow() {
         Stage thisStage = (Stage) controller.getPane().getScene().getWindow();
         thisStage.close();

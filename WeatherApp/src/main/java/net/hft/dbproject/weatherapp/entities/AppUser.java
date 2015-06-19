@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -24,6 +25,9 @@ import javax.persistence.OneToMany;
     @NamedQuery(name = "AppUser.findAll", query = "SELECT u FROM AppUser u"),
     @NamedQuery(name = "AppUser.updateByPASSWORD", query = "UPDATE AppUser u SET u.password = :newPassword WHERE u.id = :id")})
 public class AppUser extends UserBase implements Serializable {
+    
+    @NotNull
+    private boolean admin;
 
     @OneToMany(mappedBy = "target", targetEntity = Notification.class,
                 cascade = CascadeType.ALL)
@@ -53,5 +57,15 @@ public class AppUser extends UserBase implements Serializable {
     public String toString() {
         return super.getName();
     }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+    
+    
     
 }

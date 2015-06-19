@@ -89,13 +89,6 @@ public class Mainpageactions {
         }
     };
     
-    public EventHandler<ActionEvent> openAdminPage = new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent t) {
-            functions.openStageAsRoot(null, getClass().getResource("/fxml/mainpage/Admin.fxml"), CSSFile.CSS_DEFAULT, 448, 481, true);
-        }
-    };
-
     private EventHandler<MouseEvent> cHoverAction = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent t) {
