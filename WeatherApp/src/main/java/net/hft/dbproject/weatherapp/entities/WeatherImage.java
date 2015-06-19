@@ -49,7 +49,7 @@ public class WeatherImage implements Serializable {
     private int iconId;
     
     @NotNull
-    private boolean dayImage;
+    private boolean daytime;
 
     @OneToMany(mappedBy = "image", targetEntity = Location.class)
     private List<Location> location;
@@ -94,12 +94,12 @@ public class WeatherImage implements Serializable {
         this.location = info;
     }
 
-    public boolean isDayImage() {
-        return dayImage;
+    public boolean isDayTime() {
+        return daytime;
     }
 
-    public void setDayImage(boolean dayImage) {
-        this.dayImage = dayImage;
+    public void setDayTime(boolean dayImage) {
+        this.daytime = dayImage;
     }
     
     

@@ -74,6 +74,9 @@ public class MainpageController implements Initializable {
 
     @FXML
     private Label cityNameValue;
+    
+    @FXML
+    private Label weatherDescValue;
 
     private Location currentLocation;
 
@@ -91,9 +94,11 @@ public class MainpageController implements Initializable {
                 initUIInputs();
                 currentLocation = WeatherAPIConnection.requestCityByID(Integer.valueOf(propertiesService.getIdentCode()));
                 currentLocation.setRequestTime(new Date());
+                
                 WeatherImage i = new WeatherImage();
                 LocationPersistenceService p = new LocationPersistenceService();
                 i = p.getImageByIconID(currentLocation.getImage().getIconId());
+                i.setDayTime(currentLocation.getImage().isDayTime());
                 currentLocation.setImage(i);
                 processWeather(currentLocation);
             }
@@ -197,12 +202,13 @@ public class MainpageController implements Initializable {
         maxTempValue.setText(String.valueOf(dMax).concat(suffix));
         minTempValue.setText(String.valueOf(dMin).concat(suffix));
         avgTempValue.setText(String.valueOf(dAvg).concat(suffix));
-        if (location.getImage().isDayImage()){
+        if (location.getImage().isDayTime()){
             weatherImage.setImage(new Image(new ByteArrayInputStream(location.getImage().getImagedataDay())));
         } else {
             weatherImage.setImage(new Image(new ByteArrayInputStream(location.getImage().getImagedataNight())));
         }
         cityNameValue.setText(location.getCityName());
+        weatherDescValue.setText(location.getWeatherDescription());
         currentLocation = location;
     }
 

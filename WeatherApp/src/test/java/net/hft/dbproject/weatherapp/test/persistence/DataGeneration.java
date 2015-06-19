@@ -481,32 +481,32 @@ public class DataGeneration {
 
         WeatherImage i = new WeatherImage();
         i.setIconId(4);
-        i.setDayImage(true);
+        i.setDayTime(true);
         i.setImagedataDay(clearSkyD);
         i.setImagedataNight(mistD);
         WeatherImage i1 = new WeatherImage();
         i1.setIconId(2);
-        i1.setDayImage(true);
+        i1.setDayTime(true);
         i1.setImagedataDay(mistD);
         i1.setImagedataNight(rainD);
         WeatherImage i2 = new WeatherImage();
         i2.setIconId(54);
-        i2.setDayImage(true);
+        i2.setDayTime(true);
         i2.setImagedataDay(showerRainD);
         i2.setImagedataNight(snowD);
         WeatherImage i3 = new WeatherImage();
         i3.setIconId(11);
-        i3.setDayImage(true);
+        i3.setDayTime(true);
         i3.setImagedataDay(showerRainD);
         i3.setImagedataNight(clearSkyD);
         WeatherImage i4 = new WeatherImage();
         i4.setIconId(41);
-        i4.setDayImage(true);
+        i4.setDayTime(true);
         i4.setImagedataDay(snowN);
         i4.setImagedataNight(thunderstormD);
         WeatherImage i5 = new WeatherImage();
         i5.setIconId(14);
-        i5.setDayImage(true);
+        i5.setDayTime(true);
         i5.setImagedataDay(thunderstormN);
         i5.setImagedataNight(brokenCloudsN);
 

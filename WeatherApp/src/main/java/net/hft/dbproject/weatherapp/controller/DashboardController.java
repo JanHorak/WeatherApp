@@ -144,7 +144,7 @@ public class DashboardController implements Initializable {
 
         // Day 1
         dayone.setText(history.get(0).getCityName());
-        if (history.get(0).getImage().isDayImage()) {
+        if (history.get(0).getImage().isDayTime()) {
             imageViewOne.setImage(new Image(new ByteArrayInputStream(history.get(0).getImage().getImagedataDay())));
         } else {
             imageViewOne.setImage(new Image(new ByteArrayInputStream(history.get(0).getImage().getImagedataNight())));
@@ -155,7 +155,7 @@ public class DashboardController implements Initializable {
         descdayone.setText(history.get(0).getWeatherDescription());
         // Day 2
         if (history.size() >= 2) {
-            if (history.get(1).getImage().isDayImage()) {
+            if (history.get(1).getImage().isDayTime()) {
                 imageViewTwo.setImage(new Image(new ByteArrayInputStream(history.get(1).getImage().getImagedataDay())));
             } else {
                 imageViewTwo.setImage(new Image(new ByteArrayInputStream(history.get(1).getImage().getImagedataNight())));
@@ -175,7 +175,7 @@ public class DashboardController implements Initializable {
         }
         // Day 3
         if (history.size() == 3) {
-            if (history.get(2).getImage().isDayImage()) {
+            if (history.get(2).getImage().isDayTime()) {
                 imageViewThree.setImage(new Image(new ByteArrayInputStream(history.get(2).getImage().getImagedataDay())));
             } else {
                 imageViewThree.setImage(new Image(new ByteArrayInputStream(history.get(2).getImage().getImagedataNight())));
