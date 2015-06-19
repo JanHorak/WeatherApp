@@ -80,8 +80,6 @@ public class DashboardController implements Initializable {
     @FXML
     private Button compareButton;
     @FXML
-    private Pane dashboardPane;
-    @FXML
     private ComboBox cityCombobox;
     @FXML
     private Button logoutButton;
@@ -117,7 +115,7 @@ public class DashboardController implements Initializable {
                 locationService = new LocationPersistenceService();
 
                 List<Location> history = locationService.getFirstThreeLocations();
-                selectCitylist();
+                loadCitylist();
                 updateHistory(history);
             }
 
@@ -144,7 +142,7 @@ public class DashboardController implements Initializable {
 
         // Day 1
         dayone.setText(history.get(0).getCityName());
-        if (history.get(0).getImage().isDayTime()) {
+        if (history.get(0).isDayTime()) {
             imageViewOne.setImage(new Image(new ByteArrayInputStream(history.get(0).getImage().getImagedataDay())));
         } else {
             imageViewOne.setImage(new Image(new ByteArrayInputStream(history.get(0).getImage().getImagedataNight())));
@@ -155,7 +153,7 @@ public class DashboardController implements Initializable {
         descdayone.setText(history.get(0).getWeatherDescription());
         // Day 2
         if (history.size() >= 2) {
-            if (history.get(1).getImage().isDayTime()) {
+            if (history.get(1).isDayTime()) {
                 imageViewTwo.setImage(new Image(new ByteArrayInputStream(history.get(1).getImage().getImagedataDay())));
             } else {
                 imageViewTwo.setImage(new Image(new ByteArrayInputStream(history.get(1).getImage().getImagedataNight())));
@@ -175,7 +173,7 @@ public class DashboardController implements Initializable {
         }
         // Day 3
         if (history.size() == 3) {
-            if (history.get(2).getImage().isDayTime()) {
+            if (history.get(2).isDayTime()) {
                 imageViewThree.setImage(new Image(new ByteArrayInputStream(history.get(2).getImage().getImagedataDay())));
             } else {
                 imageViewThree.setImage(new Image(new ByteArrayInputStream(history.get(2).getImage().getImagedataNight())));
@@ -196,7 +194,7 @@ public class DashboardController implements Initializable {
 
     }
 
-    public void selectCitylist() {
+    public void loadCitylist() {
         // Cleaning up
         cityCombobox.setItems(null);
 

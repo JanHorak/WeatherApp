@@ -25,16 +25,16 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name = "AppUser.findAll", query = "SELECT u FROM AppUser u"),
     @NamedQuery(name = "AppUser.updateByPASSWORD", query = "UPDATE AppUser u SET u.password = :newPassword WHERE u.id = :id")})
 public class AppUser extends UserBase implements Serializable {
-    
+
     @NotNull
     private boolean admin;
 
     @OneToMany(mappedBy = "target", targetEntity = Notification.class,
-                cascade = CascadeType.ALL)
+            cascade = CascadeType.ALL)
     private List<Notification> notifications;
-    
+
     @OneToMany(mappedBy = "searcher", targetEntity = Location.class,
-                cascade = CascadeType.ALL)
+            cascade = CascadeType.ALL)
     private List<Location> searchedLocation;
 
     public List<Notification> getNotifications() {
@@ -44,7 +44,7 @@ public class AppUser extends UserBase implements Serializable {
     public void setNotifications(List<Notification> notifications) {
         this.notifications = notifications;
     }
-    
+
     public List<Location> getSearchedWeather() {
         return searchedLocation;
     }
@@ -65,7 +65,16 @@ public class AppUser extends UserBase implements Serializable {
     public void setAdmin(boolean admin) {
         this.admin = admin;
     }
-    
-    
-    
+
+    public Location getRequestedCityByName(String cityName) {
+        Location lo = new Location();
+        for (Location l : searchedLocation) {
+            if (l.getCityName().equals(cityName)) {
+                lo = l;
+                break;
+            }
+        }
+        return lo;
+    }
+
 }

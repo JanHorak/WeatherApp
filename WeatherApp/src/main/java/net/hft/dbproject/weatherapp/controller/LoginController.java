@@ -60,4 +60,10 @@ public class LoginController implements Initializable {
         this.pane = pane;
     }
 
+    public Button getLoginButton() {
+        return loginButton;
+    }
+    
+    
+
 }
