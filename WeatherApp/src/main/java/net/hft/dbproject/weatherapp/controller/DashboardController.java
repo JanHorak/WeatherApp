@@ -25,10 +25,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import net.hft.dbproject.weatherapp.entities.AppUser;
 import net.hft.dbproject.weatherapp.entities.Location;
+import net.hft.dbproject.weatherapp.entities.Notification;
 import net.hft.dbproject.weatherapp.helper.LoggedInUser;
 import net.hft.dbproject.weatherapp.manager.ControllerContainer;
 import net.hft.dbproject.weatherapp.persistence.LocationBaseService;
 import net.hft.dbproject.weatherapp.persistence.LocationPersistenceService;
+import net.hft.dbproject.weatherapp.persistence.NotificationPS;
+import net.hft.dbproject.weatherapp.persistence.UserService;
+import net.hft.dbproject.weatherapp.services.MailService;
 import net.hft.dbproject.weatherapp.uiactions.Dashboardactions;
 import net.hft.dbproject.weatherapp.utilities.Utilities;
 
@@ -80,8 +84,6 @@ public class DashboardController implements Initializable {
     @FXML
     private Button compareButton;
     @FXML
-    private Pane dashboardPane;
-    @FXML
     private ComboBox cityCombobox;
     @FXML
     private Button logoutButton;
@@ -117,8 +119,9 @@ public class DashboardController implements Initializable {
                 locationService = new LocationPersistenceService();
 
                 List<Location> history = locationService.getFirstThreeLocations();
-                selectCitylist();
+                loadCitylist();
                 updateHistory(history);
+                fireMailNotification(currentUser, history.get(0));
             }
 
         });
@@ -144,7 +147,7 @@ public class DashboardController implements Initializable {
 
         // Day 1
         dayone.setText(history.get(0).getCityName());
-        if (history.get(0).getImage().isDayTime()) {
+        if (history.get(0).isDayTime()) {
             imageViewOne.setImage(new Image(new ByteArrayInputStream(history.get(0).getImage().getImagedataDay())));
         } else {
             imageViewOne.setImage(new Image(new ByteArrayInputStream(history.get(0).getImage().getImagedataNight())));
@@ -155,7 +158,7 @@ public class DashboardController implements Initializable {
         descdayone.setText(history.get(0).getWeatherDescription());
         // Day 2
         if (history.size() >= 2) {
-            if (history.get(1).getImage().isDayTime()) {
+            if (history.get(1).isDayTime()) {
                 imageViewTwo.setImage(new Image(new ByteArrayInputStream(history.get(1).getImage().getImagedataDay())));
             } else {
                 imageViewTwo.setImage(new Image(new ByteArrayInputStream(history.get(1).getImage().getImagedataNight())));
@@ -175,7 +178,7 @@ public class DashboardController implements Initializable {
         }
         // Day 3
         if (history.size() == 3) {
-            if (history.get(2).getImage().isDayTime()) {
+            if (history.get(2).isDayTime()) {
                 imageViewThree.setImage(new Image(new ByteArrayInputStream(history.get(2).getImage().getImagedataDay())));
             } else {
                 imageViewThree.setImage(new Image(new ByteArrayInputStream(history.get(2).getImage().getImagedataNight())));
@@ -196,7 +199,7 @@ public class DashboardController implements Initializable {
 
     }
 
-    public void selectCitylist() {
+    public void loadCitylist() {
         // Cleaning up
         cityCombobox.setItems(null);
 
@@ -214,6 +217,15 @@ public class DashboardController implements Initializable {
                 = FXCollections.observableArrayList(inputs);
 
         cityCombobox.setItems(optionsForComboList);
+    }
+    
+     private void fireMailNotification(AppUser user, Location location) {
+        NotificationPS ns = new NotificationPS();
+        Notification not = ns.getNotificationInTagetlist(user, location.getCityName());
+        if (not != null) {
+            String targetName = new UserService().getUsernameByID(user.getId());
+            new MailService().sendMail(not.getEmailAddress(), "Weatherapp: Notification", MailService.getMailMessage(targetName, location.getCityName()));
+        }
     }
 
     public Label getDayOneFahr() {

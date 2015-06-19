@@ -21,7 +21,9 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "Notification.findAll", query = "SELECT n FROM Notification n"),
-    @NamedQuery(name = "Notification.findAllByUserName", query = "SELECT n FROM Notification n WHERE n.target.name = :username")
+    @NamedQuery(name = "Notification.findAllByUserName", query = "SELECT n FROM Notification n WHERE n.target.name = :username"),
+    @NamedQuery(name = "Notification.findNotificationsByUsernameAndCity", 
+            query = "Select n FROM Notification n WHERE n.target.name = :name AND n.targetLocation = :location")
 })
 public class Notification implements Serializable {
 

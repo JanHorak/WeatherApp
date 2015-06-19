@@ -464,10 +464,9 @@ public class DataGeneration {
         em = emf.createEntityManager();
 
         em.getTransaction().begin();
-        
+
         AppStatistic appstat = new AppStatistic();
         appstat.setNumberOfSaves(0);
-
 
         AppUser testUser = new AppUser();
         testUser.setName("Test");
@@ -481,32 +480,26 @@ public class DataGeneration {
 
         WeatherImage i = new WeatherImage();
         i.setIconId(4);
-        i.setDayTime(true);
         i.setImagedataDay(clearSkyD);
         i.setImagedataNight(mistD);
         WeatherImage i1 = new WeatherImage();
         i1.setIconId(2);
-        i1.setDayTime(true);
         i1.setImagedataDay(mistD);
         i1.setImagedataNight(rainD);
         WeatherImage i2 = new WeatherImage();
         i2.setIconId(54);
-        i2.setDayTime(true);
         i2.setImagedataDay(showerRainD);
         i2.setImagedataNight(snowD);
         WeatherImage i3 = new WeatherImage();
         i3.setIconId(11);
-        i3.setDayTime(true);
         i3.setImagedataDay(showerRainD);
         i3.setImagedataNight(clearSkyD);
         WeatherImage i4 = new WeatherImage();
         i4.setIconId(41);
-        i4.setDayTime(true);
         i4.setImagedataDay(snowN);
         i4.setImagedataNight(thunderstormD);
         WeatherImage i5 = new WeatherImage();
         i5.setIconId(14);
-        i5.setDayTime(true);
         i5.setImagedataDay(thunderstormN);
         i5.setImagedataNight(brokenCloudsN);
 
@@ -525,59 +518,65 @@ public class DataGeneration {
         Temperature t5 = new Temperature(150, 150, 150);
 
         Notification not = new Notification();
-        not.setEmailAddress("normal@Spy.com");
+        not.setEmailAddress("42hoja1mst@hft-stuttgart.de");
         not.setTarget(testUser);
         not.setTargetLocation("Stuttgart");
         Notification not1 = new Notification();
-        not1.setEmailAddress("normal@Spy.com");
+        not1.setEmailAddress("42hoja1mst@hft-stuttgart.de");
         not1.setTarget(testUser);
         not1.setTargetLocation("Berlin");
         Notification not2 = new Notification();
-        not2.setEmailAddress("normal2@Spy.com");
+        not2.setEmailAddress("42hoja1mst@hft-stuttgart.de");
         not2.setTarget(testUser);
         not2.setTargetLocation("Kiel");
 
         Notification not3 = new Notification();
-        not3.setEmailAddress("normal@Spy.com");
+        not3.setEmailAddress("42hoja1mst@hft-stuttgart.de");
         not3.setTarget(testUser1);
         not3.setTargetLocation("London");
         Notification not4 = new Notification();
-        not4.setEmailAddress("normal@Spy.com");
+        not4.setEmailAddress("42hoja1mst@hft-stuttgart.de");
         not4.setTarget(testUser1);
         not4.setTargetLocation("Paris");
         Notification not5 = new Notification();
-        not5.setEmailAddress("normal2@Spy.com");
+        not5.setEmailAddress("42hoja1mst@hft-stuttgart.de");
         not5.setTarget(testUser1);
         not5.setTargetLocation("München");
 
         Location wi1 = new Location(1225, "Köln", "DE", t, 25, 25);
         wi1.setRequestTime(new Date());
         wi1.setWeatherDescription("broken clouds");
+        wi1.setDayTime(true);
         wi1.setImage(i);
 
         Location wi2 = new Location(12252, "Stuttgart", "DE", t1, 25, 25);
         wi2.setRequestTime(new Date());
         wi2.setWeatherDescription("broken clouds");
+        wi2.setDayTime(true);
         wi2.setImage(i1);
 
         Location wi3 = new Location(12253, "Berlin", "DE", t2, 25, 25);
         wi3.setRequestTime(new Date());
         wi3.setWeatherDescription("broken clouds");
+        wi3.setDayTime(true);
         wi3.setImage(i2);
 
         Location wi4 = new Location(12255, "Bielefeld", "DE", t3, 25, 25);
         wi4.setRequestTime(new Date());
         wi4.setWeatherDescription("broken clouds");
+        wi4.setDayTime(true);
         wi4.setImage(i3);
 
         Location wi5 = new Location(122525, "Leipzig", "DE", t4, 25, 25);
         wi5.setRequestTime(new Date());
         wi5.setWeatherDescription("broken clouds");
+        wi5.setDayTime(true);
         wi5.setImage(i4);
 
         Location wi6 = new Location(122533, "München", "DE", t5, 25, 25);
         wi6.setRequestTime(new Date());
         wi6.setWeatherDescription("broken clouds");
+        wi6.setDayTime(true);
         wi6.setImage(i5);
 
         em.persist(t);
@@ -624,8 +623,7 @@ public class DataGeneration {
 
         testUser.setSearchedWeather(weatherHist1);
         testUser1.setSearchedWeather(weatherHist2);
-        
-        
+
         em.persist(appstat);
         em.getTransaction().commit();
         em.close();

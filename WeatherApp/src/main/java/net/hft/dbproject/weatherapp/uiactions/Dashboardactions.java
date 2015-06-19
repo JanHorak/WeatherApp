@@ -45,7 +45,7 @@ public class Dashboardactions {
     public EventHandler<ActionEvent> openComparePage = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent t) {
-            new Stagemanager().openStageAsRoot(null, getClass().getResource("/fxml/mainpage/Comparecities.fxml"), CSSFile.CSS_DEFAULT, 350, 397, true);
+            new Stagemanager().openStageAsRoot(null, getClass().getResource("/fxml/mainpage/Comparecities.fxml"), CSSFile.CSS_DEFAULT, 350, 327, true);
         }
 
     };
@@ -68,7 +68,6 @@ public class Dashboardactions {
     public EventHandler<ActionEvent> logout = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent t) {
-//            new Stagemanager().openStageAsRoot(null, getClass().getResource("/fxml/mainpage/Scene.fxml"),CSSFile.CSS_DEFAULT, 260, 397, true);
             LoggedInUser.setLoggedInUser(null);
             closeWindow();
         }

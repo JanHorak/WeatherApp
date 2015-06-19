@@ -40,7 +40,7 @@ public class Loginpageactions {
     public Loginpageactions() {
         this.controller = (LoginController) ControllerContainer.getController(LoginController.class);
     }
-    
+
     private void closeWindow() {
         Stage thisStage = (Stage) controller.getPane().getScene().getWindow();
         thisStage.close();
@@ -50,7 +50,6 @@ public class Loginpageactions {
 
         @Override
         public void handle(ActionEvent t) {
-            AppUser liu = null;
             typedInUserName = controller.getNameField().getText();
             typedInPassword = controller.getPasswordField().getText();
             // Validation
@@ -74,8 +73,6 @@ public class Loginpageactions {
                 AppUser user = (AppUser) userservice.getUserByName(controller.getNameField().getText());
 
                 if (isPswValid(user)) {
-                    LOGGER.info("User is Logged:");
-
                     LoggedInUser.setLoggedInUser(user);
                     MainpageController mpc = (MainpageController) ControllerContainer.getController(MainpageController.class);
                     Location currentWeather = mpc.getCurrentLocation();
@@ -85,7 +82,7 @@ public class Loginpageactions {
                     controller.getPasswordField().setText("");
                     new Stagemanager().openStageAsRoot(null, getClass().getResource("/fxml/mainpage/Dashboard.fxml"), CSSFile.CSS_DEFAULT, 327, 397, false);
                     closeWindow();
-                    
+
                 } else {
                     errorMessages.add("Username or Password are invalid!");
                     NotificationService.fireNotification(controlsInError, errorMessages);
@@ -104,5 +101,5 @@ public class Loginpageactions {
             isValid = true;
         }
         return isValid;
-    }
+    }   
 }

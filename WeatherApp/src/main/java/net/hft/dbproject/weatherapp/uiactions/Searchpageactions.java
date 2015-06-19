@@ -6,6 +6,7 @@
 package net.hft.dbproject.weatherapp.uiactions;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -135,6 +136,7 @@ public class Searchpageactions {
 
             WeatherImage image = weatherPersistenceService.getImageByIconID(wi.getImage().getIconId());
             wi.setImage(image);
+            wi.setRequestTime(new Date());
             mpc.processWeather(wi);
             PropertiesService propertiesService = new PropertiesService();
             propertiesService.storeCityAndId(wi.getCityName(), wi.getCityIdentifier());

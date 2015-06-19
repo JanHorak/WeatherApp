@@ -57,5 +57,6 @@ public class LocationPersistenceService extends DataAccess implements LocationBa
         shutDown();
         return result;
     }
+   
 
 }

@@ -74,6 +74,9 @@ public class Location implements Serializable {
     @ManyToOne(targetEntity = WeatherImage.class)
     private WeatherImage image;
 
+    @NotNull
+    private boolean daytime;
+
     public Location(int ident, String cityName, String countryCode, Temperature temp, float lat, float lon) {
         this.cityIdentifier = ident;
         this.cityName = cityName;
@@ -181,6 +184,14 @@ public class Location implements Serializable {
 
     public void setRequestTime(Date requestTime) {
         this.requestTime = requestTime;
+    }
+
+    public boolean isDayTime() {
+        return daytime;
+    }
+
+    public void setDayTime(boolean dayImage) {
+        this.daytime = dayImage;
     }
 
 }

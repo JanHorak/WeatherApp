@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" fx:id="comparecitiesPane" prefHeight="397.0" prefWidth="350.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.hft.dbproject.weatherapp.controller.ComparecitiesController">
+<AnchorPane id="AnchorPane" fx:id="pane" prefHeight="327.0" prefWidth="350.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.hft.dbproject.weatherapp.controller.ComparecitiesController">
     <stylesheets>
         <URL value="@/styles/CommonStyles.css" />
     </stylesheets>
@@ -23,19 +23,21 @@
                      <image>
                         <Image url="@../../images/weather/Status-weather-clear-icon.png" />
                      </image></ImageView>
-                  <Label fx:id="celsiusCityOne" layoutX="57.0" layoutY="156.0" prefHeight="22.0" prefWidth="53.0" text="Celcius" />
-                  <Label fx:id="fahrenheitCityOne" layoutX="60.0" layoutY="191.0" prefHeight="22.0" prefWidth="47.0" text="Fahr" />
+                  <Label fx:id="celsiusCityOne" layoutX="45.0" layoutY="135.0" prefHeight="22.0" prefWidth="65.0" text="Loading..." />
+                  <Label fx:id="fahrenheitCityOne" layoutX="42.0" layoutY="170.0" prefHeight="22.0" prefWidth="65.0" text="Loading..." />
+                  <Label fx:id="descCityOne" layoutX="35.0" layoutY="199.0" prefHeight="22.0" prefWidth="120.0" text="Loading..." />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="353.0" prefWidth="179.0">
                <children>
-                  <ComboBox fx:id="imageCityTwo" layoutX="11.0" layoutY="14.0" prefHeight="22.0" prefWidth="145.0" promptText="SelectCity" />
-                  <ImageView fx:id="comboCityTwo" fitHeight="79.0" fitWidth="97.0" layoutX="35.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+                  <ComboBox fx:id="comboCityTwo" layoutX="11.0" layoutY="14.0" prefHeight="22.0" prefWidth="145.0" promptText="SelectCity" />
+                  <ImageView fx:id="imageCityTwo" fitHeight="79.0" fitWidth="97.0" layoutX="35.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../images/weather/Status-weather-few-clouds-icon.png" />
                      </image></ImageView>
-                  <Label fx:id="celsiusCityTwo" layoutX="57.0" layoutY="153.0" prefHeight="22.0" prefWidth="53.0" text="Celcius" />
-                  <Label fx:id="fahrenheitCityTwo" layoutX="57.0" layoutY="191.0" prefHeight="22.0" prefWidth="53.0" text="Fahr" />
+                  <Label fx:id="celsiusCityTwo" layoutX="45.0" layoutY="139.0" prefHeight="22.0" prefWidth="65.0" text="Loading..." />
+                  <Label fx:id="fahrenheitCityTwo" layoutX="45.0" layoutY="174.0" prefHeight="22.0" prefWidth="65.0" text="Loading..." />
+                  <Label fx:id="descCityTwo" layoutX="31.0" layoutY="196.0" prefHeight="22.0" prefWidth="120.0" text="Loading..." />
                </children>
             </AnchorPane>
         </items>
@@ -45,6 +47,6 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Button fx:id="backButton" layoutX="136.0" layoutY="316.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="78.0" text="Back" />
+      <Button fx:id="backButton" layoutX="136.0" layoutY="279.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="78.0" text="Back" />
    </children>
 </AnchorPane>

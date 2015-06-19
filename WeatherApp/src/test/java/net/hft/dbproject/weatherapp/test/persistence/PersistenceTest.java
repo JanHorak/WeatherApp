@@ -8,6 +8,7 @@ package net.hft.dbproject.weatherapp.test.persistence;
 
 import net.hft.dbproject.weatherapp.persistence.AdminFunctions;
 import net.hft.dbproject.weatherapp.persistence.AdminManager;
+import net.hft.dbproject.weatherapp.services.MailService;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -21,9 +22,4 @@ import static org.junit.Assert.*;
  */
 public class PersistenceTest {
 
-//    @Test
-//    public void hello() {
-//        AdminFunctions a = new AdminManager();
-//        System.out.println(a.findAllAppUsers().size());
-//    }
 }
