@@ -86,7 +86,7 @@ public class MailService {
 
     public static String getMailMessage(String userName, String location) {
         return "Dear Appuser,\n\n"
-                + "you received this mail because \n\t" + userName + " was looking for \n\t" + location + "\n\n Regards, Weahterappteam";
+                + "you received this mail because \n\t" + userName + " was looking for \n\t" + location + "\n\n Regards, Weatherappteam";
     }
 
 }

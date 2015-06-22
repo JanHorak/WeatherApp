@@ -43,6 +43,9 @@ public class SearchingDialogController implements Initializable {
 
     @FXML
     private ListView<JSONConvertObject> locationList;
+    
+    @FXML
+    private Button previewButton;
 
     @FXML
     private ProgressBar progressBar;
@@ -66,6 +69,7 @@ public class SearchingDialogController implements Initializable {
         this.applyButton.setOnAction(actions.applyWeatherSelection);
         this.online.setOnAction(actions.doClickOnline);
         this.offline.setOnAction(actions.doClickOffline);
+        this.previewButton.setOnAction(actions.showPreview);
     }
 
     public TextField getCityField() {
@@ -110,6 +114,10 @@ public class SearchingDialogController implements Initializable {
 
     public Pane getPane() {
         return pane;
+    }
+
+    public Button getPreviewButton() {
+        return previewButton;
     }
 
     

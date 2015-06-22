@@ -5,6 +5,10 @@
  */
 package net.hft.dbproject.weatherapp.uiactions;
 
+import java.awt.Desktop;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,7 +35,6 @@ import net.hft.dbproject.weatherapp.services.OfflineLocationFinder;
 import net.hft.dbproject.weatherapp.services.OnlineLocationFinder;
 import net.hft.dbproject.weatherapp.services.PropertiesService;
 import net.hft.dbproject.weatherapp.services.WeatherAPIConnection;
-import net.hft.dbproject.weatherapp.services.LocationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,7 +43,7 @@ import org.slf4j.LoggerFactory;
  * @author Jan
  */
 public class Searchpageactions {
-    
+
     private static final Logger LOGGER = LoggerFactory.getLogger(Searchpageactions.class);
 
     private SearchingDialogController controller;
@@ -106,10 +109,11 @@ public class Searchpageactions {
         public void handle(MouseEvent t) {
             if (controller.getWeatherList().getSelectionModel().getSelectedIndex() >= 0) {
                 controller.getApplyButton().setDisable(false);
+                controller.getPreviewButton().setDisable(false);
                 JSONConvertObject wi = controller.getWeatherList().getSelectionModel().getSelectedItem();
-                System.out.println(wi.getId());
                 controller.setSelectedLocation(wi);
             } else {
+                controller.getPreviewButton().setDisable(true);
                 controller.getApplyButton().setDisable(true);
                 controller.setSelectedLocation(new JSONConvertObject());
             }
@@ -131,7 +135,7 @@ public class Searchpageactions {
                 // Replacing the stored Image (dummy) with a real from the database
                 LOGGER.debug("Offline detected");
                 wi = WeatherAPIConnection.requestCityByID(controller.getSelectedLocation().getId());
-                LOGGER.debug("Got weather: {}", wi.toString() );
+                LOGGER.debug("Got weather: {}", wi.toString());
             }
 
             WeatherImage image = weatherPersistenceService.getImageByIconID(wi.getImage().getIconId());
@@ -149,6 +153,25 @@ public class Searchpageactions {
         @Override
         public void handle(ActionEvent t) {
             controller.getOffline().setSelected(false);
+        }
+    };
+
+    public EventHandler<ActionEvent> showPreview = new EventHandler<ActionEvent>() {
+
+        @Override
+        public void handle(ActionEvent t) {
+            String url = "https://www.here.com/directions/drive?map=LAT,LON,6,traffic";
+            url = url.replaceFirst("LON", String.valueOf(controller.getSelectedLocation().getLon()));
+            url = url.replaceFirst("LAT", String.valueOf(controller.getSelectedLocation().getLat()));
+            if (Desktop.isDesktopSupported()) {
+                try {
+                    Desktop.getDesktop().browse(new URI(url));
+                } catch (IOException ex) {
+                    LOGGER.error(ex.toString());
+                } catch (URISyntaxException ex) {
+                    LOGGER.error(ex.toString());
+                }
+            }
         }
     };
 
