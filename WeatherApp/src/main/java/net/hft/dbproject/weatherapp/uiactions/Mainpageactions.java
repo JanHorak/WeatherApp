@@ -37,7 +37,6 @@ public class Mainpageactions {
         this.propertiesService = new PropertiesService();
     }
 
-    
     public EventHandler<MouseEvent> trackMousePosition = new EventHandler<MouseEvent>() {
 
         @Override
@@ -46,7 +45,7 @@ public class Mainpageactions {
             mousePosition.y = (int) t.getY();
         }
     };
-    
+
     /**
      * Enables Drag-Drop for setting window- Positions.
      */
@@ -71,7 +70,7 @@ public class Mainpageactions {
     public EventHandler<ActionEvent> openSearchDialog = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent t) {
-            new Stagemanager().openStageAsRoot(null, getClass().getResource("/fxml/dialogs/SearchingDialog.fxml"), CSSFile.CSS_TEST, 263, 294, true);
+            new Stagemanager().openStageAsRoot(null, getClass().getResource("/fxml/dialogs/SearchingDialog.fxml"), CSSFile.CSS_DEFAULT, 263, 294, true);
         }
     };
 
@@ -88,7 +87,7 @@ public class Mainpageactions {
             functions.openStageAsRoot(null, getClass().getResource("/fxml/mainpage/login.fxml"), CSSFile.CSS_DEFAULT, 230, 218, true);
         }
     };
-    
+
     private EventHandler<MouseEvent> cHoverAction = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent t) {
@@ -124,15 +123,15 @@ public class Mainpageactions {
             controller.getfImage().setImage(new Image(getClass().getResource("/images/UI/f_1.png").toString()));
             controller.getfImage().setOnMouseEntered(fHoverAction);
             controller.getfImage().setOnMouseExited(fExitHoverAction);
-            
+
             String minvalString = Utilities.cleanDegreeValue(controller.getMinTempValue().getText());
             String minval = String.valueOf(Utilities.toCelsius(Double.valueOf(minvalString)));
             controller.getMinTempValue().setText(minval.concat("°C"));
-            
+
             String maxvalString = Utilities.cleanDegreeValue(controller.getMaxTempValue().getText());
             String maxval = String.valueOf(Utilities.toCelsius(Double.valueOf(maxvalString)));
             controller.getMaxTempValue().setText(maxval.concat("°C"));
-            
+
             String avgvalString = Utilities.cleanDegreeValue(controller.getAvgTempValue().getText());
             String avgval = String.valueOf(Utilities.toCelsius(Double.valueOf(avgvalString)));
             controller.getAvgTempValue().setText(avgval.concat("°C"));
@@ -167,15 +166,15 @@ public class Mainpageactions {
             controller.getcImage().setImage(new Image(getClass().getResource("/images/UI/c_1.png").toString()));
             controller.getcImage().setOnMouseEntered(cHoverAction);
             controller.getcImage().setOnMouseExited(cExitHoverAction);
-            
+
             String minvalString = Utilities.cleanDegreeValue(controller.getMinTempValue().getText());
             String minval = String.valueOf(Utilities.toFahrenheit(Double.valueOf(minvalString)));
             controller.getMinTempValue().setText(minval.concat("°F"));
-            
+
             String maxvalString = Utilities.cleanDegreeValue(controller.getMaxTempValue().getText());
             String maxval = String.valueOf(Utilities.toFahrenheit(Double.valueOf(maxvalString)));
             controller.getMaxTempValue().setText(maxval.concat("°F"));
-            
+
             String avgvalString = Utilities.cleanDegreeValue(controller.getAvgTempValue().getText());
             String avgval = String.valueOf(Utilities.toFahrenheit(Double.valueOf(avgvalString)));
             controller.getAvgTempValue().setText(avgval.concat("°F"));

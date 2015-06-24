@@ -7,3 +7,9 @@
     -fx-background-repeat: stretch; 
     -fx-background-position: center center;
 }
+
+#notificationPane{
+    -fx-background-image: url("../images/UI/NotificationBackground.png");
+    -fx-background-repeat: stretch; 
+    -fx-background-position: center center;
+}
