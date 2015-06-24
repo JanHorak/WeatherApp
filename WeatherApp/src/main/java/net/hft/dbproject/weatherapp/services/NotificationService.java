@@ -16,15 +16,14 @@ public abstract class NotificationService {
 
     public static void fireNotification(List<Control> controlsInError, List<String> errors) {
         errorMessages = errors;
-        for (Control c : controlsInError){
+        for (Control c : controlsInError) {
             LAST_FIELDS_IN_ERROR.add(c);
             c.setStyle("-fx-border-color: red");
         }
-       
     }
 
     public static void resetErrorBorder() {
-        for (Control c : LAST_FIELDS_IN_ERROR){
+        for (Control c : LAST_FIELDS_IN_ERROR) {
             c.setStyle("-fx-border-color: default");
         }
         LAST_FIELDS_IN_ERROR.clear();

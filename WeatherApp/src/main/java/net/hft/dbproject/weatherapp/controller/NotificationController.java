@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import net.hft.dbproject.weatherapp.manager.ControllerContainer;
 import net.hft.dbproject.weatherapp.services.NotificationService;
 import net.hft.dbproject.weatherapp.uiactions.Notificationactions;
@@ -21,7 +21,7 @@ public class NotificationController implements Initializable {
     private Label errorLabel;
     
     @FXML
-    private AnchorPane pane;
+    private Pane notificationPane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -41,8 +41,8 @@ public class NotificationController implements Initializable {
     
     private void loadActions(){
         Notificationactions actions = new Notificationactions();
-        actions.setPane(pane);
-        pane.setOnMouseEntered(actions.tackleIt);
+        actions.setPane(notificationPane);
+        notificationPane.setOnMouseEntered(actions.tackleIt);
     }
 
 }
